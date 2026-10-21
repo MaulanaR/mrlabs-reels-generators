@@ -32,7 +32,7 @@ Match the theme rather than combining every reference's decorations. User brandi
 
 The R4 source analysis above remains a record of the original video, which included a presenter. The current style 04 preview/profile is the user's faceless adaptation; its source heritage does not authorize adding a presenter back.
 
-For nontechnical themes, translate the devices: recipe to ingredient/method steps, science to cause/effect diagrams, destination to location/experience sequence. Generated B-roll helps when real-world objects, places, actions, or atmosphere carry meaning. Do not force terminals/dashboards into unrelated themes.
+For nontechnical themes, translate the devices: recipe to ingredient/method steps, science to cause/effect diagrams, destination to location/experience sequence. Relevant internet B-roll helps when real-world objects, places, actions, or atmosphere carry meaning; generate an original image only when needed. Do not force terminals/dashboards into unrelated themes.
 
 ## Writing and pacing
 

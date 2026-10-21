@@ -3,7 +3,7 @@
   "example_theme": "Dari ide ke aksi",
   "generation_method": "built-in imagegen",
   "generation_prompt_file": "assets/styles/generation-prompts.json",
-  "generation_prompt_usage": "Catalog sample regeneration only. Never reuse demo prompts as production scene prompts.",
+  "generation_prompt_usage": "Catalog sample regeneration only. Never reuse demo prompts as production selection or imagegen scene prompts.",
   "image_role": "STYLE ONLY. Transfer palette, typography, material and layout; ignore demo subject, text, props and characters. Production content must follow the actual theme and user-approved script.",
   "gallery": "assets/style-gallery.html",
   "boards": [
@@ -259,7 +259,7 @@
         "Bodoni Moda",
         "Manrope"
       ],
-      "render_route": "flow",
+      "render_route": "hybrid",
       "visual": "Close-up sinematik, cahaya tungsten, bayangan kaya.",
       "motion": "Gerak kamera lambat, match cut tindakan, teks minimal.",
       "caption": "Frasa pendek berwarna ivory dengan shadow/plate jika perlu.",
@@ -403,7 +403,7 @@
         "Source Serif 4",
         "Manrope"
       ],
-      "render_route": "flow",
+      "render_route": "hybrid",
       "visual": "Macro alam, cahaya organik, anotasi tipis.",
       "motion": "Slow subject/camera movement, fokus perubahan nyata, callout sedikit.",
       "caption": "Ivory pendek dengan plate kontras sesuai latar.",
@@ -439,5 +439,6 @@
       "preview": "assets/styles/15-collage-editorial.png",
       "prompt_key": "collage-editorial"
     }
-  ]
+  ],
+  "broll_sourcing": "Internet first with usable rights; built-in imagegen only for a justified sourcing gap or custom visual."
 }

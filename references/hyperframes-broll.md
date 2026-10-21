@@ -6,9 +6,9 @@ Use the installed [HyperFrames skill](../../hyperframes/SKILL.md) and its media/
 
 ## 1. Bind the approved shot to a real asset
 
-After script approval and narration timing, select an accepted theme-specific clip or image for every B-roll shot. Use the exact `asset_id` from the project manifest. Preserve originals in the download/source folders and stage required files inside `10_hyperframes/assets/`, for example under `video/`, `images/`, and `audio/`. Use local paths relative to the composition document; do not depend on a remote preview URL, an absolute Windows filesystem string in `src`, or a project-sibling path the composition server cannot serve.
+After script approval and narration timing, select an accepted theme-specific clip or image for every B-roll shot. Follow [internet-first sourcing](internet-broll.md): use appropriate internet/user assets, and invoke imagegen only for a justified gap. Preserve actual downloads or accepted generated originals in `07_broll_assets/`. Use the exact `asset_id` from the manifest and stage required files inside `10_hyperframes/assets/`, for example under `video/`, `images/`, and `audio/`. Use local paths relative to the composition document; do not depend on a remote preview URL, an absolute Windows filesystem string in `src`, or a project-sibling path the composition server cannot serve.
 
-Record a `hyperframes` object on the corresponding `06_flow_prompts.json` shot:
+Record a `hyperframes` object on the corresponding `06_scene_assets.json` shot (or the actual legacy plan path recorded in a resumed manifest):
 
 | Field | Meaning |
 | --- | --- |

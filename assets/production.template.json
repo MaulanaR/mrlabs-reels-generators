@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.4",
+  "schema_version": "1.5",
   "project_id": "",
   "theme": "",
   "theme_contract": {
@@ -23,8 +23,11 @@
   "style_preview_path": null,
   "render_route": "auto",
   "asset_generation": {
-    "images": "gemini",
-    "broll": "google_flow",
+    "images": "internet_first",
+    "broll": "internet_first",
+    "source_priority": ["user_assets", "pexels", "pixabay", "other_verified_sources"],
+    "image_fallback": "builtin_imagegen_if_needed",
+    "external_video_generation": "disabled",
     "scope": "approved_scene_assets_only"
   },
   "broll_requirement": {
@@ -48,7 +51,8 @@
     "storyboard": "03_storyboard.md",
     "script": "04_voiceover_transcript.md",
     "voice_request": "05_tts_request.json",
-    "shot_plan": "06_flow_prompts.json",
+    "shot_plan": "06_scene_assets.json",
+    "broll_assets": "07_broll_assets/",
     "sfx_cues": "09_edit/sfx-cues.json",
     "composition": "10_hyperframes/index.html",
     "verification": "11_final/VERIFY.md"
@@ -85,7 +89,7 @@
     "omissions": []
   },
   "assets": [],
-  "flow_jobs": [],
+  "asset_jobs": [],
   "quality": {
     "status": "pending",
     "review_passes": 0,

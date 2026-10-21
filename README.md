@@ -9,7 +9,7 @@ Nama repositori adalah `mrlabs-reels-generators`, sedangkan nama skill dan perin
 ## Mulai dari sini
 
 1. Pasang skill ini dan dependensi editing/Watch di bawah.
-2. Siapkan akses Google AI Studio; siapkan Gemini/Flow untuk aset visual yang dipilih.
+2. Siapkan akses Google AI Studio untuk suara dan tool pencarian/pengunduhan B-roll internet.
 3. Di Codex, kirim tema dan, jika ingin, nomor gaya.
 4. Tinjau naskah dan storyboard. Berikan persetujuan untuk versi yang sesuai.
 5. Agent melanjutkan produksi, editing, dan pemeriksaan hasil sesuai akses alat yang tersedia.
@@ -38,7 +38,7 @@ Tema
   -> Video final dan proyek lokal yang dapat diedit
 ```
 
-Sebelum persetujuan, agent boleh melakukan riset, menampilkan preview gaya yang sudah tersedia, dan menulis rencana. Pembuatan gambar/video/narasi, pengunduhan SFX produksi, serta render menunggu persetujuan naskah. Memilih gaya atau mengirim tema belum termasuk persetujuan terhadap naskah yang belum ditampilkan.
+Sebelum persetujuan, agent boleh melakukan riset, mencari kandidat B-roll beserta lisensinya, menampilkan preview gaya yang sudah tersedia, dan menulis rencana. Pengunduhan B-roll/SFX produksi, pembuatan gambar/narasi, serta render menunggu persetujuan naskah. Memilih gaya atau mengirim tema belum termasuk persetujuan terhadap naskah yang belum ditampilkan.
 
 ## Instalasi
 
@@ -135,9 +135,9 @@ Perintah utilitas toolkit dijalankan dari root toolkit. Perintah komposisi Hyper
 | Bagian | Jalur yang digunakan |
 | --- | --- |
 | Voice-over | Google AI Studio TTS melalui API atau browser yang sudah login |
-| Gambar/ilustrasi | Gemini, satu aset untuk satu adegan sesuai naskah |
-| B-roll bergerak | Google Flow atau footage sumber yang sesuai dan boleh digunakan |
-| B-roll dari gambar | Gambar sesuai tema dengan pan/zoom/parallax saat editing |
+| B-roll utama | Footage internet yang relevan, misalnya dari Pexels/Pixabay, dengan sumber dan izin pakai yang jelas |
+| B-roll dari gambar | Foto internet yang sesuai dan boleh digunakan, diberi pan/zoom/parallax saat editing |
+| Gambar orisinal jika diperlukan | Imagegen bawaan agent, hanya saat pencarian tidak memenuhi adegan atau dibutuhkan visual khusus |
 | SFX | Mixkit sebagai sumber utama; Pixabay sebagai cadangan |
 | Editing | HyperFrames/GSAP dan FFmpeg lokal |
 
@@ -149,11 +149,19 @@ Jika key belum tersedia, agent dapat menggunakan [Google AI Studio](https://aist
 
 Narasi membacakan teks yang sudah disetujui. Arahan nada/tempo disimpan terpisah dari teks yang diucapkan. Model dan voice dipilih dari yang benar-benar tersedia saat produksi. Lihat [panduan TTS skill](references/google-ai-studio-tts.md), [dokumentasi Google](https://ai.google.dev/gemini-api/docs/speech-generation), dan [harga/akses gratis](https://ai.google.dev/gemini-api/docs/pricing).
 
-Default suara adalah **free-only**. Agent berhenti ketika akses gratis atau kuota tidak tersedia; tidak mengaktifkan billing atau berpindah penyedia secara otomatis. Akses Gemini/Flow, model visual, dan allowance-nya mengikuti akun pengguna. Repositori ini tidak menjanjikan seluruh layanan cloud gratis tanpa batas.
+Default suara adalah **free-only**. Agent berhenti ketika akses gratis atau kuota tidak tersedia; tidak mengaktifkan billing atau berpindah penyedia secara otomatis. B-roll mengutamakan aset internet gratis yang sesuai. Imagegen hanya digunakan bila diperlukan dan mengikuti ketersediaan/batas akun agent. Flow/Gemini untuk pembuatan gambar/video tidak lagi menjadi langkah otomatis; Google AI Studio TTS tetap menjadi jalur suara.
+
+### B-roll dari internet dahulu
+
+Agent menggunakan aset milik pengguna yang cocok jika tersedia, lalu mencari [Pexels](https://www.pexels.com/videos/), [Pixabay](https://pixabay.com/videos/), atau sumber lain yang izin pakainya dapat diverifikasi. Kandidat harus sesuai dengan subjek, aksi, setting, crop, dan batasan orang pada naskah; sekadar warna yang mirip belum cukup.
+
+Setelah persetujuan naskah, hanya aset terpilih yang diunduh ke `07_broll_assets/`. URL halaman asal, pembuat bila tersedia, lisensi, kebutuhan atribusi, dan properti media dicatat. Ikuti [lisensi Pexels](https://www.pexels.com/license/) atau [lisensi Pixabay](https://pixabay.com/service/license-summary/) serta ketentuan aset yang digunakan.
+
+Jika pencarian terarah belum menemukan aset yang cocok, atau adegan membutuhkan ilustrasi orisinal, agent mencatat `fallback_reason` lalu memakai skill `imagegen` dan tool gambar bawaan untuk **satu gambar adegan yang dibutuhkan**. Hasilnya disimpan ke proyek dan digerakkan di HyperFrames. Jalur bawaan ini tidak meminta OpenAI API key terpisah; jika tool tidak tersedia, agent menyimpan progres dan menjelaskan kendalanya, bukan otomatis beralih ke layanan visual eksternal. Lihat [panduan B-roll internet](references/internet-broll.md).
 
 ### Browser
 
-Produksi melalui Gemini, AI Studio, atau Flow memerlukan browser tool yang benar-benar tersedia di lingkungan agent. Sebuah tautan website atau skill yang sudah terpasang tidak otomatis menyediakan kendali browser. Gunakan tool resmi/terhubung yang tersedia; simpan progres jika perlu interaksi pengguna atau akses layanan terhenti.
+Pencarian/pengunduhan stock memerlukan web/browser tool yang tersedia di lingkungan agent. Narasi lewat browser AI Studio memerlukan sesi yang sudah login. Sebuah tautan website atau skill yang terpasang tidak otomatis menyediakan kendali browser. Gunakan jalur unduhan yang didukung sumber dan simpan progres jika perlu interaksi pengguna atau akses terhenti.
 
 ## Pilih salah satu dari 15 gaya
 
@@ -214,7 +222,7 @@ Gunakan SFX seperlunya agar narasi jelas.
 Buat naskah dan rencana adegan dahulu untuk saya setujui.
 ```
 
-Setiap video minimal memuat **satu adegan B-roll yang menjelaskan narasi**. Diagram/card/caption, prompt yang belum diproduksi, atau klip yang tidak muncul di hasil akhir tidak memenuhi syarat. B-roll dari gambar harus mendapat gerakan yang bermakna saat editing. Jika B-roll wajib belum tersedia, video tidak ditandai selesai.
+Setiap video minimal memuat **satu adegan B-roll yang menjelaskan narasi**. Sumber utamanya adalah internet; imagegen menjadi fallback bila memang dibutuhkan. Diagram/card/caption, prompt yang belum diproduksi, atau klip yang tidak muncul di hasil akhir tidak memenuhi syarat. B-roll dari gambar harus mendapat gerakan yang bermakna saat editing. Jika B-roll wajib belum tersedia, video tidak ditandai selesai.
 
 ### Menyetujui atau merevisi
 
@@ -247,8 +255,8 @@ reels-projects/<tema>/
   03_storyboard.md
   04_voiceover_transcript.md
   05_tts_request.json
-  06_flow_prompts.json
-  07_flow_downloads/
+  06_scene_assets.json
+  07_broll_assets/
   08_voiceover/
   09_edit/
     sfx-cues.json
@@ -261,7 +269,7 @@ reels-projects/<tema>/
     VERIFY.md
 ```
 
-`06_flow_prompts.json` merupakan rencana lokal semua adegan, termasuk motion graphics, gambar Gemini, dan B-roll; file ini bukan klaim bahwa Flow menyediakan fitur impor JSON. File request TTS juga tidak berisi kredensial.
+`06_scene_assets.json` merupakan rencana lokal semua adegan: motion graphics, query/kandidat B-roll internet, sumber terpilih, dan prompt imagegen jika fallback memang dibutuhkan. File request TTS tidak berisi kredensial. Pada proyek lama, nama `06_flow_prompts.json`/`07_flow_downloads/` dapat dipertahankan sebagai arsip atau path yang sudah tercatat di manifest; nama lama tersebut tidak mengaktifkan kembali Flow.
 
 Dalam HyperFrames, B-roll diberi klip media nyata, trim sumber, waktu tampil, crop, dan lapisan yang benar. Narasi tetap berjalan; caption diletakkan di atas footage; audio bawaan B-roll dibisukan kecuali ada suara yang sengaja dipilih sebagai cue terpisah. Lihat [panduan integrasi B-roll](references/hyperframes-broll.md).
 
@@ -289,7 +297,8 @@ Checker ini **tidak mengautentikasi percakapan dan tidak memberi persetujuan sen
 | Tidak ada API key TTS | Gunakan browser AI Studio yang sudah login bila tool tersedia, atau siapkan key secara aman. |
 | Kuota gratis TTS habis | Simpan progres; lanjutkan saat tersedia. Tidak otomatis pindah ke layanan berbayar. |
 | Tidak ada kendali browser/login | Selesaikan akses yang diperlukan; agent menyimpan state terlebih dahulu. |
-| Flow/asset gagal | Periksa hasil yang sudah ada sebelum retry; pertahankan B-roll wajib dan aturan storyboard yang disetujui. |
+| Aset internet tidak sesuai/tidak dapat digunakan | Cari kandidat relevan lain; gunakan imagegen hanya untuk kebutuhan yang belum terpenuhi dan catat alasannya. |
+| Tool imagegen fallback tidak tersedia | Gunakan aset sumber lain yang memenuhi adegan atau simpan kendala; tidak otomatis berpindah ke Flow/Gemini. |
 | Timestamp kata tidak tersedia | Gunakan timing segmen yang benar-benar diukur; jangan mengarang karaoke per kata. |
 | B-roll hanya berupa file yang diunduh | Masukkan media ke komposisi dan periksa intervalnya pada video encode akhir. |
 | PC terbatas | Gunakan gambar dengan gerakan sederhana, timing segmen, efek yang ringan, dan jumlah render worker yang sesuai. Rendering lokal tetap memerlukan resource. |
@@ -304,4 +313,4 @@ Repo ini belum menyertakan contoh video yang membuktikan satu produksi cloud len
 - [assets/](assets/): 15 preview gaya, galeri, papan referensi, dan template proyek/cue.
 - [scripts/check-script-approval.py](scripts/check-script-approval.py): pemeriksa persetujuan yang hanya membaca state.
 
-Workflow ini menggunakan [Watch Skill](https://github.com/oxbshw/watch-skill), [Herk Edit Kit](https://github.com/nateherkai/herk-edit-kit), Google AI Studio/Gemini/Flow, serta sumber SFX [Mixkit](https://mixkit.co/free-sound-effects/) dan [Pixabay](https://pixabay.com/sound-effects/). Dependensi dan raw stock audio tidak dibundel di sini. Ikuti lisensi serta syarat masing-masing sumber. Analisis referensi visual dan tautan video asal ada di [visual-direction.md](references/visual-direction.md).
+Workflow ini menggunakan [Watch Skill](https://github.com/oxbshw/watch-skill), [Herk Edit Kit](https://github.com/nateherkai/herk-edit-kit), Google AI Studio TTS, B-roll dari sumber seperti [Pexels](https://www.pexels.com/videos/)/[Pixabay](https://pixabay.com/videos/), imagegen bawaan bila diperlukan, serta SFX [Mixkit](https://mixkit.co/free-sound-effects/)/[Pixabay](https://pixabay.com/sound-effects/). Dependensi dan raw stock media tidak dibundel di sini. Ikuti lisensi serta syarat masing-masing sumber. Analisis referensi visual dan tautan video asal ada di [visual-direction.md](references/visual-direction.md).

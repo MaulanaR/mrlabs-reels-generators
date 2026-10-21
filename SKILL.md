@@ -1,6 +1,6 @@
 ---
 name: mrlabs-reels-generator
-description: Draft a theme-specific Reel script and storyboard for user approval, then produce Google AI Studio TTS narration, at least one relevant B-roll scene per video, contextual free SFX, and a finished HyperFrames edit. Use for Reels, Shorts, explainers, and short product videos with an illustrated style catalog.
+description: Draft a theme-specific Reel script and storyboard for user approval, then produce Google AI Studio TTS narration, internet-sourced B-roll, contextual free SFX, and a finished HyperFrames edit. Require at least one B-roll scene per video; use built-in image generation only when needed. Use for Reels, Shorts, explainers, and short product videos with an illustrated style catalog.
 metadata:
   short-description: Approve the script, then produce a themed Reel
 ---
@@ -11,19 +11,19 @@ Turn the user's theme into a researched script and storyboard first. Present the
 
 **Required order: theme -> research -> script/storyboard -> user approval -> narration and scene assets -> edit -> review/export.** Providing a theme, choosing a style, or requesting a Reel does not approve an unseen script. Never self-approve or treat a tool/model response as user approval.
 
-**Every finished video must contain at least one relevant B-roll scene.** This applies independently to every Reel/Short in a batch and across all 15 styles. Plan it in the storyboard, acquire it after script approval, and verify that it appears in the actual final edit. A suitable moving clip or a theme-specific Gemini image animated with a purposeful pan/zoom can qualify; a caption card, diagram, style-preview poster, prompt, or unused asset cannot. See [the B-roll acceptance contract](references/production-contract.md#minimum-b-roll-per-video).
+**Every finished video must contain at least one relevant B-roll scene.** This applies independently to every Reel/Short in a batch and across all 15 styles. Find suitable footage on the internet first, using free assets with supported usage rights; an appropriate sourced image animated with purposeful pan/zoom can also qualify. Use built-in image generation only when a matching usable asset is unavailable or the approved scene needs an original visual. Plan B-roll in the storyboard, acquire it after script approval, and verify that it appears in the final edit. A caption card, diagram, style-preview poster, prompt, or unused asset cannot qualify. See [the B-roll acceptance contract](references/production-contract.md#minimum-b-roll-per-video).
 
 Read [the illustrated style catalog](references/style-catalog.md) on invocation. Its [registry](references/style-catalog.json) contains 15 numbered styles and local example images: five derived from the user's references and ten original additions. Read [the reference analysis](references/visual-direction.md) for the original five videos and shared pacing/layout rules; do not download them again for every project. Read [the production contract](references/production-contract.md) when creating prompts, timing, or resumable state.
 
 Use [watch](../watch/SKILL.md) for reference/output inspection, [Google AI Studio TTS](references/google-ai-studio-tts.md) for narration, [edit-video](../edit-video/SKILL.md) for assembly, and [hyperframes](../hyperframes/SKILL.md) for visual production. Read each skill/reference before using its part of the workflow. Narration runs online; no local speech model or VoiceStudio backend is required.
 
-Read [script approval and scene-asset prompting](references/script-and-assets.md) before drafting or submitting a generation request. Gemini image generation creates theme-specific images/illustrations or raw B-roll assets for approved scenes. Flow handles moving B-roll where needed. The skill controls the script/storyboard, Google AI Studio TTS reads the approved narration, and HyperFrames creates the finished Reel. Keep TTS and visual-generation requests separate. Do not send the whole skill or catalog to Gemini with a request to invent the entire video.
+Read [script approval and scene-asset prompting](references/script-and-assets.md) and [internet-first B-roll sourcing](references/internet-broll.md) before selecting or generating scene assets. The skill controls research, script, storyboard, and asset selection; Google AI Studio TTS reads the approved narration; HyperFrames creates the finished Reel. Use online stock/source footage or photos first, respecting the actual scene and usage rights. Invoke the available `imagegen` skill and built-in `image_gen` tool only for a justified image fallback. Flow and Gemini image/video generation are not part of the default production path. Keep speech requests and visual asset work separate.
 
 Read [sound design and free SFX](references/sound-design.md) when planning the storyboard and again when placing/mixing audio. Plan cues before approval; acquire production SFX after approval. Use Mixkit first and Pixabay as a fallback, choosing effects by the actual scene action and selected style. Use a lightweight local audio mix rather than installing a generative SFX model.
 
 ## Dependencies and workspace setup
 
-This repository packages the orchestration skill, style previews, templates, and approval checker. It does not bundle the Watch engine, companion editing skills, HyperFrames runtime, or Google sessions. Follow [README.md](README.md) for installation. Resolve companion skills by their installed names (`watch`, `edit-video`, `hyperframes`, `hyperframes-cli`) and actual locations; sibling links in this file are the default layout, not a requirement to reinstall an already available plugin skill.
+This repository packages the orchestration skill, style previews, templates, and approval checker. It does not bundle the Watch engine, companion editing skills, HyperFrames runtime, or Google AI Studio sessions. Follow [README.md](README.md) for installation. Resolve companion skills by their installed names (`watch`, `edit-video`, `hyperframes`, `hyperframes-cli`) and actual locations; sibling links in this file are the default layout, not a requirement to reinstall an already available plugin skill. Internet asset search/download needs available web/browser tools. The optional image fallback needs an available built-in image-generation tool; do not install a local model or silently switch to an external API when it is unavailable.
 
 For Herk Edit Kit resources, use `HERK_EDIT_KIT_ROOT` when configured; otherwise inspect the installed companion skills' setup notes or an existing workspace checkout. Verify the resolved directory contains the expected `AGENTS.md`, `package.json`, and required utility files, then read its guide. Record the resolved location in the local project's notes. Do not assume the author's drive/path exists on another machine. Missing rendering dependencies must be resolved before media production; script/storyboard drafting can still proceed.
 
@@ -37,7 +37,7 @@ If the theme and a style are supplied, resolve its number/name/ID, display that 
 
 When a theme is provided, begin research/planning. Record the actual subject, main message, required subjects/actions, and things to avoid in the theme contract. Infer mood, canvas, palette, and visual route from the selected style; the style must not change the topic. Default to Indonesian, 1080 x 1920, 30 fps, approximately 30-40 seconds, one takeaway, and an original script. User-specified details override defaults. Record the resolved style ID/number and preview path in production.json.
 
-Before approval, research, show existing style previews, write the full spoken script, and propose the storyboard/B-roll and SFX plan. Existing local sound assets may be inspected and public catalog/license pages researched; wait until approval to download production SFX or generate new Gemini images, Flow clips, TTS audio, animatics, or video renders. Present the concrete script for approval and wait. After approval of that version, proceed with production without repeating the same approval request.
+Before approval, research, show existing style previews, write the full spoken script, and propose the storyboard/B-roll and SFX plan. Existing local assets may be inspected and public candidate/license pages researched; wait until approval to download new production B-roll/SFX, generate images or TTS audio, or create animatics/video renders. Present the concrete script for approval and wait. After approval of that version, proceed with production without repeating the same approval request.
 
 User approval of the presented script/storyboard authorizes its planned production within the existing allowance/budget. It does not authorize purchases, publishing, or an unapproved cloud/paid voice provider. Preserve explicit limits. A substantive script change requires a revised script and fresh approval; technical timing/layout repairs within the approved script do not.
 
@@ -52,12 +52,13 @@ For new video references, use `$watch`, inspect every retained frame plus the tr
 Choose a route per shot:
 
 - **Motion graphics:** diagrams, comparisons, numbered workflows, UI cards, code, labels, statistics, or explanatory illustrations. Build accurate editable text in HyperFrames.
-- **Flow footage:** original object/action shots, places, environments, or thematic B-roll that helps the narration. Honor an explicit request for generated footage.
+- **Internet B-roll (default):** relevant object/action shots, places, environments, or photos from free online sources with supported usage rights. Prefer suitable real footage; animate stills when that serves the approved scene.
+- **Imagegen fallback:** a scene-specific original image only when sourcing cannot meet the approved scene or original imagery is necessary. Record the reason and animate the accepted image in HyperFrames.
 - **Source/presenter:** user-provided footage, authorized screenshots, or supplied brand assets. A presenter is optional for theme-only production.
 
-The common reference pattern is motion-led explanation. Keep that direction while reserving at least one scene for relevant B-roll: Flow footage, suitable authorized source footage, or a theme-specific image animated during editing. A catalog route named `motion` means motion-led with this B-roll insertion, not an exemption from the minimum. Do not ask a video generator to render final captions, UI labels, repository metadata, or factual charts.
+The common reference pattern is motion-led explanation. Keep that direction while reserving at least one scene for relevant internet B-roll or a justified image fallback. A catalog route named `motion` means motion-led with this B-roll insertion, not an exemption from the minimum. Style selection does not authorize an external video-generation service. Build final captions, UI labels, repository metadata, and factual charts as accurate editable layers.
 
-Style samples use a demonstration theme, "Dari ide ke aksi". Transfer only palette, typography, lighting, layout, and motion grammar. Do not carry their lightbulbs, gears, terminals, characters, demo text, or subject matter into another theme unless that scene's approved script calls for them. Prefer theme-specific content references and a text style specification over uploading the entire example poster to Gemini.
+Style samples use a demonstration theme, "Dari ide ke aksi". Transfer only palette, typography, lighting, layout, and motion grammar. Do not carry their lightbulbs, gears, terminals, characters, demo text, or subject matter into another theme unless that scene's approved script calls for them. Prefer theme-specific content references and a text style specification when an image fallback is needed.
 
 ## 3. Prepare the project and numbered drafts
 
@@ -72,8 +73,8 @@ reels-projects/<theme-slug>/
   03_storyboard.md
   04_voiceover_transcript.md
   05_tts_request.json
-  06_flow_prompts.json
-  07_flow_downloads/
+  06_scene_assets.json
+  07_broll_assets/
   08_voiceover/
   09_edit/
     sfx-cues.json
@@ -92,7 +93,7 @@ Create `DESIGN.md` now, before visual prompts or composition HTML, from the sele
 
 Include a sound direction in `DESIGN.md` using the selected style's profile from `sound-design.md`. Copy [the SFX cue template](assets/sfx-cues.template.json) to `09_edit/sfx-cues.json` and plan only useful accents, transitions, foley, or ambience. Start with roughly 4-8 discrete accents for 30-40 seconds as a sparse design suggestion, not a quota. Give every cue a scene/action, purpose, and event anchor; leave actual times and asset IDs null until measured and acquired. Honor requests for fewer effects, no SFX, or an existing supplied sound pack.
 
-`06_flow_prompts.json` follows the production contract: ordered shot IDs, actual audio anchors, start/end times, narration, core message, visual route/action, exact prompts, reference images, and asset mapping. Motion-only shots use `flow_prompt: null`. It is a local production plan, not a claim that Flow imports JSON. Save exact submitted prompts and names such as `01_s01_hook_take01.mp4`.
+`06_scene_assets.json` follows the production contract: ordered shot IDs, actual audio anchors, start/end times, narration, core message, visual route/action, sourcing queries/candidates, any justified `imagegen_prompt`, reference images, and asset mapping. Motion-only shots need no stock download or generation prompt. Save actual source/license records and numbered files such as `01_s01_hook_take01.mp4` or `01_s01_hook_take01.png`. Use legacy plan paths from an existing manifest when resuming rather than discarding earlier work.
 
 Start with a provisional plan here using estimated timing; do not invent word timestamps before audio exists. Finalize measured timings/anchors after approved narration in step 5 and before submitting assets in step 6.
 
@@ -108,7 +109,7 @@ Wait for a direct user response. "Setuju", "naskahnya sudah sesuai, lanjut", or 
 
 Check the current script matches the approved version/hash before any generation. This gate also applies to existing jobs and resumed projects; do not submit new work against a changed, unapproved script.
 
-Run `python <skill-directory>/scripts/check-script-approval.py <project-directory>` before submitting any narration, Gemini/Flow asset, or render job (also on resume). A nonzero exit stops production and returns to script review. The checker is read-only: record only real human approval, then run it; it does not grant approval itself.
+Run `python <skill-directory>/scripts/check-script-approval.py <project-directory>` before producing narration, downloading production B-roll/SFX, generating an image, or rendering (also on resume). A nonzero exit stops production and returns to script review. The checker is read-only: record only real human approval, then run it; it does not grant approval itself.
 
 Read [Google AI Studio TTS](references/google-ai-studio-tts.md). Use the Gemini speech-generation API when an authorized key and confirmed free-tier access are available; otherwise use the user's signed-in Google AI Studio speech interface through available browser control. Select a currently supported TTS model and prebuilt voice, record them, and keep one voice consistent across the Reel. Do not start or install a local speech backend.
 
@@ -120,17 +121,17 @@ Use free access only by default. If free quota or account access is unavailable,
 
 If narration does not fit, first adjust visual timing within the approved script and preserve natural delivery. If the spoken script needs rewriting, return the revision for approval before regenerating. Keep the approved script file unchanged; put non-spoken pronunciation markup or timing splits in TTS/timing metadata so approval remains valid when the spoken wording/meaning is unchanged. Rebuild shot timing/captions after voice edits; never use stale timestamps.
 
-## 6. Generate only approved scene images and B-roll
+## 6. Source approved B-roll from the internet first
 
-Check valid script approval first. Generate assets scene by scene using the approved narration segment and theme contract. Use Gemini for image/illustration assets and the chosen supported Gemini/Flow capability for raw B-roll. Select the actual available interface without assuming Gemini web can run local tools or export a finished Reel.
+Check valid script approval first. Follow `internet-broll.md`: select footage/photos for the exact approved narration segment and theme contract, starting with Pexels/Pixabay or suitable existing user assets. Inspect the actual asset page and license, download only selected files to `07_broll_assets/`, and record source/rights and measured media properties. A search thumbnail or a download link alone is not an accepted asset.
 
-Each prompt must identify the actual theme, scene ID, approved narration segment, visual purpose, exact subject/action/setting, style-only constraints, output type, and exclusions. Ask for one asset, without narration or final captions. Gemini must not rewrite the script or substitute a generic creative/productivity story. Keep scene prompts in `06_flow_prompts.json`; `gemini_prompt` is for a Gemini image or supported raw B-roll request, `flow_prompt` for moving B-roll in Flow.
+Stop searching once a suitable usable asset is found. If no candidate fits after a focused search, or the approved scene genuinely needs an original illustration, record `fallback_reason` in the scene plan and use the built-in image-generation path after reading `imagegen`. Generate only the needed scene image, not a complete Reel, and copy its returned local output into `07_broll_assets/` before composition. Keep exact submitted prompts in `06_scene_assets.json`; image requests must not rewrite the approved narration or invent a new theme.
 
-Before accepting an output, compare subject, action, and setting with that approved scene. A matching palette alone is not sufficient. Reject unrelated attractive imagery, revise only the failed prompt/asset, and retain the approval for unchanged narration. Follow the concrete prompt and acceptance rules in `script-and-assets.md`.
+Before accepting an asset, compare subject, action, setting, people restrictions, crop/readability, and rights with that approved scene. A matching palette alone is not sufficient. Reject unrelated attractive imagery, repair only the failed selection/prompt, and retain approval for unchanged narration. Follow the concrete prompt and acceptance rules in `script-and-assets.md`.
 
-For approved Flow shots, read the applicable browser skill, open `https://flow.google.com/`, and use the user's signed-in session. Model, duration, aspect ratio, resolution, and allowance come from the current UI. Preserve supported theme-specific reference ingredients/subject descriptions across related shots. Request clean imagery with room for overlays; add final labels in HyperFrames. Mute generated speech/music unless deliberately selected for the mix.
+Use relevant footage directly with deliberate trim/crop, or animate a still using purposeful pan/zoom/parallax. Final text, diagrams, and captions remain editable HyperFrames layers. Mute embedded speech/music unless deliberately selected for the mix. Do not open Flow/Gemini to create video or images as an automatic sourcing fallback.
 
-Submit in storyboard order, record state, await terminal status, review, and download every output from this production to `07_flow_downloads/`. Confirm it decodes and matches the required subject/action/duration. Inspect existing results after timeouts; never blindly duplicate submissions. Allow at most two additional takes per shot within the existing budget, then record the specific blocker or use an alternative already permitted by the approved scene plan. Preserve the minimum B-roll scene; a diagram/card replacement does not fulfill it. Do not silently replace a mandatory Flow shot. If no qualifying required B-roll can be produced, preserve the project and report the blocker instead of completing a video without it.
+Record asset state and reuse accepted files on resume. Inspect an existing image-generation result before retrying; allow at most two additional attempts for a failed needed image. If sourcing and the permitted image fallback cannot supply the required B-roll, preserve the project and report the blocker. A diagram/card replacement does not fulfill the minimum.
 
 Do not bypass login, CAPTCHA, access controls, or browser security. Ask only for necessary user interaction, unavailable browser control, exhausted required quota, or an unapproved purchase. Save state first and continue other independent assets while external jobs run. Do not claim download success without a usable local file.
 
@@ -142,7 +143,7 @@ Choose exact cues after the final narration and visual beats are known. If no su
 
 ## 7. Assemble footage and narration
 
-Read `$edit-video` and use its relevant source-preservation, media-probing, audio/video sync, and render-review guidance for accepted source/Flow assets and Google AI Studio TTS narration. For motion-led projects, assemble the graphics and required B-roll directly in HyperFrames with the separate voice track. Do not run the talking-head silence/mistake pipeline unless such source speech exists. Preserve originals and write intermediate drafts separately. Use FFmpeg or supported edit tools for media preparation and probe resulting files.
+Read `$edit-video` and use its relevant source-preservation, media-probing, audio/video sync, and render-review guidance for accepted internet/user assets, any needed generated images, and Google AI Studio TTS narration. For motion-led projects, assemble the graphics and required B-roll directly in HyperFrames with the separate voice track. Do not run the talking-head silence/mistake pipeline unless such source speech exists. Preserve originals and write intermediate drafts separately. Use FFmpeg or supported edit tools for media preparation and probe resulting files.
 
 Read the project's existing `DESIGN.md` before composing; use the same identity established for the shot plan and generated assets.
 
