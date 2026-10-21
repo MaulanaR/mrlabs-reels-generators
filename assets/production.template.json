@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.4",
+  "project_id": "",
+  "theme": "",
+  "theme_contract": {
+    "subject": "",
+    "main_message": "",
+    "must_show": [],
+    "must_avoid": []
+  },
+  "script_version": 1,
+  "script_sha256": null,
+  "script_approval": {
+    "status": "not_requested",
+    "approved_version": null,
+    "approved_script_sha256": null,
+    "approved_at": null,
+    "approval_message": null
+  },
+  "stage": "brief",
+  "style_profile": "auto",
+  "style_number": null,
+  "style_preview_path": null,
+  "render_route": "auto",
+  "asset_generation": {
+    "images": "gemini",
+    "broll": "google_flow",
+    "scope": "approved_scene_assets_only"
+  },
+  "broll_requirement": {
+    "min_scenes_per_video": 1,
+    "accepted_scene_ids": [],
+    "review_status": "pending",
+    "evidence": []
+  },
+  "brief": {
+    "audience": "",
+    "takeaway": "",
+    "language": "id",
+    "target_duration_sec": 35,
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "files": {
+    "research": "01_research.md",
+    "design": "DESIGN.md",
+    "storyboard": "03_storyboard.md",
+    "script": "04_voiceover_transcript.md",
+    "voice_request": "05_tts_request.json",
+    "shot_plan": "06_flow_prompts.json",
+    "sfx_cues": "09_edit/sfx-cues.json",
+    "composition": "10_hyperframes/index.html",
+    "verification": "11_final/VERIFY.md"
+  },
+  "narration": {
+    "status": "planned",
+    "provider": "google_ai_studio_tts",
+    "interface": "auto",
+    "billing_mode": "free_only",
+    "auth_env_var": "GEMINI_API_KEY",
+    "model_id": null,
+    "voice_name": null,
+    "language": "id-ID",
+    "delivery_direction": null,
+    "request_id": null,
+    "result_url": null,
+    "mime_type": null,
+    "selected_take": null,
+    "audio_path": null,
+    "timing_path": null,
+    "timing_precision": null,
+    "measured_duration_sec": null
+  },
+  "audio_design": {
+    "status": "planned",
+    "mode": "library",
+    "style_profile": "auto",
+    "source_priority": ["mixkit", "pixabay"],
+    "billing_mode": "free_only",
+    "accent_count_guidance": [4, 8],
+    "voice_priority": true,
+    "mix_path": null,
+    "review_status": "pending",
+    "omissions": []
+  },
+  "assets": [],
+  "flow_jobs": [],
+  "quality": {
+    "status": "pending",
+    "review_passes": 0,
+    "issues": [],
+    "evidence": []
+  },
+  "blockers": [],
+  "final_video_path": null
+}

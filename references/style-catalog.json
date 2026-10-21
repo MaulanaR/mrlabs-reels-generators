@@ -1,0 +1,443 @@
+{
+  "schema_version": "1.0",
+  "example_theme": "Dari ide ke aksi",
+  "generation_method": "built-in imagegen",
+  "generation_prompt_file": "assets/styles/generation-prompts.json",
+  "generation_prompt_usage": "Catalog sample regeneration only. Never reuse demo prompts as production scene prompts.",
+  "image_role": "STYLE ONLY. Transfer palette, typography, material and layout; ignore demo subject, text, props and characters. Production content must follow the actual theme and user-approved script.",
+  "gallery": "assets/style-gallery.html",
+  "boards": [
+    "assets/style-board-reference.png",
+    "assets/style-board-new-a.png",
+    "assets/style-board-new-b.png"
+  ],
+  "styles": [
+    {
+      "number": 1,
+      "id": "light-explainer",
+      "name": "Light Explainer",
+      "group": "reference",
+      "reference_id": "R1",
+      "recommended_for": [
+        "edukasi",
+        "konsep",
+        "analogi"
+      ],
+      "palette": [
+        "#F3F0E4",
+        "#18231F",
+        "#D9A13B"
+      ],
+      "fonts": [
+        "Manrope"
+      ],
+      "render_route": "motion",
+      "visual": "Ilustrasi hangat, kertas terang, diagram sederhana.",
+      "motion": "Reveal ikon lalu aktifkan langkah sesuai narasi; gerak kecil pada ilustrasi.",
+      "caption": "Frasa 2-5 kata dengan tinta gelap dan satu aksen amber.",
+      "avoid": "Kepadatan ilustrasi, karakter tiruan, amber kecil di atas krem.",
+      "preview": "assets/styles/01-light-explainer.png",
+      "prompt_key": "light-explainer"
+    },
+    {
+      "number": 2,
+      "id": "dark-editorial",
+      "name": "Dark Editorial",
+      "group": "reference",
+      "reference_id": "R2",
+      "recommended_for": [
+        "AI",
+        "sistem",
+        "perbandingan"
+      ],
+      "palette": [
+        "#0C1116",
+        "#EFEDE4",
+        "#E9B640"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "render_route": "motion",
+      "visual": "Panel penjelasan terang di kanvas gelap dengan aksen emas.",
+      "motion": "Panel bertahap, fokus alur/diagram, transisi mask singkat.",
+      "caption": "Pill terang dengan teks gelap; istilah penting beraksen.",
+      "avoid": "Glow berlebihan, diagram terlalu rinci, label kecil.",
+      "preview": "assets/styles/02-dark-editorial.png",
+      "prompt_key": "dark-editorial"
+    },
+    {
+      "number": 3,
+      "id": "dark-workflow",
+      "name": "Dark Workflow",
+      "group": "reference",
+      "reference_id": "R3",
+      "recommended_for": [
+        "developer",
+        "tutorial",
+        "workflow"
+      ],
+      "palette": [
+        "#111B28",
+        "#EDF2F5",
+        "#58B8DA"
+      ],
+      "fonts": [
+        "Manrope",
+        "IBM Plex Mono"
+      ],
+      "render_route": "motion",
+      "visual": "Node bernomor, konektor, terminal ringkas.",
+      "motion": "Aktifkan node, alirkan konektor, tampilkan satu command yang terverifikasi.",
+      "caption": "Frasa pendek putih dengan satu kata cyan.",
+      "avoid": "Kode palsu, angka bukti tanpa sumber, semua kartu bergerak bersamaan.",
+      "preview": "assets/styles/03-dark-workflow.png",
+      "prompt_key": "dark-workflow"
+    },
+    {
+      "number": 4,
+      "id": "presenter-editorial",
+      "name": "Faceless Editorial",
+      "group": "reference",
+      "reference_id": "R4",
+      "recommended_for": [
+        "review",
+        "edukasi",
+        "bukti"
+      ],
+      "palette": [
+        "#E9EDF0",
+        "#15191F",
+        "#3D50D7"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "render_route": "hybrid",
+      "visual": "Editorial tanpa orang: tipografi, screenshot besar, diagram, dan aksen biru terang.",
+      "motion": "Hook tipografi singkat, fokus screenshot atau diagram, diagonal wipe yang terukur.",
+      "caption": "Pill kontras di luar objek penting dan panel utama.",
+      "avoid": "Foto orang, wajah, tubuh, tangan, siluet atau avatar manusia; screenshot desktop yang tak terbaca.",
+      "preview": "assets/styles/04-presenter-editorial.png",
+      "prompt_key": "presenter-editorial",
+      "aliases": [
+        "Presenter Editorial"
+      ],
+      "people_policy": "no_people"
+    },
+    {
+      "number": 5,
+      "id": "product-metrics",
+      "name": "Product Metrics",
+      "group": "reference",
+      "reference_id": "R5",
+      "recommended_for": [
+        "produk",
+        "bisnis",
+        "benefit"
+      ],
+      "palette": [
+        "#091A14",
+        "#ECF2E9",
+        "#46B58F"
+      ],
+      "fonts": [
+        "Manrope"
+      ],
+      "render_route": "motion",
+      "visual": "Kanvas hijau gelap, benefit dan hasil yang jelas.",
+      "motion": "Benefit muncul satu per satu, progress/state berubah sesuai klaim terverifikasi.",
+      "caption": "Teks putih/mint besar, satu pesan utama per beat.",
+      "avoid": "Harga/angka fiktif, banyak CTA, panel kaca tanpa fungsi.",
+      "preview": "assets/styles/05-product-metrics.png",
+      "prompt_key": "product-metrics"
+    },
+    {
+      "number": 6,
+      "id": "swiss-kinetic",
+      "name": "Swiss Kinetic",
+      "group": "new",
+      "reference_id": null,
+      "recommended_for": [
+        "kampanye",
+        "motivasi",
+        "pengumuman"
+      ],
+      "palette": [
+        "#F2F0E8",
+        "#171717",
+        "#EC4B31"
+      ],
+      "fonts": [
+        "Archivo Black",
+        "Inter"
+      ],
+      "render_route": "motion",
+      "visual": "Tipografi besar, grid asimetris, geometri merah.",
+      "motion": "Mask reveal pada kata kunci, blok bergerak sepanjang grid, transisi geometris.",
+      "caption": "Caption hitam sederhana agar tidak bersaing dengan headline.",
+      "avoid": "Seluruh kalimat dianimasikan serentak, teks utama terpotong.",
+      "preview": "assets/styles/06-swiss-kinetic.png",
+      "prompt_key": "swiss-kinetic"
+    },
+    {
+      "number": 7,
+      "id": "paper-cut-story",
+      "name": "Paper Cut Story",
+      "group": "new",
+      "reference_id": null,
+      "recommended_for": [
+        "cerita",
+        "kreativitas",
+        "UMKM"
+      ],
+      "palette": [
+        "#EFE5D2",
+        "#292823",
+        "#B95A3D",
+        "#657257"
+      ],
+      "fonts": [
+        "Kalam",
+        "Manrope"
+      ],
+      "render_route": "hybrid",
+      "visual": "Kolase papercraft, sobekan, tekstur hangat.",
+      "motion": "Layer kertas masuk dengan stepped motion terbatas, pan ringan, wipe sobekan.",
+      "caption": "Strip kertas terang dan teks gelap yang stabil.",
+      "avoid": "Tekstur menutupi tulisan, terlalu banyak stiker, tulisan tangan kecil.",
+      "preview": "assets/styles/07-paper-cut-story.png",
+      "prompt_key": "paper-cut-story"
+    },
+    {
+      "number": 8,
+      "id": "blueprint-lab",
+      "name": "Blueprint Lab",
+      "group": "new",
+      "reference_id": null,
+      "recommended_for": [
+        "sains",
+        "engineering",
+        "cara kerja"
+      ],
+      "palette": [
+        "#0B2447",
+        "#B5E5EF",
+        "#53CDD4"
+      ],
+      "fonts": [
+        "Space Grotesk",
+        "IBM Plex Mono"
+      ],
+      "render_route": "motion",
+      "visual": "Wireframe, grid teknis, diagram berlabel.",
+      "motion": "Stroke/komponen terungkap bertahap, callout mengikuti penjelasan.",
+      "caption": "Bar outline dengan teks terang, sedikit istilah per grup.",
+      "avoid": "Ukuran/struktur ilmiah rekaan, microtext, garis yang hanya dekorasi.",
+      "preview": "assets/styles/08-blueprint-lab.png",
+      "prompt_key": "blueprint-lab"
+    },
+    {
+      "number": 9,
+      "id": "cinematic-noir",
+      "name": "Cinematic Noir",
+      "group": "new",
+      "reference_id": null,
+      "recommended_for": [
+        "cerita",
+        "craft",
+        "motivasi"
+      ],
+      "palette": [
+        "#111315",
+        "#EEE5D4",
+        "#D8A25B"
+      ],
+      "fonts": [
+        "Bodoni Moda",
+        "Manrope"
+      ],
+      "render_route": "flow",
+      "visual": "Close-up sinematik, cahaya tungsten, bayangan kaya.",
+      "motion": "Gerak kamera lambat, match cut tindakan, teks minimal.",
+      "caption": "Frasa pendek berwarna ivory dengan shadow/plate jika perlu.",
+      "avoid": "Footage atmosfer tanpa makna, teks memenuhi layar, black crush.",
+      "preview": "assets/styles/09-cinematic-noir.png",
+      "prompt_key": "cinematic-noir"
+    },
+    {
+      "number": 10,
+      "id": "pastel-3d",
+      "name": "Pastel 3D",
+      "group": "new",
+      "reference_id": null,
+      "recommended_for": [
+        "pemula",
+        "pendidikan",
+        "produk ramah"
+      ],
+      "palette": [
+        "#FAF4EC",
+        "#343339",
+        "#EF9F91",
+        "#B9A8DA",
+        "#A5CBBF"
+      ],
+      "fonts": [
+        "Fredoka",
+        "Manrope"
+      ],
+      "render_route": "hybrid",
+      "visual": "Objek clay lembut, pulau/konveyor 3D, palet pastel.",
+      "motion": "Objek bereaksi satu per satu, spring lembut terbatas, perpindahan ruang sederhana.",
+      "caption": "Caption charcoal dengan aksen underline, bukan teks pastel pucat.",
+      "avoid": "Benda 3D terus berputar, teks coral kecil di atas krem, clutter.",
+      "preview": "assets/styles/10-pastel-3d.png",
+      "prompt_key": "pastel-3d"
+    },
+    {
+      "number": 11,
+      "id": "comic-pop",
+      "name": "Comic Pop",
+      "group": "new",
+      "reference_id": null,
+      "recommended_for": [
+        "edutainment",
+        "fun fact",
+        "promo energik"
+      ],
+      "palette": [
+        "#F3CF3C",
+        "#171B28",
+        "#234BD7",
+        "#E34C45"
+      ],
+      "fonts": [
+        "Bangers",
+        "Manrope"
+      ],
+      "render_route": "hybrid",
+      "visual": "Panel komik, halftone, outline tebal dan burst.",
+      "motion": "Panel wipe, punch-in selektif, speed line singkat tanpa strobe.",
+      "caption": "Ribbon cream bertulisan gelap; kata penekanan tebal.",
+      "avoid": "Karakter berhak cipta, flashing, semua elemen menjerit serentak.",
+      "preview": "assets/styles/11-comic-pop.png",
+      "prompt_key": "comic-pop"
+    },
+    {
+      "number": 12,
+      "id": "luxury-minimal",
+      "name": "Luxury Minimal",
+      "group": "new",
+      "reference_id": null,
+      "recommended_for": [
+        "premium",
+        "arsitektur",
+        "brand"
+      ],
+      "palette": [
+        "#F1EBDD",
+        "#20211E",
+        "#B99B68"
+      ],
+      "fonts": [
+        "Cormorant Garamond",
+        "Manrope"
+      ],
+      "render_route": "hybrid",
+      "visual": "Still life batu/metal, ruang lega, serif elegan.",
+      "motion": "Push-in lembut, pergeseran cahaya/objek kecil, transisi tenang.",
+      "caption": "Frasa ringkas tinta gelap di bidang terang; ukuran tetap terbaca.",
+      "avoid": "Emas berkilau berlebihan, caption emas kecil, transisi agresif.",
+      "preview": "assets/styles/12-luxury-minimal.png",
+      "prompt_key": "luxury-minimal"
+    },
+    {
+      "number": 13,
+      "id": "retro-terminal",
+      "name": "Retro Terminal",
+      "group": "new",
+      "reference_id": null,
+      "recommended_for": [
+        "coding",
+        "teknologi retro",
+        "sejarah digital"
+      ],
+      "palette": [
+        "#0A120E",
+        "#8DEAA5",
+        "#E2E8CF"
+      ],
+      "fonts": [
+        "VT323",
+        "IBM Plex Mono"
+      ],
+      "render_route": "motion",
+      "visual": "CRT hijau, pixel art, terminal ringkas.",
+      "motion": "Type-on per frasa, cursor blink terbatas, progress pixel; timeline deterministik.",
+      "caption": "Baris mono yang besar; typing tidak boleh mendahului suara.",
+      "avoid": "Scanline mengganggu baca, kode/command palsu, kedipan kuat.",
+      "preview": "assets/styles/13-retro-terminal.png",
+      "prompt_key": "retro-terminal"
+    },
+    {
+      "number": 14,
+      "id": "nature-documentary",
+      "name": "Nature Documentary",
+      "group": "new",
+      "reference_id": null,
+      "recommended_for": [
+        "alam",
+        "lingkungan",
+        "sains",
+        "travel"
+      ],
+      "palette": [
+        "#1B3D2E",
+        "#F1EDD9",
+        "#7D9567"
+      ],
+      "fonts": [
+        "Source Serif 4",
+        "Manrope"
+      ],
+      "render_route": "flow",
+      "visual": "Macro alam, cahaya organik, anotasi tipis.",
+      "motion": "Slow subject/camera movement, fokus perubahan nyata, callout sedikit.",
+      "caption": "Ivory pendek dengan plate kontras sesuai latar.",
+      "avoid": "Spesies/perilaku palsu, teks di latar ramai, green neon tak alami.",
+      "preview": "assets/styles/14-nature-documentary.png",
+      "prompt_key": "nature-documentary"
+    },
+    {
+      "number": 15,
+      "id": "collage-editorial",
+      "name": "Collage Editorial",
+      "group": "new",
+      "reference_id": null,
+      "recommended_for": [
+        "budaya",
+        "opini",
+        "cerita kreatif"
+      ],
+      "palette": [
+        "#EEE8DC",
+        "#232321",
+        "#D9643D"
+      ],
+      "fonts": [
+        "Source Serif 4",
+        "Manrope"
+      ],
+      "render_route": "hybrid",
+      "visual": "Potongan foto monokrom, kertas, aksen oranye.",
+      "motion": "Cutout masuk berlapis, parallax tipis, pan fokus dan transisi kertas.",
+      "caption": "Strip kertas tenang, kontras tinggi, maksimal dua baris.",
+      "avoid": "Potongan tanpa hak pakai, headline berita palsu, terlalu banyak layer.",
+      "preview": "assets/styles/15-collage-editorial.png",
+      "prompt_key": "collage-editorial"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+credentials*.json
+*service-account*.json
+*.pem
+*.key
+
+# Generated/private production data
+reels-projects/
+video-projects/
+skill-reviews/
+renders/
+downloads/
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.mp3
+*.wav
+*.flac
+*.aac
+
+# Tool caches
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+.hyperframes/
+.playwright-cli/
+.DS_Store
+Thumbs.db

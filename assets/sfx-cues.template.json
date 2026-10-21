@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "project_id": "",
+  "status": "planned",
+  "timing_status": "provisional",
+  "mode": "library",
+  "style_profile": "auto",
+  "script_version": null,
+  "script_sha256": null,
+  "narration_file": null,
+  "narration_sha256": null,
+  "narration_duration_sec": null,
+  "composition_revision": null,
+  "source_priority": ["mixkit", "pixabay"],
+  "billing_mode": "free_only",
+  "mix": {
+    "voice_priority": true,
+    "max_concurrent_accents": 2,
+    "duck_background_when_needed": true,
+    "routing": null,
+    "mix_path": null
+  },
+  "assets": [],
+  "cues": [],
+  "omissions": [],
+  "review": {
+    "status": "pending",
+    "inspected_cue_ids": [],
+    "issues": []
+  }
+}
