@@ -22,7 +22,7 @@ Record in `production.json.assets`:
 
 Save selected originals with numbered names under `07_broll_assets/`, preserving any modifications as separate files. Keep a source/license receipt there, and include required attribution in a project credits note for final handoff. Respect each source's standalone/source-file redistribution limits when sharing an editable project. Do not bundle stock media into the skill repository.
 
-Probe/decode the local file. Inspect the frames or photo for actual subject/action, resolution, portrait crop, duration, unwanted baked-in captions/logos, and people constraints. An asset counts only after it is accepted, placed in the selected editor pipeline, and visibly reviewed in the final encode. Keep the existing online narration separate and mute embedded clip speech/music unless the mix deliberately uses it.
+Probe/decode the local file. Inspect the frames or photo for actual subject/action, resolution, portrait crop, duration, unwanted baked-in captions/logos, and people constraints. An asset counts only after it is accepted, placed in the selected editor pipeline, and visibly reviewed in the final encode. Keep selected original source audio or online narration separate and mute embedded clip speech/music unless the mix deliberately uses it.
 
 ## Use imagegen only for a real gap
 

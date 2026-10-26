@@ -1,19 +1,19 @@
 # MRLabs Reels Generator
 
-Skill untuk **Codex** yang membantu membuat Reels dan YouTube Shorts dari sebuah tema: riset, naskah, storyboard, voice-over online, B-roll, SFX, caption, lalu editing dengan pilihan **Higgsfield, HyperFrames, Remotion, atau gabungan**.
+Skill untuk **Codex** dengan dua mode: **buat Reel dari tema** atau **edit video asli pengguna** dengan informasi, subtitle, motion graphics, dan B-roll dalam satu video. Editor dapat dipilih: **Higgsfield, HyperFrames, Remotion, atau gabungan**.
 
-**Naskah dan rencana adegan harus disetujui pengguna sebelum produksi media dimulai. Setiap video wajib memiliki minimal satu adegan B-roll yang relevan.**
+**Naskah atau rencana edit harus disetujui pengguna sebelum produksi dimulai. Setiap Reel lengkap wajib memiliki minimal satu adegan B-roll yang relevan.**
 
-**Suara hanya dibuat secara online melalui Google AI Studio TTS.** Skill tidak menjalankan VoiceStudio, Kokoro, model suara lokal, atau fitur pembuat narasi otomatis milik editor. Unduh, konversi, dan mixing audio lokal tetap diperbolehkan; proses tersebut tidak membuat suara baru.
+**Suara baru hanya dibuat secara online melalui Google AI Studio TTS jika diperlukan/diminta. Video asli memakai rekaman suara aslinya secara default.** Audio yang direkam pengguna bukan voice sintetis lokal dan tidak membutuhkan TTS/API key Google. Skill tidak menjalankan VoiceStudio, Kokoro, model pembuat suara lokal, atau auto-voice editor. Konversi dan mixing audio lokal tetap diperbolehkan.
 
 Nama repositori adalah `mrlabs-reels-generators`, sedangkan nama skill dan perintahnya adalah **`mrlabs-reels-generator`**.
 
 ## Mulai dari sini
 
 1. Pasang skill ini, Watch, dan dependensi editor yang ingin digunakan di bawah.
-2. Siapkan akses Google AI Studio untuk suara dan tool pencarian/pengunduhan B-roll internet.
-3. Di Codex, kirim tema, pilihan editor, dan, jika ingin, nomor gaya. Jika editor belum disebutkan, agent akan menawarkan pilihannya sambil menyiapkan naskah.
-4. Tinjau naskah dan storyboard. Berikan persetujuan untuk versi yang sesuai.
+2. Siapkan pencarian/pengunduhan B-roll internet. Akses Google AI Studio hanya diperlukan jika membuat narasi baru.
+3. Kirim tema **atau video asli** (attachment/path/URL yang boleh diakses), pilihan editor, dan nomor gaya jika ingin. Jika editor belum disebutkan, agent menawarkan pilihannya sambil menyiapkan naskah/rencana edit.
+4. Tinjau naskah dan storyboard, atau transkrip serta rencana edit video asli. Setujui versi yang sesuai.
 5. Agent melanjutkan produksi, editing, dan pemeriksaan hasil sesuai akses alat yang tersedia.
 
 ```text
@@ -42,6 +42,22 @@ Tema
 ```
 
 Sebelum persetujuan, agent boleh melakukan riset, mencari kandidat B-roll beserta lisensinya, menampilkan preview gaya yang sudah tersedia, dan menulis rencana. Pengunduhan B-roll/SFX produksi, pembuatan gambar/narasi, serta render menunggu persetujuan naskah. Memilih gaya atau mengirim tema belum termasuk persetujuan terhadap naskah yang belum ditampilkan.
+
+Untuk video asli:
+
+```text
+Video asli
+  -> Inspeksi gambar/audio dan transkrip bertimestamp
+  -> Rencana potongan, informasi, subtitle, motion, dan B-roll
+  -> Persetujuan pengguna dan pilihan editor
+  -> Editing dengan audio asli dan semua layer yang direncanakan
+  -> Review sinkronisasi dan hasil encode
+  -> Video final, source terjaga, dan proyek yang dapat diedit
+```
+
+Tema boleh disimpulkan dari video yang benar-benar diperiksa. Video yang dikirim hanya sebagai referensi gaya tidak otomatis menjadi sumber produksi. File asli tidak ditimpa; sumber yang dipilih, potongan, dan perubahan framing dicatat. Durasi/bahasa/isi asli dipertahankan kecuali pengguna meminta perubahan. Tidak otomatis menulis ulang ucapan, memotongnya menjadi 35 detik, mengganti suara, atau membuat video lain.
+
+Informasi tambahan diberi sumber faktual dan dibedakan dari subtitle verbatim. Motion mengikuti ucapan/aksi. B-roll dapat menjadi insert, inset, atau split-screen sambil suara asli tetap berjalan; subtitle dan informasi diatur agar tidak saling menutupi wajah, demonstrasi, atau UI. Sesudah potongan, semua timing diperbarui melalui catatan source-ke-output (EDL). Lihat [panduan edit video asli](references/source-video-edit.md).
 
 ## Instalasi
 
@@ -137,7 +153,8 @@ Perintah utilitas toolkit dijalankan dari root toolkit. Perintah komposisi Hyper
 
 | Bagian | Jalur yang digunakan |
 | --- | --- |
-| Voice-over | **Hanya Google AI Studio TTS online**, melalui API atau browser yang sudah login |
+| Audio video asli | Pertahankan rekaman suara dan sinkronisasi sumber; tidak memerlukan TTS |
+| Voice-over baru | **Hanya Google AI Studio TTS online**, ketika diminta; melalui API/browser yang sudah login |
 | B-roll utama | Footage internet yang relevan, misalnya dari Pexels/Pixabay, dengan sumber dan izin pakai yang jelas |
 | B-roll dari gambar | Foto internet yang sesuai dan boleh digunakan, diberi pan/zoom/parallax saat editing |
 | Gambar orisinal jika diperlukan | Imagegen bawaan agent, hanya saat pencarian tidak memenuhi adegan atau dibutuhkan visual khusus |
@@ -152,7 +169,7 @@ Jika key belum tersedia, agent dapat menggunakan [Google AI Studio](https://aist
 
 Narasi membacakan teks yang sudah disetujui. Arahan nada/tempo disimpan terpisah dari teks yang diucapkan. Model dan voice dipilih dari yang benar-benar tersedia saat produksi. Lihat [panduan TTS skill](references/google-ai-studio-tts.md), [dokumentasi Google](https://ai.google.dev/gemini-api/docs/speech-generation), dan [harga/akses gratis](https://ai.google.dev/gemini-api/docs/pricing).
 
-Default suara adalah **free-only**. Agent berhenti ketika akses gratis atau kuota tidak tersedia; tidak mengaktifkan billing, berpindah penyedia, atau memakai suara lokal. Aturan ini juga berlaku saat melanjutkan proyek lama dan ketika skill editor menyarankan TTS bawaan. Narasi lama dengan sumber lokal/tidak diketahui disimpan sebagai arsip; produksi lanjutan memakai take Google AI Studio yang sumbernya dapat dibuktikan, beserta timing baru. B-roll mengutamakan aset internet gratis yang sesuai. Imagegen hanya digunakan bila diperlukan dan mengikuti ketersediaan/batas akun agent. Flow/Gemini untuk pembuatan gambar/video tidak menjadi langkah otomatis.
+TTS baru memakai akses **free-only**. Jika akses/kuota tidak tersedia, simpan progres tanpa mengaktifkan billing, berpindah penyedia, atau memakai sintesis lokal. Ini tidak menghalangi edit video yang hanya membutuhkan audio rekaman aslinya. Pada proyek lama, rekaman sumber tetap dapat digunakan; take yang dibuat dengan sintesis lokal/tidak diketahui tidak boleh dilabeli Google TTS. B-roll mengutamakan aset internet gratis; imagegen hanya jika diperlukan. Flow/Gemini untuk pembuatan gambar/video tidak menjadi langkah otomatis.
 
 ### Pilih editor video
 
@@ -220,6 +237,20 @@ Gaya 04 memakai ID internal lama `presenter-editorial` untuk kompatibilitas, tet
 
 ## Contoh penggunaan
 
+### Mengedit video asli dengan semua penambahan
+
+```text
+Gunakan $mrlabs-reels-generator.
+Video asli: D:\video-saya\tutorial-stok.mp4
+Pertahankan wajah, suara, dan penjelasan asli.
+Tambahkan informasi pendukung, subtitle Bahasa Indonesia,
+motion graphics yang menjelaskan ucapan, dan B-roll internet yang relevan.
+Editor: gabungan Higgsfield dan HyperFrames.
+Tampilkan transkrip dan rencana edit per timecode untuk saya setujui dahulu.
+```
+
+Ganti contoh path dengan file Anda atau lampirkan videonya di chat. Agent membaca video tersebut dan menampilkan rencana konkret sebelum mengedit. Permintaan terbatas, misalnya subtitle saja, tidak dipaksa menjadi produksi penuh dengan potongan/B-roll/TTS.
+
 ### Memilih gaya otomatis
 
 ```text
@@ -274,12 +305,13 @@ Gunakan kembali hasil yang sudah diterima dan lanjutkan tahap yang belum selesai
 
 ## Hasil dan struktur proyek
 
-Default output: Bahasa Indonesia, 1080 × 1920, 30 fps, sekitar 30–40 detik, H.264/AAC. Durasi akhir mengikuti narasi yang sudah dibuat dan diukur.
+Default mode tema: Bahasa Indonesia, 1080 × 1920, 30 fps, sekitar 30–40 detik, H.264/AAC. Durasi akhir mengikuti narasi yang diukur. Mode video asli mengikuti durasi/bahasa/framing sumber atau perubahan yang disetujui pengguna.
 
 ```text
 reels-projects/<tema>/
   production.json
   DESIGN.md
+  00_source/       # mode video asli: sumber, metadata, transkrip sumber
   01_research.md
   02_visual-references/
   03_storyboard.md
@@ -303,7 +335,9 @@ reels-projects/<tema>/
 
 `06_scene_assets.json` merupakan rencana lokal semua adegan: motion graphics, query/kandidat B-roll internet, sumber terpilih, dan prompt imagegen jika fallback memang dibutuhkan. File request TTS tidak berisi kredensial. Pada proyek lama, nama `06_flow_prompts.json`/`07_flow_downloads/` dapat dipertahankan sebagai arsip atau path yang sudah tercatat di manifest; nama lama tersebut tidak mengaktifkan kembali Flow.
 
-Manifest schema `1.6` menyimpan pilihan pada `editing`, termasuk `engines`, `final_assembler`, `project_paths`, tahap, dan handoff. Jalur narasi merekam `execution: online`, `allow_local_generation: false`, dan `automatic_fallback: none`. Field `files.composition` diisi setelah editor dipilih; tidak otomatis menunjuk HyperFrames. Path lama tetap dipertahankan saat melanjutkan proyek.
+Manifest schema `1.7` memiliki `workflow_mode` (`theme_to_reel`/`source_video_edit`), identitas/transkrip/EDL sumber di `source_video`, dan pilihan engine/handoff di `editing`. `narration.mode` membedakan `tts`, `source_audio`, dan `none`; sintesis lokal tetap dilarang. Field `files.composition` diisi setelah editor dipilih. Path lama tetap dipertahankan saat melanjutkan proyek.
+
+Untuk video asli, `files.script` menunjuk `04_edit_review.md`: transkrip asli, identitas sumber, potongan dan seluruh rencana tambahan yang disetujui. Checker versi/hash yang sama dipakai tanpa mewajibkan naskah baru. Simpan `09_edit/source-edl.json`, transkrip sumber dan transkrip output secara terpisah. Request TTS tidak dibuat jika tidak ada narasi baru.
 
 Dalam editor pilihan, B-roll diberi klip/sequence nyata, trim sumber, waktu tampil, crop, dan lapisan yang benar. Narasi tetap berjalan; caption diletakkan di atas footage; audio bawaan B-roll dibisukan kecuali ada suara yang sengaja dipilih sebagai cue terpisah. Lihat [panduan editor](references/editing-options.md) dan, untuk tahap HyperFrames, [panduan integrasi B-roll](references/hyperframes-broll.md).
 
@@ -321,7 +355,7 @@ Contoh di atas dijalankan dari direktori skill. Dari direktori lain, gunakan pat
 
 Checker ini **tidak mengautentikasi percakapan dan tidak memberi persetujuan sendiri**. Agent wajib mencatat persetujuan pengguna yang benar-benar diberikan setelah naskah ditampilkan, lalu menyimpan versi/hash yang sesuai. Jangan mengisi approval palsu agar lolos pemeriksaan.
 
-Checker hanya memeriksa persetujuan naskah. Agent juga memeriksa pilihan editor dan sumber narasi online sebelum produksi; lulus checker tidak membolehkan suara lokal atau memilih editor sendiri.
+Checker hanya memeriksa konsistensi persetujuan artifact di `files.script` (naskah atau paket review edit). Agent juga memeriksa pilihan editor, identitas sumber/EDL, dan audio sesuai mode: rekaman asli atau TTS online. Lulus checker tidak mengizinkan sintesis lokal atau pemilihan editor sendiri.
 
 ## Kendala yang sering muncul
 
@@ -350,6 +384,7 @@ Repo ini belum menyertakan contoh video yang membuktikan satu produksi cloud len
 - [agents/openai.yaml](agents/openai.yaml): metadata tampilan skill.
 - [references/](references/): approval, TTS, gaya, B-roll, SFX, dan kontrak produksi.
 - [references/editing-options.md](references/editing-options.md): pilihan editor, gabungan, handoff, dan aturan narasi online.
+- [references/source-video-edit.md](references/source-video-edit.md): masukan video asli, transkrip, informasi/subtitle/motion/B-roll, dan pemetaan waktu setelah potongan.
 - [assets/](assets/): 15 preview gaya, galeri, papan referensi, dan template proyek/cue.
 - [scripts/check-script-approval.py](scripts/check-script-approval.py): pemeriksa persetujuan yang hanya membaca state.
 

@@ -1,8 +1,10 @@
 # Script approval and theme-specific scene assets
 
-The script determines content. The selected style determines appearance. Source relevant internet B-roll first, following [internet-broll.md](internet-broll.md); use the agent's built-in image generation only for an actual missing/custom visual. Asset selection/generation must not rewrite the narration or choose another topic. Google AI Studio TTS is a separate audio request that reads the approved text.
+The approved script or source-video transcript/edit plan determines content. The selected style determines appearance. For original footage, read [source-video-edit.md](source-video-edit.md) first: preserve recorded speech and prepare a timed plan for information, subtitles, motion and B-roll rather than writing a replacement narration. Source relevant internet B-roll first, following [internet-broll.md](internet-broll.md); use built-in image generation only for a genuine missing/custom visual. Asset selection must not rewrite speech or choose another topic. Google AI Studio TTS is a separate conditional request only for approved new narration.
 
 ## Phase A: writing, then user approval
+
+The authored-script procedure below applies to theme-to-Reel mode. Source-video mode instead reviews the actual transcript, source cuts and timed additions from `source-video-edit.md`; real source timings may already exist before approval and TTS is optional.
 
 Before generation, prepare a concrete review package:
 

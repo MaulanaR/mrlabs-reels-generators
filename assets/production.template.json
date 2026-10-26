@@ -1,6 +1,20 @@
 {
-  "schema_version": "1.6",
+  "schema_version": "1.7",
   "project_id": "",
+  "workflow_mode": "theme_to_reel",
+  "source_video": {
+    "status": "not_provided",
+    "files": [],
+    "transcript_path": null,
+    "output_transcript_path": null,
+    "edit_plan_path": null,
+    "edl_path": null,
+    "preserve_originals": true,
+    "audio_policy": "preserve_original",
+    "cut_policy": "preserve_until_approved",
+    "features": ["information", "subtitles", "motion", "broll"],
+    "analysis_notes": []
+  },
   "theme": "",
   "theme_contract": {
     "subject": "",
@@ -72,6 +86,9 @@
   },
   "narration": {
     "status": "planned",
+    "mode": "tts",
+    "source_asset_ids": [],
+    "source_audio_stream": null,
     "provider": "google_ai_studio_tts",
     "execution": "online",
     "allow_local_generation": false,

@@ -1,6 +1,6 @@
 # Contextual free SFX
 
-Read while planning the storyboard, acquiring sound assets, and mixing the final edit. Use small local audio files selected for a specific action or setting. No local generative sound model is needed. Narration remains Google AI Studio TTS; its speech request and the SFX library workflow are separate.
+Read while planning the storyboard, acquiring sound assets, and mixing the final edit. Use small local audio files selected for a specific action or setting. No local generative sound model is needed. Preserve original source speech in source-video mode; only requested new narration uses Google AI Studio TTS online. Speech generation and the SFX library workflow remain separate.
 
 ## Plan sound with the script
 
@@ -73,7 +73,7 @@ After narration or animation changes, mark timings stale and resolve affected cu
 
 ## Mix and review
 
-Use the selected final editor's supported audio controls or local FFmpeg, following [editing-options.md](editing-options.md). Keep the existing online Google AI Studio narration, SFX, and optional music independently controlled during composition; disable editor TTS/auto-voice. In a combined pipeline, designate one final mix owner and avoid duplicating embedded intermediate audio. Avoid more than two simultaneous accents by default. Match disparate source levels before placing them; reduce or duck effects when speech becomes less clear. Gain settings are deliberate per-asset decisions, not a universal number applied to every download.
+Use the selected final editor's supported audio controls or local FFmpeg, following [editing-options.md](editing-options.md). Keep selected original source speech or online Google AI Studio narration, SFX, and optional music independently controlled during composition; disable editor TTS/auto-voice. In a combined pipeline, designate one final mix owner and avoid duplicating embedded intermediate audio. Avoid more than two simultaneous accents by default. Match disparate source levels before placing them; reduce or duck effects when speech becomes less clear. Gain settings are deliberate per-asset decisions, not a universal number applied to every download.
 
 Apply short fades where needed to prevent clicks, without blunting an important attack. Preserve the original TTS file. If pre-mixing, save a separate master such as `09_edit/audio_mix.wav` and set `mix.routing: premixed`; the composition then plays that master once instead of also adding its component voice/SFX tracks. For separate composition tracks, record `mix.routing: composition_tracks` and their actual sources once.
 

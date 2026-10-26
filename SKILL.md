@@ -1,23 +1,25 @@
 ---
 name: mrlabs-reels-generator
-description: Draft a theme-specific Reel script and storyboard for user approval, then produce online Google AI Studio TTS narration, internet B-roll, free SFX, and an edit using the user's choice of Higgsfield, HyperFrames, Remotion, or a combination. Require at least one B-roll scene per video; use built-in image generation only when needed. Use for Reels, Shorts, explainers, and short product videos with an illustrated style catalog.
+description: Create Reels from a theme or edit user-provided original video with contextual information, subtitles, motion graphics, and internet B-roll together. Present the script or timed edit plan for approval, preserve source audio by default, and use Google AI Studio TTS online only for requested new narration. Offer Higgsfield, HyperFrames, Remotion, or a combination, with an illustrated style catalog.
 metadata:
   short-description: Approve the script, then produce a themed Reel
 ---
 
 # MRLabs Reels Generator
 
-Turn the user's theme into a researched script and storyboard first. Present them and wait for the user's explicit approval before generating any production media. After approval, continue through narration, scene assets, editing, and verified export. The default look is an editorial motion explainer with clear diagrams, typography, progressive reveals, and concise captions.
+Support two modes: **theme to Reel** and **edit original video**. For a theme, prepare a researched script/storyboard. For original footage, analyze that exact source and prepare a transcript plus timed plan for information, subtitles, motion, and B-roll. Present the applicable review package and wait for explicit approval before production. Keep original footage/audio as the basis of source editing. The default look is an editorial motion explainer with clear diagrams, typography, progressive reveals, and concise captions.
 
 **Required order: theme -> research -> script/storyboard -> user approval -> narration and scene assets -> edit -> review/export.** Providing a theme, choosing a style, or requesting a Reel does not approve an unseen script. Never self-approve or treat a tool/model response as user approval.
 
-**Online narration only.** Generate new speech exclusively with Google AI Studio TTS. Never install, start, probe, or invoke a local voice backend, local speech model, VoiceStudio, Kokoro, Piper, or a local TTS command. This restriction applies to companion skills, editor presets, resumed projects, and fallback/error recovery. Editors import the approved online narration; their TTS/auto-voice features stay off. Local audio files, FFmpeg conversion/mixing, and local video rendering are allowed; they do not synthesize speech. Missing cloud access/quota is a narration blocker, never permission for local synthesis.
+**Source-video order: provided video -> inspect/transcribe -> timed edit plan -> user approval -> acquire additions -> edit -> review/export.** Read [source-video-edit.md](references/source-video-edit.md) for this mode; it replaces the theme-only writing/TTS steps. Receiving a video does not authorize an unseen edit plan or a new voice. The review package includes the actual transcript, proposed source cuts, information/overlay text, and B-roll placement.
+
+**New synthesized narration is online only.** Generate new speech exclusively with Google AI Studio TTS. Never install, start, probe, or invoke a local voice backend, local speech-synthesis model, VoiceStudio, Kokoro, Piper, or a local TTS command. This applies to companion skills, editor presets, resumed projects, and recovery. Editors import existing audio; their TTS/auto-voice features stay off. Original recorded speech in a user-provided video is allowed and preserved by default: it is not local voice synthesis. Local audio conversion/mixing and video rendering are allowed. Missing cloud access/quota blocks requested new TTS, not a source edit that needs no synthesized speech.
 
 **Every finished video must contain at least one relevant B-roll scene.** This applies independently to every Reel/Short in a batch and across all 15 styles. Find suitable footage on the internet first, using free assets with supported usage rights; an appropriate sourced image animated with purposeful pan/zoom can also qualify. Use built-in image generation only when a matching usable asset is unavailable or the approved scene needs an original visual. Plan B-roll in the storyboard, acquire it after script approval, and verify that it appears in the final edit. A caption card, diagram, style-preview poster, prompt, or unused asset cannot qualify. See [the B-roll acceptance contract](references/production-contract.md#minimum-b-roll-per-video).
 
 Read [the illustrated style catalog](references/style-catalog.md) on invocation. Its [registry](references/style-catalog.json) contains 15 numbered styles and local example images: five derived from the user's references and ten original additions. Read [the reference analysis](references/visual-direction.md) for the original five videos and shared pacing/layout rules; do not download them again for every project. Read [the production contract](references/production-contract.md) when creating prompts, timing, or resumable state.
 
-Use [watch](../watch/SKILL.md) for reference/output inspection and [Google AI Studio TTS](references/google-ai-studio-tts.md) for narration. Read [editor selection and handoffs](references/editing-options.md) before planning the edit. Load the installed Higgsfield, HyperFrames, or Remotion guidance only for the engines the user selects. `edit-video` is optional source-preparation guidance; it must not choose the editor or override the online-only narration rule.
+Use [watch](../watch/SKILL.md) for source/reference/output inspection and [Google AI Studio TTS](references/google-ai-studio-tts.md) only for requested new narration. Read [editor selection and handoffs](references/editing-options.md) before planning the edit. Load guidance only for selected engines. `edit-video` is optional preparation guidance; it cannot choose the editor, replace original speech, or override the online-only synthesis rule.
 
 Read [script approval and scene-asset prompting](references/script-and-assets.md) and [internet-first B-roll sourcing](references/internet-broll.md) before selecting or generating scene assets. The skill controls research, script, storyboard, and asset selection; Google AI Studio TTS reads the approved narration; the selected editor pipeline creates the finished Reel. Use online stock/source footage or photos first, respecting the actual scene and usage rights. Invoke the available `imagegen` skill and built-in `image_gen` tool only for a justified image fallback. Flow and Gemini image/video generation are not part of the default production path. Keep speech requests and visual asset work separate.
 
@@ -31,13 +33,15 @@ If the selected route uses Herk Edit Kit resources, use `HERK_EDIT_KIT_ROOT` whe
 
 ## 1. Get the theme
 
+First distinguish **production source** from **style reference**. An attachment/local path explicitly supplied for editing selects `workflow_mode: source_video_edit`; a video supplied only as inspiration does not. Read [source-video-edit.md](references/source-video-edit.md), inspect the provided source, and infer its subject from actual footage/transcript without requiring a separate theme. If the role of a supplied video is genuinely ambiguous, ask whether it is the video to edit or only a reference while inspecting metadata. Never select an unrelated workspace video or replace the original with a generated Reel. The remaining theme-intake defaults apply to `workflow_mode: theme_to_reel`.
+
 Always present visual examples as described in the style catalog, using Markdown image embeds with absolute local paths. A plain filename or link alone is not an inline image.
 
 If no theme is supplied, show the three catalog boards (01-05, 06-10, 11-15) and the interactive gallery link, then ask: “Tema Reels apa yang ingin dibuat? Nomor gaya boleh disebutkan juga.” The theme is required; selecting a style is optional. Do not start research/generation before the theme is known.
 
 If the theme and a style are supplied, resolve its number/name/ID, display that example PNG, and proceed to script drafting. If only a theme is supplied, show up to three relevant example images, state the automatic choice, and draft without requiring another style selection. A request to browse styles should show the gallery rather than begin production.
 
-When a theme is provided, begin research/planning. Record the actual subject, main message, required subjects/actions, and things to avoid in the theme contract. Infer mood, canvas, palette, and visual route from the selected style; the style must not change the topic. Default to Indonesian, 1080 x 1920, 30 fps, approximately 30-40 seconds, one takeaway, and an original script. User-specified details override defaults. Record the resolved style ID/number and preview path in production.json.
+When a theme is provided, begin research/planning. Record the actual subject, main message, required subjects/actions, and things to avoid in the theme contract. Infer mood, canvas, palette, and visual route from the selected style; the style must not change the topic. Theme-only defaults: Indonesian, 1080 x 1920, 30 fps, approximately 30-40 seconds, one takeaway, and an original script. In source mode, preserve the source language, duration/content, and framing unless the user requests a format/length change; propose any crop or trim in the edit plan. User-specified details override defaults. Record the resolved style ID/number and preview path in production.json.
 
 Before approval, research, show existing style previews, write the full spoken script, and propose the storyboard/B-roll and SFX plan. Existing local assets may be inspected and public candidate/license pages researched; wait until approval to download new production B-roll/SFX, generate images or TTS audio, or create animatics/video renders. Present the concrete script for approval and wait. After approval of that version, proceed with production without repeating the same approval request.
 
@@ -70,6 +74,8 @@ Style samples use a demonstration theme, "Dari ide ke aksi". Transfer only palet
 
 ## 3. Prepare the project and numbered drafts
 
+For source editing, also preserve originals under `00_source/` (or reference the exact user path without moving/overwriting it), record hashes and actual media properties, save source/output transcripts separately, and use `04_edit_review.md` as the approval artifact in `files.script`. Follow [source-video-edit.md](references/source-video-edit.md) for its contents and source-to-output EDL. Do not write a new spoken script or create a TTS request unless new narration was explicitly requested.
+
 Create a dedicated project folder `reels-projects/<theme-slug>/` in the user's workspace. Reuse it when continuing the same Reel. Preserve sources/intermediates. Copy [the manifest template](assets/production.template.json) to `production.json`; save decisions and observed state after each stage or external generation. Use ordered names so clips and prompts stay aligned:
 
 ```text
@@ -95,7 +101,7 @@ reels-projects/<theme-slug>/
   11_final/
 ```
 
-Write a hook, explanation/mechanism, concrete example/payoff, and concise closing. Start with a recognizable problem, curiosity, or specific promise; remove generic introductions. Usually plan 4-7 main beats, each with one core message, exact narration segment, and a visual action that explains it. Use a CTA when it serves the Reel. Do not invent a discount, URL, or pinned comment.
+For theme-to-Reel mode, write a hook, explanation/mechanism, concrete example/payoff, and concise closing. Usually plan 4-7 main beats, each with one core message, exact narration segment, and a visual action that explains it. Use a CTA when it serves the Reel; do not invent a discount, URL, or pinned comment. Source mode instead maps the existing recording to approved edit beats without rewriting its speech or forcing this structure.
 
 Mark at least one shot `role: broll`, with its exact approved narration segment, subject/action/setting, asset route, and planned treatment. Give it enough screen time to explain the line (roughly 2-5 seconds is a useful starting point, not a fixed limit). For an image-based B-roll scene, specify the purposeful pan/zoom or parallax treatment. Include that scene visibly in the storyboard presented for approval.
 
@@ -113,11 +119,15 @@ Retain rejected takes with their status. Record accepted files, submission attem
 
 ## 4. Present the script and wait for approval
 
+In source mode, present the real transcript and concrete timed edit plan from `source-video-edit.md` instead of inventing a replacement script. Reuse the existing approval checker/fields with `files.script: 04_edit_review.md`; hash that full review artifact, including source identities, cuts, and additions. Ask approval for that edit plan and editor choice, with original audio preserved. Then skip TTS when `narration.mode: source_audio` or `none`. Do not ask approval for an unseen or fabricated transcript.
+
 Show the full narration, numbered scenes with estimated duration, each scene's visual/B-roll idea and intended SFX moments, selected style, editor choice (or pending options), combined-stage responsibilities when applicable, and any factual caveat. The user must be able to review the actual proposed content in chat; a file path alone is insufficient. Save the script/storyboard version and current script SHA-256, set `stage: awaiting_script_approval` and `script_approval.status: pending`, then ask: "Apakah naskah dan rencana adegan ini sudah sesuai? Jika setuju, saya lanjut membuat voice-over Google AI Studio TTS, gambar/B-roll, menyiapkan SFX, dan videonya menggunakan editor pilihan Anda."
 
 Wait for a direct user response. "Setuju", "naskahnya sudah sesuai, lanjut", or equivalent approval after the draft is shown applies to that displayed version. A style selection, silence, initial theme request, or generated model text does not. Revisions remain in the writing phase until the revised script is approved. On approval, record its version/hash and the user's approval text before starting step 5. On resume, reuse valid prior approval for the unchanged script; missing/stale approval blocks production.
 
 ## 5. Generate narration with Google AI Studio TTS after approval
+
+**Conditional step:** `narration.mode: tts` only. For `source_audio`, select the user's original recording and its approved EDL, set `provider: source_media` and `execution: imported`, and measure the resulting timeline. For a source without speech, use `mode: none` and captions/information only where grounded or approved. Neither route requires a Google API key, cloud quota, or a replacement voice. Run the approval checker before production in either mode.
 
 Check the current script matches the approved version/hash before any generation. This gate also applies to existing jobs and resumed projects; do not submit new work against a changed, unapproved script.
 
@@ -157,7 +167,7 @@ Choose exact cues after the final narration and visual beats are known. If no su
 
 ## 7. Assemble footage and narration
 
-Follow [editing-options.md](references/editing-options.md) for the recorded engine(s). Preserve originals, probe accepted assets, and assemble with the approved online narration as a separate controlled audio track. Use FFmpeg or the selected editor's supported media preparation. Load `edit-video` only when its source-footage preparation is useful, applying its preservation/sync guidance without invoking voice generation or overriding the user's editor. Do not run talking-head silence/mistake processing when no such source speech exists.
+Follow [editing-options.md](references/editing-options.md) for the recorded engine(s). Preserve originals, probe accepted assets, and assemble with the selected original source audio or approved online narration as a separate controlled track. In source mode, [source-video-edit.md](references/source-video-edit.md) governs source identity, transcript/EDL mapping, and coordinated layers. Use FFmpeg or the selected editor's supported preparation. Load `edit-video` when its source-footage guidance is useful; apply cuts only when they are in the approved plan. It cannot override the editor choice or generate speech. Do not run talking-head processing when no such speech exists.
 
 Read the project's existing `DESIGN.md` before composing; use the same identity established for the shot plan and generated assets.
 
@@ -167,7 +177,7 @@ Bind every B-roll shot to an actual editor clip/sequence with measured timing, s
 
 Use only the selected routes in [editing-options.md](references/editing-options.md): Higgsfield Video Editor/Katana through its resolved `/use-video-editor` handoff; HyperFrames through its installed composition/CLI skills; Remotion through its installed guidance or the supported runtime and official docs. In a combined route, run the planned stages in order and render the master with the recorded final assembler. Do not run all editors just because they are available.
 
-For HyperFrames stages, read the installed `hyperframes`/`hyperframes-cli` skills plus captions, typography, motion, and transitions references; follow `hyperframes-broll.md`. Use `editing.project_paths.hyperframes` (new default `10_editing/hyperframes/`), respecting an existing `10_hyperframes/` project on resume. Keep video muted with `playsinline` and the approved narration/mixed master as separate audio. Skip all TTS commands, local voice references, and auto-voice setup in editor/kit guides.
+For HyperFrames stages, read the installed `hyperframes`/`hyperframes-cli` skills plus captions, typography, motion, and transitions references; follow `hyperframes-broll.md`. Use `editing.project_paths.hyperframes` (new default `10_editing/hyperframes/`), respecting an existing `10_hyperframes/` project on resume. Keep video muted with `playsinline` and the selected original audio/online narration/mixed master as separate audio, with matching source trims. Skip all TTS commands, local voice references, and auto-voice setup in editor/kit guides.
 
 Create a lightweight animatic in the chosen pipeline with measured narration and planned graphics, inspect it internally, and continue to finishing. Add meaningful motion, accepted B-roll, transitions, and actual-audio captions using the selected engines' supported features. Prefer short phrase groups, one visible group, and selective keyword emphasis. Keep hero text/captions from competing. Use the profile's portrait safe-area guidance. Preserve one narration clock across engines; choose one owner for final captions and one owner for the final audio mix.
 
@@ -177,12 +187,12 @@ Run applicable checks for the actual engine: HyperFrames preflight/lint/validate
 
 Use `$watch` on the encoded draft for visual/narrative review; inspect frames yourself when no vision-provider description is available. Save timestamped issues, fix the responsible layer, and re-render that stage. Two focused review passes are a useful default; unresolved failures remain explicit rather than being labelled finished.
 
-Acceptance requires a clear opening within roughly two seconds, delivery of the promised takeaway, visuals that explain speech, accurate readable labels/claims, consistent identity, synced captions without collisions, an intact closing, and no unintended blank frames, clipped audio/words, damaged media, or duplicate voice tracks. Review every SFX cue for scene relevance, event sync, intelligible narration, clicks, abrupt tails, and duplicate playback. Check encoded dimensions/duration/streams and actual A/V sync.
+Acceptance requires delivery of the approved message, explanatory visuals, accurate readable labels/claims, consistent identity, synced captions without collisions, an intact closing, and no unintended blank frames, clipped audio/words, damaged media, or duplicate audio. A clear opening within roughly two seconds is the theme-Reel target; source-mode openings/cuts follow its reviewed plan. Verify source identity, EDL, lip sync and original-audio continuity in source mode. Review SFX relevance/sync, intelligible speech, clicks/tails and duplicate playback. Check encoded dimensions/duration/streams and actual A/V sync.
 
 For each final video, inspect the qualifying B-roll interval in the actual encode and record scene ID, asset ID, composition clip ID, final timecodes, and visual review evidence in `production.json.broll_requirement` and `VERIFY.md`. Review its entry, middle, exit, and both scene boundaries for actual video movement/image treatment, correct crop, caption visibility, and continuous narration. At least one accepted, visible, theme-relevant B-roll scene is required before `stage: completed`; a storyboard flag alone does not satisfy this check.
 
 ## 9. Deliver and report
 
-Export `11_final/<slug>_final.mp4`, default H.264/AAC, 1080 x 1920, 30 fps. Keep the editable composition, voiceover, transcript/captions, storyboard, ordered JSON, SFX cues/source receipts, research/source notes, and downloaded originals in the user's local project. For an external editable handoff, follow each asset's redistribution terms; restricted stock SFX stays out of a distributed source bundle. Write `11_final/VERIFY.md` with commands/results, actual inspected timestamps, SFX/mix review, and limitations. Never claim a check that was unavailable or not performed.
+Export `11_final/<slug>_final.mp4`, default H.264/AAC. Theme mode defaults to 1080 x 1920, 30 fps; source mode uses its approved dimensions/fps/duration. Keep editable projects, original sources/audio, source/output transcripts/captions, EDL, storyboard, ordered JSON, SFX/source receipts and research notes. For an external handoff follow redistribution terms; restricted stock stays out of distributed source bundles. Write `11_final/VERIFY.md` with actual commands/results, inspected timestamps, audio/mix review and limitations. Never claim unavailable/unperformed checks.
 
 Record the final path and `stage: completed` only after acceptance. Deliver exact usable paths. Upload or publish only when separately requested.
