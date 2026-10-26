@@ -6,7 +6,15 @@ Resolve the selected style using [style-catalog.json](style-catalog.json). Store
 
 ## State and recovery
 
-Use stage: `brief`, `research`, `script`, `awaiting_script_approval`, `voice`, `assets`, `assembly`, `review`, `completed`, or `blocked`. Advance after its artifacts are usable and required approval is valid. Waiting for script approval is a normal writing-stage handoff, not a failed/completed production. The manifest records observed work; it is not a background scheduler.
+Use stage: `brief`, `research`, `script`, `awaiting_script_approval`, `awaiting_editor_choice`, `voice`, `assets`, `assembly`, `review`, `completed`, or `blocked`. Advance after its artifacts are usable and required approval is valid. Waiting for script approval/editor choice is a normal planning handoff, not a failed/completed production. The manifest records observed work; it is not a background scheduler.
+
+## Editing selection and state
+
+New projects use manifest schema `1.6`. Follow [editing-options.md](editing-options.md): record the user's actual editor selection in `editing.selection_status`, `selection_message`, `mode`, and `engines`; support Higgsfield, HyperFrames, Remotion, any pair, or all three. Choose exactly one selected `final_assembler` and describe combined-stage jobs in the review package. The template keeps selection pending and `files.composition: null`; fill actual project paths/entry points only after selection. A style's `render_route` describes its visual asset mix, not the editing engine.
+
+Use `editing.project_paths`, `stages`, `handoffs`, and `jobs` for actual editor state. New folders live under `10_editing/<engine>/`; preserve existing project paths. Each handoff records the real export, properties, hash, destination, trim/offset, and caption/audio ownership. No media production starts with pending editor selection, even if script approval has already passed. The script checker only validates the script approval fields; verify editor selection and online narration policy separately.
+
+On older projects, preserve accepted files and script approval. Reuse a documented user editor choice, otherwise ask; a legacy `10_hyperframes/` path is not selection evidence. Never submit new local TTS from an old manifest or companion skill. Changing editor or replacing a noncompliant voice take does not require rewriting an unchanged approved script, but timing/captions/SFX must follow the new selected media.
 
 ## Theme and script approval
 
@@ -37,9 +45,9 @@ Asset states: `planned`, `submitted`, `processing`, `downloaded`, `accepted`, `r
 
 Record the chosen take/version and measured duration. Rebuild shot/caption timing after changing it. Any trimmed/retimed audio needs a matching transcript.
 
-New projects use manifest schema `1.5` with `narration.provider: google_ai_studio_tts`, `interface: auto`, and `billing_mode: free_only`. Resolve `interface` to `api` or `browser` when submitting and record the actual `model_id`, `voice_name`, and non-secret request/result metadata. No local backend health check or speech-model download is needed.
+Narration requires `provider: google_ai_studio_tts`, `execution: online`, `allow_local_generation: false`, `automatic_fallback: none`, `interface: auto`, and `billing_mode: free_only`. Resolve `interface` to `api` or `browser` when submitting and record actual `model_id`, `voice_name`, and non-secret request/result metadata. Do not install/download speech models, probe/start a local voice backend, or run an editor's TTS/auto-voice feature. Local video rendering and audio processing are allowed.
 
-When resuming an older project, preserve its accepted audio, previous request files, and script approval. Update its provider/path metadata when new narration is needed, using `05_tts_request.json`; do not overwrite a legacy VoiceStudio request file or mix settings from different providers. Changing the provider alone does not approve an unseen script or require rewriting an already approved one.
+When resuming an older project, preserve original audio/request files and script approval without executing legacy voice instructions. Only verified Google AI Studio narration may be selected for this workflow. For a local or unknown-provenance take, obtain online narration of the approved wording or record the access/quota blocker; never relabel the old take as online. Save new settings in `05_tts_request.json`, keep previous requests as history, and rebuild timing/captions/SFX. Provider migration neither approves an unseen script nor requires rewriting an already approved one.
 
 ## SFX cues and mixing
 
@@ -57,7 +65,7 @@ On older manifests without `audio_design`, add these fields only when sound desi
 
 ```json
 {
-  "schema_version": "1.3",
+  "schema_version": "1.4",
   "project_id": "theme-slug",
   "theme": "The actual user topic",
   "script_version": 1,
@@ -89,6 +97,7 @@ On older manifests without `audio_design`, add these fields only when sound desi
       "imagegen_prompt": null,
       "reference_images": [],
       "asset_ids": [],
+      "editing_bindings": [],
       "avoid": ["unreadable microtext", "unrelated scenery"],
       "transition_out": {"type": "crossfade", "duration_sec": 0.2}
     }
@@ -100,13 +109,13 @@ These values illustrate fields, not a real script/measurement. Fill actual proje
 
 The example shows one explanatory shot, not a complete production plan. A complete plan must also include at least one qualifying B-roll scene per video as specified below. Use `role: broll` for that scene; for `visual_type: image`, fill `broll_treatment` with its actual planned camera/parallax movement. Other roles can identify explanation, presenter, or title shots without counting them as B-roll.
 
-For each acquired B-roll shot, record a `hyperframes` binding as described in [hyperframes-broll.md](hyperframes-broll.md): actual clip/wrapper IDs, staged source path, source trim, track, visual layer, layout, and framing. Global clip start/duration derive from that shot's measured `start_sec`/`end_sec`; do not maintain a second unrelated timing estimate. The binding must match the final composition HTML. Additive editing metadata does not alter the approved spoken script.
+For each acquired B-roll shot, record `editing_bindings` as described in [editing-options.md](editing-options.md): real engine/stage, clip/sequence ID, asset/path or supported uploaded-media ID, trim, measured timeline interval, layer, framing, and movement. Remotion also records frame intervals. For a HyperFrames stage, retain its detailed `hyperframes` binding from [hyperframes-broll.md](hyperframes-broll.md), using the actual recorded project folder. Placement derives from the shot's measured `start_sec`/`end_sec`; map final offsets explicitly across handoffs. Bindings must match actual editor projects. Editing metadata does not alter the approved spoken script.
 
 Internet selection follows the actual approved subject, action, setting, crop, duration, and people constraints. Use a supported free download from the source's actual asset page and retain rights/source evidence. Save numbered originals under `07_broll_assets/`. A source link without an acquired usable file is not finished B-roll.
 
 For an imagegen fallback, build the per-scene prompt from `script-and-assets.md`: actual theme, approved narration segment, visual purpose, subject/action/setting, style-only tokens, and exclusions. Record why sourcing is insufficient. Do not reuse the catalog sample's demo theme or sample-generation prompt. Log a content/purpose/style review for each acquired/generated asset; mismatched subjects fail even if their visual style looks correct.
 
-Final text, captions, metrics, and diagrams remain editable HyperFrames layers. Generated depictions and generic stock do not prove a factual event or claim. Illustrative numbers must be clearly illustrative or omitted; factual numbers link to research sources.
+Final text, captions, metrics, and diagrams remain editable layers in the selected editor's source project. A combined pipeline retains each stage's editable source even when downstream stages import a rendered clip. Generated depictions and generic stock do not prove a factual event or claim. Illustrative numbers must be clearly illustrative or omitted; factual numbers link to research sources.
 
 New manifests use neutral `files.shot_plan` and `files.broll_assets` paths and `asset_jobs` for optional generation state. On older projects, respect existing manifest paths and preserve accepted assets, approval, and receipts. Read `06_flow_prompts.json`, `07_flow_downloads/`, `flow_jobs`, `gemini_prompt`, `flow_prompt`, or `visual_type: flow` only as legacy data; none authorizes new Flow/Gemini visual submissions. Record the internet-first policy for new acquisitions instead of deleting or blindly resubmitting old work.
 
@@ -126,8 +135,9 @@ If internet sourcing cannot meet a required scene, use an appropriate still or a
 
 - Parse JSON using a real parser, such as `python -m json.tool`.
 - Verify direct script approval and matching current/approved versions and hashes. Theme/style choices alone are insufficient.
+- Verify actual user editor selection, supported selected-engine dependencies/handoffs, and exactly one final assembler. Verify the selected narration has actual online Google AI Studio provenance; old local/unknown speech must not be relabelled or selected. Missing access/quota never authorizes local synthesis.
 - IDs/order numbers are unique. Used asset IDs resolve to usable local files. Internet assets have recorded source/license evidence, and any imagegen fallback has a genuine recorded reason; source links or prompts alone are not produced footage.
-- Each output has at least one planned and acquired qualifying B-roll scene bound to a real local video/image element in its composition. Its track/layer, trim, duration, framing, image movement where applicable, and caption/audio routing follow `hyperframes-broll.md`. After rendering, confirm its actual visible interval and record evidence before marking that output completed.
+- Each output has at least one planned and acquired qualifying B-roll scene bound to a real clip/sequence in the selected editor pipeline. Track/layer, trim, duration, framing, image movement, and caption/audio routing follow `editing-options.md`, plus `hyperframes-broll.md` for HyperFrames stages. After rendering, confirm its final visible interval and record evidence before marking that output completed.
 - All intervals have end > start >= 0 and fit selected narration plus a deliberate short tail. Cover the last spoken word. Model transition overlap explicitly with separate tracks where HyperFrames requires it.
 - Captions use the final timing, one visible group at once, with no stale group after its end.
 - SFX anchors resolve to the current selected narration/animation; used files are accepted and have recorded source/license information. Optional omissions are explicit, required effects are present, and mixed-master/direct-track routing does not duplicate audio.
@@ -139,4 +149,4 @@ If internet sourcing cannot meet a required scene, use an appropriate still or a
 
 When available, loudness tooling can target true peak <= -1 dBTP and approximately -14 to -16 LUFS; these are project mix targets, not asserted platform requirements. Review intelligibility, background ducking, joins, and all SFX event attacks/tails against the final encode. Record audible relevance/sync, mix routing, and any omitted cues. Do not claim listening checks based only on transcripts/metadata.
 
-Deliver the encoded MP4, actual transcript/captions, ordered prompts, editable project, and truthful verification. Installed skills alone do not prove runtime quota, login, local models, browser access, or voice profiles are ready.
+Deliver the encoded MP4, actual transcript/captions, ordered prompts, selected engines' editable projects and handoff notes, and truthful verification. Installed skills alone do not prove runtime, quota, login, browser access, editor tools, or online voices are ready.

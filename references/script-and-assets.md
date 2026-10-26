@@ -11,6 +11,7 @@ Before generation, prepare a concrete review package:
 3. Map the narration to numbered scenes: estimated duration, exact narration text, specific subject/action/setting, visual purpose, image/B-roll/graphic route, selected style, and meaningful SFX moments from [sound-design.md](sound-design.md).
    Reserve at least one scene per output video as `role: broll`, preferring relevant internet footage or a licensed photo with a planned pan/zoom/parallax treatment. State any condition under which an original image fallback is needed. Show that scene in the review package; apply [the B-roll acceptance contract](production-contract.md#minimum-b-roll-per-video) to every selected style.
 4. Show that script and scene plan in chat. Estimate timing honestly; no audio or word alignment exists yet.
+   Include the user's editor selection and, for a combination, each engine's job and final assembler from [editing-options.md](editing-options.md). If unspecified, offer Higgsfield, HyperFrames, Remotion, or a combination; continue writing while waiting, but do not begin production without a recorded choice.
 5. Save the version and script hash, set `awaiting_script_approval`, and ask the user whether this specific naskah and rencana adegan are approved.
 
 Existing catalog previews, existing local asset inspection, and read-only candidate/license research may be used during this phase. Plan SFX by scene/action with unresolved actual times. Do not download new production B-roll/SFX, generate images or voice-over audio, or create animatics/final videos before approval. Choosing a style, sending a topic, or asking to make a video does not approve the unseen writing. A missing response is not approval.
@@ -26,9 +27,9 @@ Any substantive script revision invalidates its approval. Return the revised ver
 | Skill/orchestrating assistant | Research, script, scene plan, approval, prompt construction, theme checks, coordination. |
 | Internet stock/source media | Default B-roll: relevant footage/photos with supported usage rights and recorded source/license evidence. |
 | Built-in imagegen, only when needed | A theme-specific original image for a sourcing gap or genuinely custom approved visual. Record the fallback reason and request one needed scene asset. |
-| Google AI Studio TTS | Read the approved narration verbatim, using separate voice/delivery settings; keep a separate audio track. |
+| Google AI Studio TTS online only | Read the approved narration verbatim, using separate voice/delivery settings; keep a separate audio track. No local voice backend/model or editor auto-voice may replace it. |
 | Mixkit / Pixabay SFX libraries | Supply selected free sound assets for approved scene actions; retain source/license records. |
-| edit-video / HyperFrames / FFmpeg | Assemble accepted assets and narration, place/mix contextual SFX, create editable text/diagrams, captions, motion, and final export. |
+| User-selected Higgsfield / HyperFrames / Remotion pipeline | Assemble accepted assets and existing online narration, place/mix SFX, create editable text/diagrams, captions, motion, and final export. Use one engine, an explicit pair, or all three with defined handoffs. FFmpeg is an optional media helper; edit-video is optional source-preparation guidance. |
 
 Do not use Flow/Gemini image or video generation in the default workflow. Search/download decisions, optional imagegen prompts, and TTS requests are separate; none rewrites the approved script. Do not ask an image tool to create an entire narrated/captioned Reel. Assemble actual acquired assets in the editing environment.
 

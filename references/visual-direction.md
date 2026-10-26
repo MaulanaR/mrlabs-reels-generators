@@ -48,6 +48,6 @@ At 1080 x 1920, start important content within approximately x=80-930 and y=160-
 
 Start with 80-120 px headlines and 52-72 px captions, adapting to word length and real font width. Labels must remain readable in a phone-size preview; remove detail instead of shrinking desktop screenshots. Prefer 2-5 words/group, at most two lines, and selective keyword emphasis. A single emphatic word may work. Hero labels summarize; captions follow speech.
 
-Use one motif and consistent hierarchy. Emphasize with state changes, focus, connector movement, number interpolation, or small position/scale shifts. Entrances and short motivated transitions follow HyperFrames' contract. Avoid empty intros, excessive spins/zoom, flashes between every sentence, and competing kinetic headlines.
+Use one motif and consistent hierarchy. Emphasize with state changes, focus, connector movement, number interpolation, or small position/scale shifts. Entrances and short motivated transitions follow the selected editor's supported timing/animation contract; apply HyperFrames' contract only to HyperFrames stages. Avoid empty intros, excessive spins/zoom, flashes between every sentence, and competing kinetic headlines.
 
 Avoid generic AI footage as filler, static slides with only subtitles, unreadable microtext/code, fake metrics/proof, and generated text baked into video. Do not copy reference logos, watermarks, scripts, presenter likenesses, or distinctive illustrated characters. Recreate the visual grammar with original assets and verify the new result.

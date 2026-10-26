@@ -1,6 +1,6 @@
 ---
 name: mrlabs-reels-generator
-description: Draft a theme-specific Reel script and storyboard for user approval, then produce Google AI Studio TTS narration, internet-sourced B-roll, contextual free SFX, and a finished HyperFrames edit. Require at least one B-roll scene per video; use built-in image generation only when needed. Use for Reels, Shorts, explainers, and short product videos with an illustrated style catalog.
+description: Draft a theme-specific Reel script and storyboard for user approval, then produce online Google AI Studio TTS narration, internet B-roll, free SFX, and an edit using the user's choice of Higgsfield, HyperFrames, Remotion, or a combination. Require at least one B-roll scene per video; use built-in image generation only when needed. Use for Reels, Shorts, explainers, and short product videos with an illustrated style catalog.
 metadata:
   short-description: Approve the script, then produce a themed Reel
 ---
@@ -11,21 +11,23 @@ Turn the user's theme into a researched script and storyboard first. Present the
 
 **Required order: theme -> research -> script/storyboard -> user approval -> narration and scene assets -> edit -> review/export.** Providing a theme, choosing a style, or requesting a Reel does not approve an unseen script. Never self-approve or treat a tool/model response as user approval.
 
+**Online narration only.** Generate new speech exclusively with Google AI Studio TTS. Never install, start, probe, or invoke a local voice backend, local speech model, VoiceStudio, Kokoro, Piper, or a local TTS command. This restriction applies to companion skills, editor presets, resumed projects, and fallback/error recovery. Editors import the approved online narration; their TTS/auto-voice features stay off. Local audio files, FFmpeg conversion/mixing, and local video rendering are allowed; they do not synthesize speech. Missing cloud access/quota is a narration blocker, never permission for local synthesis.
+
 **Every finished video must contain at least one relevant B-roll scene.** This applies independently to every Reel/Short in a batch and across all 15 styles. Find suitable footage on the internet first, using free assets with supported usage rights; an appropriate sourced image animated with purposeful pan/zoom can also qualify. Use built-in image generation only when a matching usable asset is unavailable or the approved scene needs an original visual. Plan B-roll in the storyboard, acquire it after script approval, and verify that it appears in the final edit. A caption card, diagram, style-preview poster, prompt, or unused asset cannot qualify. See [the B-roll acceptance contract](references/production-contract.md#minimum-b-roll-per-video).
 
 Read [the illustrated style catalog](references/style-catalog.md) on invocation. Its [registry](references/style-catalog.json) contains 15 numbered styles and local example images: five derived from the user's references and ten original additions. Read [the reference analysis](references/visual-direction.md) for the original five videos and shared pacing/layout rules; do not download them again for every project. Read [the production contract](references/production-contract.md) when creating prompts, timing, or resumable state.
 
-Use [watch](../watch/SKILL.md) for reference/output inspection, [Google AI Studio TTS](references/google-ai-studio-tts.md) for narration, [edit-video](../edit-video/SKILL.md) for assembly, and [hyperframes](../hyperframes/SKILL.md) for visual production. Read each skill/reference before using its part of the workflow. Narration runs online; no local speech model or VoiceStudio backend is required.
+Use [watch](../watch/SKILL.md) for reference/output inspection and [Google AI Studio TTS](references/google-ai-studio-tts.md) for narration. Read [editor selection and handoffs](references/editing-options.md) before planning the edit. Load the installed Higgsfield, HyperFrames, or Remotion guidance only for the engines the user selects. `edit-video` is optional source-preparation guidance; it must not choose the editor or override the online-only narration rule.
 
-Read [script approval and scene-asset prompting](references/script-and-assets.md) and [internet-first B-roll sourcing](references/internet-broll.md) before selecting or generating scene assets. The skill controls research, script, storyboard, and asset selection; Google AI Studio TTS reads the approved narration; HyperFrames creates the finished Reel. Use online stock/source footage or photos first, respecting the actual scene and usage rights. Invoke the available `imagegen` skill and built-in `image_gen` tool only for a justified image fallback. Flow and Gemini image/video generation are not part of the default production path. Keep speech requests and visual asset work separate.
+Read [script approval and scene-asset prompting](references/script-and-assets.md) and [internet-first B-roll sourcing](references/internet-broll.md) before selecting or generating scene assets. The skill controls research, script, storyboard, and asset selection; Google AI Studio TTS reads the approved narration; the selected editor pipeline creates the finished Reel. Use online stock/source footage or photos first, respecting the actual scene and usage rights. Invoke the available `imagegen` skill and built-in `image_gen` tool only for a justified image fallback. Flow and Gemini image/video generation are not part of the default production path. Keep speech requests and visual asset work separate.
 
 Read [sound design and free SFX](references/sound-design.md) when planning the storyboard and again when placing/mixing audio. Plan cues before approval; acquire production SFX after approval. Use Mixkit first and Pixabay as a fallback, choosing effects by the actual scene action and selected style. Use a lightweight local audio mix rather than installing a generative SFX model.
 
 ## Dependencies and workspace setup
 
-This repository packages the orchestration skill, style previews, templates, and approval checker. It does not bundle the Watch engine, companion editing skills, HyperFrames runtime, or Google AI Studio sessions. Follow [README.md](README.md) for installation. Resolve companion skills by their installed names (`watch`, `edit-video`, `hyperframes`, `hyperframes-cli`) and actual locations; sibling links in this file are the default layout, not a requirement to reinstall an already available plugin skill. Internet asset search/download needs available web/browser tools. The optional image fallback needs an available built-in image-generation tool; do not install a local model or silently switch to an external API when it is unavailable.
+This repository packages the orchestration skill, style previews, templates, and approval checker. It does not bundle the Watch engine, editor runtimes/plugins, or Google AI Studio sessions. Follow [README.md](README.md) for installation. Resolve skills by installed name and actual location, including plugin-qualified `app-6a3293e129088191abf0875820e839da:higgsfield` and `hyperframes:hyperframes`; do not hardcode a user's plugin cache/version. Remotion may use an existing supported runtime and official documentation when no companion skill is installed. Require only the selected engines' dependencies. Internet asset search/download needs available web/browser tools. The optional image fallback needs an available built-in image-generation tool; do not install a local model or silently switch to an external API when it is unavailable.
 
-For Herk Edit Kit resources, use `HERK_EDIT_KIT_ROOT` when configured; otherwise inspect the installed companion skills' setup notes or an existing workspace checkout. Verify the resolved directory contains the expected `AGENTS.md`, `package.json`, and required utility files, then read its guide. Record the resolved location in the local project's notes. Do not assume the author's drive/path exists on another machine. Missing rendering dependencies must be resolved before media production; script/storyboard drafting can still proceed.
+If the selected route uses Herk Edit Kit resources, use `HERK_EDIT_KIT_ROOT` when configured; otherwise inspect the installed companion skills' setup notes or an existing workspace checkout. Verify the resolved directory contains the expected `AGENTS.md`, `package.json`, and required utility files, then read its guide. Record the resolved location in the local project's notes. Missing editor dependencies do not prevent script/storyboard drafting; explain any setup blocker before production. Never run a setup step that installs a local voice model.
 
 ## 1. Get the theme
 
@@ -41,6 +43,12 @@ Before approval, research, show existing style previews, write the full spoken s
 
 User approval of the presented script/storyboard authorizes its planned production within the existing allowance/budget. It does not authorize purchases, publishing, or an unapproved cloud/paid voice provider. Preserve explicit limits. A substantive script change requires a revised script and fresh approval; technical timing/layout repairs within the approved script do not.
 
+### Choose the editing engine
+
+Offer **Higgsfield**, **HyperFrames**, **Remotion**, or **Gabungan** using [editing-options.md](references/editing-options.md). Accept one engine, any explicit pair, or all three. Reuse a choice already stated by the user; a style number or `render_route: motion/hybrid` is not an editor choice. If unspecified, ask once: "Untuk editing, pilih Higgsfield, HyperFrames, Remotion, atau gabungan? Kalau gabungan, sebutkan tools yang ingin dipakai, atau pilih semuanya."
+
+Continue independent research/script drafting while that choice is pending, and include the unresolved choice with the script review. Do not start production until both the actual script is approved and the editor choice is recorded. Do not silently default to HyperFrames. For a combination, propose each engine's job and one final assembler in the review package; ask only about decisions that materially affect the output or cost. Merely updating/browsing this skill does not open an editor.
+
 ## 2. Research and reference images
 
 Research factual themes using current, preferably primary sources. Save claim-to-source links and access dates. For fiction, identify the story as fictional and research only context that needs accuracy. The reference videos' prices, star counts, example commands, promotional claims, and auto-captions are not verified sources for a new Reel.
@@ -51,9 +59,9 @@ For new video references, use `$watch`, inspect every retained frame plus the tr
 
 Choose a route per shot:
 
-- **Motion graphics:** diagrams, comparisons, numbered workflows, UI cards, code, labels, statistics, or explanatory illustrations. Build accurate editable text in HyperFrames.
+- **Motion graphics:** diagrams, comparisons, numbered workflows, UI cards, code, labels, statistics, or explanatory illustrations. Build accurate editable layers in the selected editor pipeline.
 - **Internet B-roll (default):** relevant object/action shots, places, environments, or photos from free online sources with supported usage rights. Prefer suitable real footage; animate stills when that serves the approved scene.
-- **Imagegen fallback:** a scene-specific original image only when sourcing cannot meet the approved scene or original imagery is necessary. Record the reason and animate the accepted image in HyperFrames.
+- **Imagegen fallback:** a scene-specific original image only when sourcing cannot meet the approved scene or original imagery is necessary. Record the reason and animate the accepted image in the selected editor.
 - **Source/presenter:** user-provided footage, authorized screenshots, or supplied brand assets. A presenter is optional for theme-only production.
 
 The common reference pattern is motion-led explanation. Keep that direction while reserving at least one scene for relevant internet B-roll or a justified image fallback. A catalog route named `motion` means motion-led with this B-roll insertion, not an exemption from the minimum. Style selection does not authorize an external video-generation service. Build final captions, UI labels, repository metadata, and factual charts as accurate editable layers.
@@ -79,7 +87,11 @@ reels-projects/<theme-slug>/
   09_edit/
     sfx-cues.json
     sfx/
-  10_hyperframes/
+  10_editing/
+    higgsfield/   (only if selected)
+    hyperframes/  (only if selected)
+    remotion/     (only if selected)
+    handoffs/     (for a combined route)
   11_final/
 ```
 
@@ -101,7 +113,7 @@ Retain rejected takes with their status. Record accepted files, submission attem
 
 ## 4. Present the script and wait for approval
 
-Show the full narration, numbered scenes with estimated duration, each scene's visual/B-roll idea and intended SFX moments, selected style, and any factual caveat. The user must be able to review the actual proposed content in chat; a file path alone is insufficient. Save the script/storyboard version and current script SHA-256, set `stage: awaiting_script_approval` and `script_approval.status: pending`, then ask: "Apakah naskah dan rencana adegan ini sudah sesuai? Jika setuju, saya lanjut membuat voice-over, gambar/B-roll, menyiapkan SFX, dan videonya."
+Show the full narration, numbered scenes with estimated duration, each scene's visual/B-roll idea and intended SFX moments, selected style, editor choice (or pending options), combined-stage responsibilities when applicable, and any factual caveat. The user must be able to review the actual proposed content in chat; a file path alone is insufficient. Save the script/storyboard version and current script SHA-256, set `stage: awaiting_script_approval` and `script_approval.status: pending`, then ask: "Apakah naskah dan rencana adegan ini sudah sesuai? Jika setuju, saya lanjut membuat voice-over Google AI Studio TTS, gambar/B-roll, menyiapkan SFX, dan videonya menggunakan editor pilihan Anda."
 
 Wait for a direct user response. "Setuju", "naskahnya sudah sesuai, lanjut", or equivalent approval after the draft is shown applies to that displayed version. A style selection, silence, initial theme request, or generated model text does not. Revisions remain in the writing phase until the revised script is approved. On approval, record its version/hash and the user's approval text before starting step 5. On resume, reuse valid prior approval for the unchanged script; missing/stale approval blocks production.
 
@@ -111,7 +123,9 @@ Check the current script matches the approved version/hash before any generation
 
 Run `python <skill-directory>/scripts/check-script-approval.py <project-directory>` before producing narration, downloading production B-roll/SFX, generating an image, or rendering (also on resume). A nonzero exit stops production and returns to script review. The checker is read-only: record only real human approval, then run it; it does not grant approval itself.
 
-Read [Google AI Studio TTS](references/google-ai-studio-tts.md). Use the Gemini speech-generation API when an authorized key and confirmed free-tier access are available; otherwise use the user's signed-in Google AI Studio speech interface through available browser control. Select a currently supported TTS model and prebuilt voice, record them, and keep one voice consistent across the Reel. Do not start or install a local speech backend.
+Also check `editing.selection_status: selected`, the user's actual choice, planned engine availability, and the online-only narration policy. The script checker checks script approval only; it does not validate editor selection or narration provenance. An old manifest or companion workflow cannot grant permission for local synthesis.
+
+Read [Google AI Studio TTS](references/google-ai-studio-tts.md). Use the Gemini speech-generation API when an authorized key and confirmed free-tier access are available; otherwise use the user's signed-in Google AI Studio speech interface through available browser control. Select a currently supported TTS model and prebuilt voice, record them, and keep one voice consistent across the Reel. Set `execution: online`, `allow_local_generation: false`, and `automatic_fallback: none`. Never use an editor's voice feature as a replacement.
 
 Save the approved spoken text, separate non-spoken delivery instructions, selected model/voice, interface, script version/hash, and exact submitted settings in `05_tts_request.json`. Ask TTS to read that text verbatim in Indonesian by default. Download/decode the actual result to `08_voiceover/`, probe the audio, and review wording, pronunciation, pace, pauses, and ending. Use the response MIME type and encoding; never assume every result is raw PCM or contains word timestamps.
 
@@ -143,23 +157,23 @@ Choose exact cues after the final narration and visual beats are known. If no su
 
 ## 7. Assemble footage and narration
 
-Read `$edit-video` and use its relevant source-preservation, media-probing, audio/video sync, and render-review guidance for accepted internet/user assets, any needed generated images, and Google AI Studio TTS narration. For motion-led projects, assemble the graphics and required B-roll directly in HyperFrames with the separate voice track. Do not run the talking-head silence/mistake pipeline unless such source speech exists. Preserve originals and write intermediate drafts separately. Use FFmpeg or supported edit tools for media preparation and probe resulting files.
+Follow [editing-options.md](references/editing-options.md) for the recorded engine(s). Preserve originals, probe accepted assets, and assemble with the approved online narration as a separate controlled audio track. Use FFmpeg or the selected editor's supported media preparation. Load `edit-video` only when its source-footage preparation is useful, applying its preservation/sync guidance without invoking voice generation or overriding the user's editor. Do not run talking-head silence/mistake processing when no such source speech exists.
 
 Read the project's existing `DESIGN.md` before composing; use the same identity established for the shot plan and generated assets.
 
-Read [HyperFrames B-roll integration](references/hyperframes-broll.md) before writing or changing composition HTML. Bind every planned B-roll shot to an actual local media element with measured timing, source trim, portrait crop, and an explicit visual layer. Record that binding in the shot plan; downloading a clip alone does not insert it into the edit.
+Bind every B-roll shot to an actual editor clip/sequence with measured timing, source trim, portrait crop, and visual layer. Record editor-specific bindings in the shot plan. If HyperFrames is selected, also read [HyperFrames B-roll integration](references/hyperframes-broll.md). For a combined route, export and probe each accepted handoff before importing it into the next stage. A download, import, or project link alone does not prove the asset appears in the final edit.
 
 ## 8. Add captions, B-roll, effects, and render
 
-Read `$hyperframes`, [hyperframes-cli](../hyperframes-cli/SKILL.md), and the captions, typography, motion, and transitions references. Resolve Herk kit resources against the verified local checkout from the setup section; run composition commands from this project's `10_hyperframes/`. Keep assets local.
+Use only the selected routes in [editing-options.md](references/editing-options.md): Higgsfield Video Editor/Katana through its resolved `/use-video-editor` handoff; HyperFrames through its installed composition/CLI skills; Remotion through its installed guidance or the supported runtime and official docs. In a combined route, run the planned stages in order and render the master with the recorded final assembler. Do not run all editors just because they are available.
 
-Follow `hyperframes-broll.md` for timed video/image elements, non-timed framing wrappers, overlapping tracks, transitions, and caption layering. Keep video muted with `playsinline`; use the approved Google AI Studio voice track or chosen mixed master as separate audio. HyperFrames edits this existing narration; do not replace it through its local TTS/Kokoro workflow.
+For HyperFrames stages, read the installed `hyperframes`/`hyperframes-cli` skills plus captions, typography, motion, and transitions references; follow `hyperframes-broll.md`. Use `editing.project_paths.hyperframes` (new default `10_editing/hyperframes/`), respecting an existing `10_hyperframes/` project on resume. Keep video muted with `playsinline` and the approved narration/mixed master as separate audio. Skip all TTS commands, local voice references, and auto-voice setup in editor/kit guides.
 
-Create a lightweight animatic with measured narration and planned graphics, inspect it internally, and continue to finishing. Use HyperFrames for meaningful motion graphics, accepted B-roll, transitions, and actual-audio captions. Prefer short phrase groups, one visible group, and selective keyword emphasis. Keep hero text/captions from competing. Use the profile's portrait safe-area guidance. Respect HyperFrames' composition/timeline rules.
+Create a lightweight animatic in the chosen pipeline with measured narration and planned graphics, inspect it internally, and continue to finishing. Add meaningful motion, accepted B-roll, transitions, and actual-audio captions using the selected engines' supported features. Prefer short phrase groups, one visible group, and selective keyword emphasis. Keep hero text/captions from competing. Use the profile's portrait safe-area guidance. Preserve one narration clock across engines; choose one owner for final captions and one owner for the final audio mix.
 
-Resolve `09_edit/sfx-cues.json` against the selected narration take and actual animation events, aligning each sound's audible attack with its intended action. Use measured timing, deliberate gain, trims, and short fades. Re-resolve dependent cues after narration or animation changes. Place voice, SFX, and any optional music on separate controlled tracks, prioritizing narration and ducking overlapping background sound when needed. Mix through the supported HyperFrames audio path or FFmpeg and include each sound once; keep a mixed master separate from the original TTS file. Follow `sound-design.md` for cue fields, style choices, and mix review. Remove duplicate generated narration and avoid unrelated filler footage.
+Resolve `09_edit/sfx-cues.json` against the selected narration take and actual animation events, aligning each sound's audible attack with its intended action. Use measured timing, deliberate gain, trims, and short fades. Re-resolve dependent cues after narration or animation changes. Place voice, SFX, and any optional music on separate controlled tracks, prioritizing narration and ducking overlapping background sound when needed. Mix through the selected final editor's supported audio path or FFmpeg and include each sound once; keep a mixed master separate from the original TTS file. Follow `sound-design.md` for cue fields, style choices, and mix review. Remove duplicate audio and avoid unrelated filler footage.
 
-Run applicable kit preflight/sync checks and HyperFrames lint/validate, fixing real warnings. Render and inspect hero frames, every scene boundary, captions, first/last seconds, and audio joins. A successful lint/render is not a visual pass.
+Run applicable checks for the actual engine: HyperFrames preflight/lint/validate/inspect, Remotion's configured project checks and composition preview, or Higgsfield's supported editor/job review. Do not demand HyperFrames checks on a Remotion-only/Higgsfield-only edit. Render and inspect hero frames, every scene boundary, captions, first/last seconds, and audio joins. A successful check/render is not a visual pass.
 
 Use `$watch` on the encoded draft for visual/narrative review; inspect frames yourself when no vision-provider description is available. Save timestamped issues, fix the responsible layer, and re-render that stage. Two focused review passes are a useful default; unresolved failures remain explicit rather than being labelled finished.
 

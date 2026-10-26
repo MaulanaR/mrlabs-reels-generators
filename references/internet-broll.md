@@ -22,7 +22,7 @@ Record in `production.json.assets`:
 
 Save selected originals with numbered names under `07_broll_assets/`, preserving any modifications as separate files. Keep a source/license receipt there, and include required attribution in a project credits note for final handoff. Respect each source's standalone/source-file redistribution limits when sharing an editable project. Do not bundle stock media into the skill repository.
 
-Probe/decode the local file. Inspect the frames or photo for actual subject/action, resolution, portrait crop, duration, unwanted baked-in captions/logos, and people constraints. An asset counts only after it is accepted, placed in HyperFrames, and visibly reviewed in the final encode. Keep narration separate and mute embedded clip speech/music unless the mix deliberately uses it.
+Probe/decode the local file. Inspect the frames or photo for actual subject/action, resolution, portrait crop, duration, unwanted baked-in captions/logos, and people constraints. An asset counts only after it is accepted, placed in the selected editor pipeline, and visibly reviewed in the final encode. Keep the existing online narration separate and mute embedded clip speech/music unless the mix deliberately uses it.
 
 ## Use imagegen only for a real gap
 
@@ -36,6 +36,6 @@ The built-in route does not require a separate OpenAI API key, but depends on to
 
 ## Edit and resume
 
-Default source order is existing authorized assets, internet stock/source media, then a justified generated-image fallback. Internet-sourced/generated stills receive meaningful finite pan/zoom/parallax in [HyperFrames](hyperframes-broll.md); source footage uses measured trim and crop. Keep at least one qualifying B-roll scene per video across all 15 styles.
+Default source order is existing authorized assets, internet stock/source media, then a justified generated-image fallback. Internet-sourced/generated stills receive meaningful finite pan/zoom/parallax in the [selected editor pipeline](editing-options.md); source footage uses measured trim and crop. Read [HyperFrames integration](hyperframes-broll.md) only for a selected HyperFrames stage. Keep at least one qualifying B-roll scene per video across all 15 styles.
 
 On resume, use actual paths from the manifest, preserve accepted files and source receipts, and avoid repeated searches/downloads/generation. Older `06_flow_prompts.json`, `07_flow_downloads/`, `flow_jobs`, and `visual_type: flow` can be read as legacy state; they do not authorize new Flow requests. New projects use neutral asset filenames and `asset_jobs` only for actual imagegen work. Do not delete old files or alter the approved narration just to migrate providers.

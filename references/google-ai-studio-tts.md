@@ -1,6 +1,6 @@
 # Google AI Studio TTS narration
 
-Read at the narration stage. This is the default replacement for local VoiceStudio. Generate speech online with Google's Gemini TTS service; use a prebuilt voice and free access. The change of provider does not bypass script approval.
+Read at the narration stage. Generate speech online with Google AI Studio/Gemini TTS; use a prebuilt voice and free access. This is the only speech-generation provider for this workflow. Set `execution: online`, `allow_local_generation: false`, and `automatic_fallback: none`. Never install, probe, start, or use a local voice backend/model, including through a companion editor or an old request file. Provider policy does not bypass script approval.
 
 ## Choose the available interface
 
@@ -15,7 +15,7 @@ Use one supported prebuilt voice, preferring the user's chosen voice. Otherwise 
 
 Save `05_tts_request.json` as a local production record with:
 
-- `provider: google_ai_studio_tts`, actual `interface` (`api` or `browser`), `billing_mode: free_only`, model ID, voice name, and language.
+- `provider: google_ai_studio_tts`, `execution: online`, `allow_local_generation: false`, `automatic_fallback: none`, actual `interface` (`api` or `browser`), `billing_mode: free_only`, model ID, voice name, and language.
 - Script version and approved SHA-256; exact spoken `text`; separate `delivery_direction`.
 - Actual `request_body` for API mode, or submitted browser controls/settings for browser mode. This record is not itself an API schema or a file that AI Studio necessarily imports.
 - Attempt/take number, requested local output path, and observed request/result identifiers when available. No credentials or authorization headers.
@@ -38,4 +38,4 @@ Review actual speech against the approved wording, including numbers, abbreviati
 
 The default is free access only. Do not attach billing, upgrade a plan, use an unverified paid tier, or change providers automatically. If quota is exhausted, record the observed limit/reset information and preserve the project. An explicit temporary retry time may be followed once; persistent/exhausted quota needs a later user-directed retry, not a busy retry loop.
 
-After a timeout, inspect existing results before resubmitting. For transient failures or a defective take, allow at most two additional attempts for the affected request within confirmed free access. Preserve accepted audio and approval on resume. Missing login/key or access is a blocker for narration, not permission to generate an unrelated voice or start a local backend.
+After a timeout, inspect existing results before resubmitting. For transient failures or a defective take, allow at most two additional attempts for the affected request within confirmed free access. Preserve accepted online audio and approval on resume. Missing login/key, access, or quota is a narration blocker. Do not execute local TTS or an editor's automatic voice generation as recovery. Keep legacy local/unknown-provenance narration as an untouched original; new/resumed production selects a Google AI Studio take of the approved wording and rebuilds its timing. Local decoding, conversion, joining and mixing of downloaded audio are allowed and must not synthesize speech.

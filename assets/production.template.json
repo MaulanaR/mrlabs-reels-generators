@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.5",
+  "schema_version": "1.6",
   "project_id": "",
   "theme": "",
   "theme_contract": {
@@ -22,6 +22,18 @@
   "style_number": null,
   "style_preview_path": null,
   "render_route": "auto",
+  "editing": {
+    "selection_status": "pending",
+    "selection_message": null,
+    "mode": null,
+    "engines": [],
+    "final_assembler": null,
+    "status": "planned",
+    "project_paths": {},
+    "stages": [],
+    "handoffs": [],
+    "jobs": []
+  },
   "asset_generation": {
     "images": "internet_first",
     "broll": "internet_first",
@@ -54,12 +66,16 @@
     "shot_plan": "06_scene_assets.json",
     "broll_assets": "07_broll_assets/",
     "sfx_cues": "09_edit/sfx-cues.json",
-    "composition": "10_hyperframes/index.html",
+    "editing_root": "10_editing/",
+    "composition": null,
     "verification": "11_final/VERIFY.md"
   },
   "narration": {
     "status": "planned",
     "provider": "google_ai_studio_tts",
+    "execution": "online",
+    "allow_local_generation": false,
+    "automatic_fallback": "none",
     "interface": "auto",
     "billing_mode": "free_only",
     "auth_env_var": "GEMINI_API_KEY",

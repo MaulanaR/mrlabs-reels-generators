@@ -1,16 +1,18 @@
 # MRLabs Reels Generator
 
-Skill untuk **Codex** yang membantu membuat Reels dan YouTube Shorts dari sebuah tema: riset, naskah, storyboard, voice-over, B-roll, SFX, caption, lalu editing di HyperFrames.
+Skill untuk **Codex** yang membantu membuat Reels dan YouTube Shorts dari sebuah tema: riset, naskah, storyboard, voice-over online, B-roll, SFX, caption, lalu editing dengan pilihan **Higgsfield, HyperFrames, Remotion, atau gabungan**.
 
 **Naskah dan rencana adegan harus disetujui pengguna sebelum produksi media dimulai. Setiap video wajib memiliki minimal satu adegan B-roll yang relevan.**
+
+**Suara hanya dibuat secara online melalui Google AI Studio TTS.** Skill tidak menjalankan VoiceStudio, Kokoro, model suara lokal, atau fitur pembuat narasi otomatis milik editor. Unduh, konversi, dan mixing audio lokal tetap diperbolehkan; proses tersebut tidak membuat suara baru.
 
 Nama repositori adalah `mrlabs-reels-generators`, sedangkan nama skill dan perintahnya adalah **`mrlabs-reels-generator`**.
 
 ## Mulai dari sini
 
-1. Pasang skill ini dan dependensi editing/Watch di bawah.
+1. Pasang skill ini, Watch, dan dependensi editor yang ingin digunakan di bawah.
 2. Siapkan akses Google AI Studio untuk suara dan tool pencarian/pengunduhan B-roll internet.
-3. Di Codex, kirim tema dan, jika ingin, nomor gaya.
+3. Di Codex, kirim tema, pilihan editor, dan, jika ingin, nomor gaya. Jika editor belum disebutkan, agent akan menawarkan pilihannya sambil menyiapkan naskah.
 4. Tinjau naskah dan storyboard. Berikan persetujuan untuk versi yang sesuai.
 5. Agent melanjutkan produksi, editing, dan pemeriksaan hasil sesuai akses alat yang tersedia.
 
@@ -20,6 +22,7 @@ Tema: bagaimana AI membantu pemilik kedai kopi mengelola stok.
 Audiens: pemilik UMKM.
 Durasi: sekitar 35 detik, Bahasa Indonesia.
 Gaya: 04 Faceless Editorial.
+Editor: HyperFrames.
 Buat naskah dan storyboard dahulu untuk saya setujui.
 ```
 
@@ -29,11 +32,11 @@ Skill ini berisi instruksi, referensi, aset contoh gaya, template, dan pemeriksa
 
 ```text
 Tema
-  -> Riset dan pilihan gaya
+  -> Riset, pilihan gaya, dan pilihan editor
   -> Naskah lengkap, storyboard, rencana B-roll dan SFX
   -> Persetujuan pengguna
   -> Narasi Google AI Studio TTS dan aset adegan
-  -> Editing HyperFrames, caption, SFX, dan transisi
+  -> Editing dengan editor pilihan, caption, SFX, dan transisi
   -> Review hasil encode
   -> Video final dan proyek lokal yang dapat diedit
 ```
@@ -51,7 +54,7 @@ Gunakan $skill-installer untuk memasang skill dari repositori
 https://github.com/MaulanaR/mrlabs-reels-generators
 pada ref master, path root (.), dengan nama lokal mrlabs-reels-generator.
 
-Periksa dependensi watch, edit-video, hyperframes, dan hyperframes-cli.
+Periksa watch dan dependensi editor yang saya pilih.
 Jika belum tersedia, pasang dari sumber upstream yang disebutkan di README.
 ```
 
@@ -79,13 +82,14 @@ Skill tersedia pada giliran berikutnya setelah berhasil dipasang. Jika belum mun
 | Dependensi | Kegunaan | Sumber |
 | --- | --- | --- |
 | `watch` | Membaca referensi dan meninjau video hasil | [Watch Skill](https://github.com/oxbshw/watch-skill), folder `skills/watch` |
-| `edit-video` | Panduan persiapan media, sinkronisasi, dan assembly | [Herk Edit Kit](https://github.com/nateherkai/herk-edit-kit), `.agents/skills/edit-video` |
-| `hyperframes` | Komposisi HTML/GSAP, caption, transisi, dan media | Herk Edit Kit, `.agents/skills/hyperframes` |
-| `hyperframes-cli` | Panduan preview dan render | Herk Edit Kit, `.agents/skills/hyperframes-cli` |
+| `higgsfield` | Jalur pilihan Higgsfield Video Editor/Katana; resolve `/use-video-editor` dahulu | Plugin Higgsfield yang terhubung serta plugin editor yang diminta hasil lookup |
+| `hyperframes` / `hyperframes-cli` | Jalur pilihan komposisi HTML/GSAP, caption, preview dan render | Plugin HyperFrames atau [Herk Edit Kit](https://github.com/nateherkai/herk-edit-kit), `.agents/skills/hyperframes` dan `.agents/skills/hyperframes-cli` |
+| Remotion | Jalur pilihan komposisi React dan render | Runtime/proyek Remotion yang didukung; skill Remotion bila tersedia, atau [dokumentasi resmi](https://www.remotion.dev/docs) |
+| `edit-video` (opsional) | Panduan persiapan footage sumber dan sinkronisasi, tanpa mengganti editor atau suara | Herk Edit Kit, `.agents/skills/edit-video` |
 
-Pasang skill pendamping ke folder skill yang sama bila ingin memakai tautan sibling bawaan. Instalasi melalui plugin juga dapat dipakai: agent perlu menemukan lokasi skill dan referensinya yang sebenarnya. Jika menggunakan keseluruhan pipeline Herk, ikuti panduan upstream untuk skill pendamping tambahan seperti `gsap`, `video-storytelling`, dan `hyperframes-video-beats`.
+Pasang hanya dependensi editor pilihan. Instalasi melalui plugin juga dapat dipakai: agent perlu menemukan lokasi skill dan referensinya yang sebenarnya. `hyperframes:hyperframes` dan skill Higgsfield yang memakai nama plugin dikenali tanpa mengharuskan folder sibling atau path cache tertentu. Panduan persiapan media tidak mengaktifkan pipeline voice lokal.
 
-Contoh pemasangan dependensi inti dengan installer PowerShell di atas, **hanya untuk skill yang belum terpasang**:
+Contoh pemasangan Watch dan skill jalur HyperFrames dengan installer PowerShell di atas, **hanya untuk skill yang belum terpasang dan editor yang dipilih**:
 
 ```powershell
 python $reelsInstaller --repo oxbshw/watch-skill --path skills/watch --name watch
@@ -94,7 +98,7 @@ python $reelsInstaller --repo nateherkai/herk-edit-kit --path .agents/skills/edi
 
 ### Runtime lokal
 
-Siapkan Git, Python 3.11–3.13 untuk jalur Watch yang didokumentasikan upstream, Node.js 22 atau lebih baru untuk Herk/HyperFrames, FFmpeg beserta `ffprobe`, dan browser yang didukung. Instruksi upstream tetap menjadi rujukan jika kebutuhan versi berubah.
+Siapkan Git, Python 3.11–3.13 untuk jalur Watch yang didokumentasikan upstream, FFmpeg beserta `ffprobe`, dan browser yang didukung. Jalur Herk/HyperFrames menggunakan Node.js 22 atau lebih baru; Remotion mengikuti kebutuhan versi proyek yang dipakai. Higgsfield mengikuti prasyarat plugin editor hasil `/use-video-editor`. Pilihan editor tidak mengizinkan instalasi model suara lokal. Instruksi upstream tetap menjadi rujukan jika kebutuhan versi berubah.
 
 **Watch engine:** skill `watch` dan engine CLI adalah dua komponen yang perlu disiapkan. Mengikuti [petunjuk upstream](https://github.com/oxbshw/watch-skill#readme), pemasangan dasar untuk kemampuan frame/retrieval adalah:
 
@@ -105,13 +109,12 @@ watch-skill doctor
 
 Tambahan OCR atau transkripsi lokal dipasang hanya jika dibutuhkan. Untuk PC ringan, gunakan caption/transkrip yang tersedia atau timing segmen narasi; jangan memasang model Whisper besar sebagai prasyarat seluruh workflow.
 
-**Herk Edit Kit:** clone toolkit ke direktori pilihan Anda, kemudian jalankan setup sesuai [README upstream](https://github.com/nateherkai/herk-edit-kit#install):
+**Herk Edit Kit (opsional untuk jalur HyperFrames):** clone toolkit ke direktori pilihan Anda, lalu siapkan hanya kebutuhan editing sesuai [README upstream](https://github.com/nateherkai/herk-edit-kit#install). Lewati seluruh langkah TTS, voice-model download, atau layanan voice lokal:
 
 ```sh
 git clone https://github.com/nateherkai/herk-edit-kit.git
 cd herk-edit-kit
 npm ci
-npm run setup
 ```
 
 Set lokasi toolkit agar agent dapat menemukan utilitas dan referensinya. Jalankan dari direktori `herk-edit-kit` tersebut:
@@ -128,18 +131,18 @@ export HERK_EDIT_KIT_ROOT="$PWD"
 
 Variabel di atas berlaku untuk proses/sesi terminal tersebut. Agar terlihat oleh Codex, luncurkan Codex dari lingkungan itu, atur variabel pengguna secara persisten, atau beri tahu agent lokasi toolkit di chat. Skill juga dapat menemukan checkout melalui catatan instalasi dependensi; tidak ada path drive milik pembuat yang wajib diikuti.
 
-Perintah utilitas toolkit dijalankan dari root toolkit. Perintah komposisi HyperFrames dijalankan dari direktori `10_hyperframes/` milik proyek Reel. Ikuti setup upstream untuk memastikan runtime HyperFrames benar-benar tersedia pada direktori komposisi sebelum render.
+Perintah utilitas toolkit dijalankan dari root toolkit. Perintah komposisi HyperFrames dijalankan dari folder yang tercatat pada `editing.project_paths.hyperframes` (default baru `10_editing/hyperframes/`). Proyek lama `10_hyperframes/` tetap dapat dipakai. Pastikan runtime render tersedia tanpa menjalankan setup suara lokal. Herk/HyperFrames tidak menjadi prasyarat jalur Higgsfield saja atau Remotion saja.
 
 ## Akun, suara, dan aset visual
 
 | Bagian | Jalur yang digunakan |
 | --- | --- |
-| Voice-over | Google AI Studio TTS melalui API atau browser yang sudah login |
+| Voice-over | **Hanya Google AI Studio TTS online**, melalui API atau browser yang sudah login |
 | B-roll utama | Footage internet yang relevan, misalnya dari Pexels/Pixabay, dengan sumber dan izin pakai yang jelas |
 | B-roll dari gambar | Foto internet yang sesuai dan boleh digunakan, diberi pan/zoom/parallax saat editing |
 | Gambar orisinal jika diperlukan | Imagegen bawaan agent, hanya saat pencarian tidak memenuhi adegan atau dibutuhkan visual khusus |
 | SFX | Mixkit sebagai sumber utama; Pixabay sebagai cadangan |
-| Editing | HyperFrames/GSAP dan FFmpeg lokal |
+| Editing | Pilihan pengguna: Higgsfield, HyperFrames, Remotion, kombinasi dua, atau ketiganya |
 
 ### Google AI Studio TTS
 
@@ -149,7 +152,22 @@ Jika key belum tersedia, agent dapat menggunakan [Google AI Studio](https://aist
 
 Narasi membacakan teks yang sudah disetujui. Arahan nada/tempo disimpan terpisah dari teks yang diucapkan. Model dan voice dipilih dari yang benar-benar tersedia saat produksi. Lihat [panduan TTS skill](references/google-ai-studio-tts.md), [dokumentasi Google](https://ai.google.dev/gemini-api/docs/speech-generation), dan [harga/akses gratis](https://ai.google.dev/gemini-api/docs/pricing).
 
-Default suara adalah **free-only**. Agent berhenti ketika akses gratis atau kuota tidak tersedia; tidak mengaktifkan billing atau berpindah penyedia secara otomatis. B-roll mengutamakan aset internet gratis yang sesuai. Imagegen hanya digunakan bila diperlukan dan mengikuti ketersediaan/batas akun agent. Flow/Gemini untuk pembuatan gambar/video tidak lagi menjadi langkah otomatis; Google AI Studio TTS tetap menjadi jalur suara.
+Default suara adalah **free-only**. Agent berhenti ketika akses gratis atau kuota tidak tersedia; tidak mengaktifkan billing, berpindah penyedia, atau memakai suara lokal. Aturan ini juga berlaku saat melanjutkan proyek lama dan ketika skill editor menyarankan TTS bawaan. Narasi lama dengan sumber lokal/tidak diketahui disimpan sebagai arsip; produksi lanjutan memakai take Google AI Studio yang sumbernya dapat dibuktikan, beserta timing baru. B-roll mengutamakan aset internet gratis yang sesuai. Imagegen hanya digunakan bila diperlukan dan mengikuti ketersediaan/batas akun agent. Flow/Gemini untuk pembuatan gambar/video tidak menjadi langkah otomatis.
+
+### Pilih editor video
+
+| Pilihan | Cara dipakai |
+| --- | --- |
+| **Higgsfield** | Gunakan Video Editor/Katana melalui lookup `/use-video-editor` dan plugin editor yang didukung. |
+| **HyperFrames** | Bangun motion graphics, B-roll, caption, transisi, dan assembly dalam komposisi HTML/GSAP. |
+| **Remotion** | Bangun adegan, caption, dan assembly dengan komposisi React sesuai runtime yang tersedia. |
+| **Gabungan** | Pilih pasangan tertentu atau semua tiga tool; tetapkan tugas masing-masing dan satu editor untuk export final. |
+
+Jika editor belum disebutkan, agent menanyakan pilihan tersebut sambil tetap menyusun naskah. Produksi menunggu persetujuan naskah **dan** pilihan editor. Gaya 01–15 tidak otomatis menentukan editor; agent tidak diam-diam kembali ke HyperFrames.
+
+Contoh gabungan ketiganya: **Higgsfield untuk susunan footage → HyperFrames untuk insert grafis → Remotion untuk assembly, caption, dan mixing final**. Pembagian dapat disesuaikan dengan kebutuhan dan kemampuan tool yang tersedia. Antar-editor memakai file media hasil export yang sudah diperiksa, bukan mengasumsikan format proyek bisa saling dibuka. Caption dan narasi final dipasang satu kali agar tidak berulang. Setiap tahap tetap menyimpan source yang dapat diedit.
+
+Memilih Higgsfield untuk editing tidak otomatis memanggil preset pembuat video/voice, memakai kredit, atau membeli layanan. Jika plugin editor, runtime, fitur, atau jalur export belum tersedia, agent menjelaskan kendalanya dan menawarkan pilihan yang didukung sebelum mengganti jalur. Lihat [panduan editor dan handoff](references/editing-options.md).
 
 ### B-roll dari internet dahulu
 
@@ -157,7 +175,7 @@ Agent menggunakan aset milik pengguna yang cocok jika tersedia, lalu mencari [Pe
 
 Setelah persetujuan naskah, hanya aset terpilih yang diunduh ke `07_broll_assets/`. URL halaman asal, pembuat bila tersedia, lisensi, kebutuhan atribusi, dan properti media dicatat. Ikuti [lisensi Pexels](https://www.pexels.com/license/) atau [lisensi Pixabay](https://pixabay.com/service/license-summary/) serta ketentuan aset yang digunakan.
 
-Jika pencarian terarah belum menemukan aset yang cocok, atau adegan membutuhkan ilustrasi orisinal, agent mencatat `fallback_reason` lalu memakai skill `imagegen` dan tool gambar bawaan untuk **satu gambar adegan yang dibutuhkan**. Hasilnya disimpan ke proyek dan digerakkan di HyperFrames. Jalur bawaan ini tidak meminta OpenAI API key terpisah; jika tool tidak tersedia, agent menyimpan progres dan menjelaskan kendalanya, bukan otomatis beralih ke layanan visual eksternal. Lihat [panduan B-roll internet](references/internet-broll.md).
+Jika pencarian terarah belum menemukan aset yang cocok, atau adegan membutuhkan ilustrasi orisinal, agent mencatat `fallback_reason` lalu memakai skill `imagegen` dan tool gambar bawaan untuk **satu gambar adegan yang dibutuhkan**. Hasilnya disimpan ke proyek dan digerakkan di editor pilihan. Jalur bawaan ini tidak meminta OpenAI API key terpisah; jika tool tidak tersedia, agent menyimpan progres dan menjelaskan kendalanya, bukan otomatis beralih ke layanan visual eksternal. Lihat [panduan B-roll internet](references/internet-broll.md).
 
 ### Browser
 
@@ -224,6 +242,18 @@ Buat naskah dan rencana adegan dahulu untuk saya setujui.
 
 Setiap video minimal memuat **satu adegan B-roll yang menjelaskan narasi**. Sumber utamanya adalah internet; imagegen menjadi fallback bila memang dibutuhkan. Diagram/card/caption, prompt yang belum diproduksi, atau klip yang tidak muncul di hasil akhir tidak memenuhi syarat. B-roll dari gambar harus mendapat gerakan yang bermakna saat editing. Jika B-roll wajib belum tersedia, video tidak ditandai selesai.
 
+### Memilih atau menggabungkan editor
+
+```text
+Gunakan $mrlabs-reels-generator.
+Tema: proses menyiapkan kopi di kedai, gaya 04 Faceless Editorial.
+Editor: gabungkan Higgsfield, HyperFrames, dan Remotion.
+Suara: Google AI Studio TTS online saja.
+Usulkan pembagian tugas editor, naskah, dan storyboard untuk saya setujui.
+```
+
+Untuk satu editor, ganti baris editor dengan `Editor: Higgsfield.`, `Editor: HyperFrames.`, atau `Editor: Remotion.` Untuk dua editor, sebutkan pasangannya secara langsung. Ketika melanjutkan proyek dengan pilihan yang sudah tercatat dari pengguna, agent tidak menanyakannya kembali.
+
 ### Menyetujui atau merevisi
 
 Setelah melihat naskah dan storyboard, pengguna dapat membalas:
@@ -261,9 +291,11 @@ reels-projects/<tema>/
   09_edit/
     sfx-cues.json
     sfx/
-  10_hyperframes/
-    index.html
-    assets/
+  10_editing/
+    higgsfield/   # bila dipilih
+    hyperframes/  # bila dipilih
+    remotion/     # bila dipilih
+    handoffs/     # export antar-editor untuk gabungan
   11_final/
     <tema>_final.mp4
     VERIFY.md
@@ -271,7 +303,9 @@ reels-projects/<tema>/
 
 `06_scene_assets.json` merupakan rencana lokal semua adegan: motion graphics, query/kandidat B-roll internet, sumber terpilih, dan prompt imagegen jika fallback memang dibutuhkan. File request TTS tidak berisi kredensial. Pada proyek lama, nama `06_flow_prompts.json`/`07_flow_downloads/` dapat dipertahankan sebagai arsip atau path yang sudah tercatat di manifest; nama lama tersebut tidak mengaktifkan kembali Flow.
 
-Dalam HyperFrames, B-roll diberi klip media nyata, trim sumber, waktu tampil, crop, dan lapisan yang benar. Narasi tetap berjalan; caption diletakkan di atas footage; audio bawaan B-roll dibisukan kecuali ada suara yang sengaja dipilih sebagai cue terpisah. Lihat [panduan integrasi B-roll](references/hyperframes-broll.md).
+Manifest schema `1.6` menyimpan pilihan pada `editing`, termasuk `engines`, `final_assembler`, `project_paths`, tahap, dan handoff. Jalur narasi merekam `execution: online`, `allow_local_generation: false`, dan `automatic_fallback: none`. Field `files.composition` diisi setelah editor dipilih; tidak otomatis menunjuk HyperFrames. Path lama tetap dipertahankan saat melanjutkan proyek.
+
+Dalam editor pilihan, B-roll diberi klip/sequence nyata, trim sumber, waktu tampil, crop, dan lapisan yang benar. Narasi tetap berjalan; caption diletakkan di atas footage; audio bawaan B-roll dibisukan kecuali ada suara yang sengaja dipilih sebagai cue terpisah. Lihat [panduan editor](references/editing-options.md) dan, untuk tahap HyperFrames, [panduan integrasi B-roll](references/hyperframes-broll.md).
 
 SFX direncanakan berdasarkan aksi/tema, mengikuti karakter gaya, dan dicampur dengan prioritas narasi. Rekomendasi awal 4–8 aksen untuk Reel 30–40 detik dapat dikurangi sesuai kebutuhan. Catatan sumber/lisensi disimpan, dan raw stock yang lisensinya melarang redistribusi tidak dimasukkan ke paket source yang dibagikan. Lihat [sound design](references/sound-design.md).
 
@@ -287,15 +321,20 @@ Contoh di atas dijalankan dari direktori skill. Dari direktori lain, gunakan pat
 
 Checker ini **tidak mengautentikasi percakapan dan tidak memberi persetujuan sendiri**. Agent wajib mencatat persetujuan pengguna yang benar-benar diberikan setelah naskah ditampilkan, lalu menyimpan versi/hash yang sesuai. Jangan mengisi approval palsu agar lolos pemeriksaan.
 
+Checker hanya memeriksa persetujuan naskah. Agent juga memeriksa pilihan editor dan sumber narasi online sebelum produksi; lulus checker tidak membolehkan suara lokal atau memilih editor sendiri.
+
 ## Kendala yang sering muncul
 
 | Kondisi | Tindakan |
 | --- | --- |
 | Skill tidak ditemukan | Pastikan nama folder/frontmatter benar dan muat ulang sesi bila perlu. |
 | Skill ada, engine Watch belum ada | Pasang engine beserta extras yang dibutuhkan dan ikuti hasil `watch-skill doctor`. |
-| Path toolkit tidak ditemukan | Beri lokasi checkout Herk yang benar atau set `HERK_EDIT_KIT_ROOT` pada lingkungan Codex. |
+| Path toolkit tidak ditemukan pada jalur Herk/HyperFrames | Beri lokasi checkout Herk yang benar atau set `HERK_EDIT_KIT_ROOT` pada lingkungan Codex. |
 | Tidak ada API key TTS | Gunakan browser AI Studio yang sudah login bila tool tersedia, atau siapkan key secara aman. |
-| Kuota gratis TTS habis | Simpan progres; lanjutkan saat tersedia. Tidak otomatis pindah ke layanan berbayar. |
+| Kuota gratis TTS habis | Simpan progres; lanjutkan saat tersedia. Tidak berpindah ke layanan berbayar atau voice lokal. |
+| Editor belum dipilih | Tawarkan Higgsfield, HyperFrames, Remotion, atau gabungan; susun naskah sambil menunggu pilihan. |
+| Higgsfield editor/plugin belum tersedia | Jelaskan hasil lookup `/use-video-editor` dan kebutuhan setup; jangan mengarang pengganti sandbox/cloud. |
+| Remotion/HyperFrames runtime belum tersedia | Jelaskan kebutuhan jalur pilihan; jangan menjalankan editor lain tanpa pilihan pengguna. |
 | Tidak ada kendali browser/login | Selesaikan akses yang diperlukan; agent menyimpan state terlebih dahulu. |
 | Aset internet tidak sesuai/tidak dapat digunakan | Cari kandidat relevan lain; gunakan imagegen hanya untuk kebutuhan yang belum terpenuhi dan catat alasannya. |
 | Tool imagegen fallback tidak tersedia | Gunakan aset sumber lain yang memenuhi adegan atau simpan kendala; tidak otomatis berpindah ke Flow/Gemini. |
@@ -310,6 +349,7 @@ Repo ini belum menyertakan contoh video yang membuktikan satu produksi cloud len
 - [SKILL.md](SKILL.md): instruksi utama agent.
 - [agents/openai.yaml](agents/openai.yaml): metadata tampilan skill.
 - [references/](references/): approval, TTS, gaya, B-roll, SFX, dan kontrak produksi.
+- [references/editing-options.md](references/editing-options.md): pilihan editor, gabungan, handoff, dan aturan narasi online.
 - [assets/](assets/): 15 preview gaya, galeri, papan referensi, dan template proyek/cue.
 - [scripts/check-script-approval.py](scripts/check-script-approval.py): pemeriksa persetujuan yang hanya membaca state.
 
