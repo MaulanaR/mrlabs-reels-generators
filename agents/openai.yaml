@@ -1,4 +1,4 @@
 interface:
   display_name: "MRLabs Islamic Content"
-  short_description: "Konten Islami berdalil, tanpa wajah dan tanpa musik"
-  default_prompt: "Gunakan $mrlabs-islamic-content untuk menyiapkan naskah konten Islami beserta dalil dan storyboard untuk saya setujui dahulu."
+  short_description: "Animasi Islami HyperFrames tanpa wajah dan musik"
+  default_prompt: "Gunakan $mrlabs-islamic-content untuk menyiapkan naskah, dalil dan storyboard animasi visual HyperFrames untuk saya setujui dahulu."

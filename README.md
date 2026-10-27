@@ -1,6 +1,6 @@
 # MRLabs Islamic Content
 
-Skill Codex untuk membuat konten Islami dari tema dengan dalil yang dapat ditelusuri, voice Google, B-roll internet, SFX tanpa musik, serta motion HyperFrames dengan prioritas 3D.
+Skill Codex untuk membuat konten Islami dari tema dengan dalil yang dapat ditelusuri, voice Google, SFX tanpa musik, serta animasi visual HyperFrames dengan prioritas 3D.
 
 **Nama panggilan:** `$mrlabs-islamic-content`. Skill ini merupakan salinan mandiri dari `mrlabs-reels-generator`; skill induk tetap tersedia. Katalog 15 gaya induk tidak digunakan.
 
@@ -24,14 +24,14 @@ Ganti handle contoh dengan username sebenarnya. Skill meminta tema/username yang
 - Bedakan kutipan, terjemahan, tafsir dan penjelasan. Jangan mengarang dialog nabi, pahala tertentu, atau menyebut musibah sebagai azab tanpa dasar. Ilustrasi perkara gaib bukan dokumentasi bentuk sebenarnya.
 - Narasi Google membacakan penjelasan/makna Bahasa Indonesia; tidak menghasilkan tilawah AI. Arab yang ditampilkan harus teks terverifikasi dengan RTL/harakat yang benar.
 - Tidak ada musik. SFX nonmusik mengikuti kejadian dan menjaga narasi tetap jelas. Audio bawaan footage/template ikut diperiksa.
-- Setiap video lengkap minimal satu B-roll nyata yang sesuai pembahasan. Utamakan internet; imagegen hanya ketika dibutuhkan.
+- Visual dibangun sebagai animasi kontekstual langsung di HyperFrames: objek, lingkungan, diagram, teks editable dan kamera. Tidak ada B-roll, pencarian footage stock, atau kuota klip pendukung. Imagegen hanya opsional untuk tekstur/ilustrasi yang diperlukan adegan yang disetujui.
 - Credit penutup: username sebenarnya dan **Like & share jika bermanfaat.** Tidak ada janji pahala untuk engagement.
 
 ## Alur dan persetujuan
 
 Tema + username -> riset dalil -> naskah dan storyboard -> persetujuan manusia -> narasi/aset -> HyperFrames -> pemeriksaan encode -> export.
 
-Sebelum persetujuan, riset, pencarian kandidat/lisensi, inspeksi aset yang sudah ada dan drafting diperbolehkan. TTS, download B-roll/SFX produksi, imagegen, animatic dan render menunggu persetujuan. Persetujuan berlaku pada versi/hash naskah serta paket dalil/storyboard/desain/kredit yang ditampilkan. Memilih tema bukan menyetujui naskah yang belum dibaca.
+Sebelum persetujuan, riset, pencarian kandidat/lisensi, inspeksi aset yang sudah ada dan drafting diperbolehkan. TTS, pembuatan adegan/download aset dan SFX produksi, imagegen, animatic dan render menunggu persetujuan. Persetujuan berlaku pada versi/hash naskah serta paket dalil/storyboard/desain/kredit yang ditampilkan. Memilih tema bukan menyetujui naskah yang belum dibaca.
 
 Pemeriksa `check-script-approval.py` hasil clone tetap dipakai. `workflow_guard.py` menambahkan pemeriksaan paket persetujuan dan kebijakan skill; keduanya tidak memberikan persetujuan sendiri. Flag pemeriksaan akhir wajib berdasarkan pemeriksaan nyata, bukan diisi agar lolos.
 
@@ -87,7 +87,7 @@ islamic-projects/<tema>/
   05_review_package.json
   05_tts_request.json       # hanya ketika membuat narasi baru
   06_scene_assets.json
-  07_broll_assets/
+  07_scene_assets/
   08_voiceover/
   09_edit/sfx-cues.json
   10_editing/hyperframes/
@@ -95,7 +95,7 @@ islamic-projects/<tema>/
   11_final/VERIFY.md
 ```
 
-Template schema `1.8` mempertahankan field dasar induk dan menambah kebijakan Islami, sumber dalil, kredit, motion 3D, caption, paket review dan status platform. Jalur secret relatif terhadap **folder skill**, bukan folder proyek; path media relatif terhadap proyek.
+Template schema `1.9` berfokus pada animasi HyperFrames, tanpa field minimum B-roll. Field kebijakan Islami, sumber dalil, kredit, motion 3D, caption, paket review dan status platform tetap digunakan. Proyek lama mengikuti catatan migrasi di kontrak produksi; jangan memalsukan atau memakai ulang hash persetujuan setelah rencana visual berubah. Jalur secret relatif terhadap **folder skill**, bukan folder proyek; path media relatif terhadap proyek.
 
 ```sh
 python <folder-skill>/scripts/workflow_guard.py <folder-proyek> --digest

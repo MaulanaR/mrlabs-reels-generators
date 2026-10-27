@@ -21,6 +21,6 @@ The new gallery previews are static procedural HTML/CSS 2.5D layout concepts, no
 
 Establish DESIGN.md before authoring: identity, meaningful spatial depth, camera/material/light and subtitle safe areas. Use strong contrast, a subtle border, about 24px rounded corners at 1080px, at most two caption lines and genuine word/segment timing. Sources, translations and paraphrases stay distinct. Do not shrink full long quotations into unreadable microtype.
 
-Optional Arabic uses verified exact text/harakat and appropriate RTL shaping/font. Prophet names are editable text, not lettering invented inside imagery. Keep captions above B-roll and clear of important action; give time to read. Favor smooth contextual scene/camera changes over decoration.
+Optional Arabic uses verified exact text/harakat and appropriate RTL shaping/font. Prophet names are editable text, not lettering invented inside imagery. Keep captions above the animated scene and clear of important action; give time to read. Favor smooth contextual scene/camera changes over decoration.
 
 End with an uncluttered roughly five-second credit, actual supplied Instagram username and `Like & share jika bermanfaat.` No inherited account, guessed handle, musical outro or engagement-reward promise.

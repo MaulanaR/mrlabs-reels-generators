@@ -72,6 +72,7 @@ def review_digest(root: Path, manifest: dict) -> str:
         "motion": {k: motion.get(k) for k in ("priority", "engine", "threejs", "clock", "smooth")},
         "narration": {k: narration.get(k) for k in ("mode", "provider", "execution", "quran_audio", "allow_local_generation", "automatic_fallback")},
         "duration_policy": manifest.get("platforms", {}).get("duration_policy"),
+        "visual_production": manifest.get("visual_production"),
     }
     raw = json.dumps({"artifacts": records, "context": context}, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
@@ -123,7 +124,11 @@ def _probe(path: Path) -> dict:
 def check(root: Path, final: bool = False) -> dict:
     root = root.resolve()
     m = load(root)
-    _require(m.get("schema_version") == "1.8", "Expected standalone Islamic schema 1.8.")
+    _require(m.get("schema_version") == "1.9", "Expected animation-first Islamic schema 1.9; migrate the reviewed visual plan explicitly.")
+    visual = m.get("visual_production", {})
+    _require(visual.get("mode") == "hyperframes_animation" and visual.get("broll_enabled") is False and
+             visual.get("stock_footage_enabled") is False, "This skill uses authored HyperFrames animation without B-roll/stock cutaways.")
+    _require("broll_requirement" not in m, "Remove the retired B-roll requirement when migrating the visual plan.")
     _require(m.get("workflow_mode") in {"theme_to_reel", "source_video_edit"}, "Unknown workflow mode.")
     policy = m.get("content_policy", {})
     expected = {"no_faces": True, "faceless_figures_allowed": True, "prophets": "abstract_light_and_editable_name_only",
@@ -204,24 +209,6 @@ def check(root: Path, final: bool = False) -> dict:
     duration = float(probe.get("format", {}).get("duration", 0))
     classification = classify_youtube(duration)
     _require(m.get("platforms", {}).get("youtube_classification") == classification, "YouTube classification does not match actual full duration.")
-    broll = m.get("broll_requirement", {})
-    minimum = broll.get("min_scenes_per_video", 1)
-    _require(type(minimum) is int and minimum >= 0, "Invalid B-roll minimum.")
-    if minimum == 0:
-        _require(bool(broll.get("scope_override_message")), "Zero B-roll needs the user's explicit limited-scope request.")
-    else:
-        accepted = set(broll.get("accepted_scene_ids", []))
-        asset_ids = {a.get("id") or a.get("asset_id") for a in m.get("assets", []) if isinstance(a, dict)}
-        visible = set()
-        for e in broll.get("evidence", []):
-            if not isinstance(e, dict) or e.get("scene_id") not in accepted:
-                continue
-            _require(e.get("asset_id") in asset_ids and bool(e.get("clip_id")), "B-roll evidence lacks an actual asset/clip binding.")
-            _require(local_file(root, e.get("video_path")) == video, "B-roll evidence belongs to another output.")
-            start, end = float(e.get("start_sec", -1)), float(e.get("end_sec", -1))
-            _require(0 <= start < end <= duration, "B-roll evidence interval is outside final media.")
-            visible.add(e["scene_id"])
-        _require(broll.get("review_status") == "passed" and len(visible) >= minimum, "Required visible reviewed B-roll remains incomplete.")
     _require(m.get("platforms", {}).get("instagram_status") in {"not_verified", "compatible", "not_compatible"},
              "Record actual Instagram verification status without inventing compatibility.")
     result.update(measured_duration_sec=duration, youtube_classification=classification)

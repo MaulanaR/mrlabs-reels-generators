@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.8",
+  "schema_version": "1.9",
   "project_id": "",
   "workflow_mode": "theme_to_reel",
   "source_video": {
@@ -15,8 +15,7 @@
     "features": [
       "information",
       "subtitles",
-      "motion",
-      "broll"
+      "motion"
     ],
     "analysis_notes": []
   },
@@ -58,23 +57,16 @@
     "jobs": []
   },
   "asset_generation": {
-    "images": "internet_first",
-    "broll": "internet_first",
-    "source_priority": [
-      "user_assets",
-      "pexels",
-      "pixabay",
-      "other_verified_sources"
+    "visuals": "author_in_hyperframes",
+    "optional_scene_resources": [
+      "fonts",
+      "textures",
+      "models",
+      "illustrations"
     ],
-    "image_fallback": "builtin_imagegen_if_needed",
+    "image_fallback": "builtin_imagegen_only_for_needed_scene_resource",
     "external_video_generation": "disabled",
-    "scope": "approved_scene_assets_only"
-  },
-  "broll_requirement": {
-    "min_scenes_per_video": 1,
-    "accepted_scene_ids": [],
-    "review_status": "pending",
-    "evidence": []
+    "scope": "approved_animation_scene_resources_only"
   },
   "brief": {
     "audience": "",
@@ -92,13 +84,13 @@
     "script": "04_voiceover_transcript.md",
     "voice_request": "05_tts_request.json",
     "shot_plan": "06_scene_assets.json",
-    "broll_assets": "07_broll_assets/",
     "sfx_cues": "09_edit/sfx-cues.json",
     "editing_root": "10_editing/",
     "composition": "10_editing/hyperframes/index.html",
     "verification": "11_final/VERIFY.md",
     "review_package": "05_review_package.json",
-    "religious_references": "01_religious_references.json"
+    "religious_references": "01_religious_references.json",
+    "scene_assets": "07_scene_assets/"
   },
   "narration": {
     "status": "planned",
@@ -222,5 +214,10 @@
     "no_music": null,
     "source_and_dalil_checked": null,
     "evidence": []
+  },
+  "visual_production": {
+    "mode": "hyperframes_animation",
+    "broll_enabled": false,
+    "stock_footage_enabled": false
   }
 }

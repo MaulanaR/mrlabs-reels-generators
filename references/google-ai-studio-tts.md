@@ -22,6 +22,6 @@ Inspect actual response MIME/encoding, decode/save returned audio under `08_voic
 
 Use available authorized actual-audio alignment without installing heavy models. Otherwise generate approved verbatim sentence/scene slices with the same voice/direction, measure each and join with recorded pauses; derive real segment intervals and use segment captions. Never distribute word timestamps evenly. Keep frozen approved writing unchanged; non-spoken pronunciation/timing metadata stays separate. Spoken rewrites return to review.
 
-Selected audio controls all scenes/captions/B-roll/SFX and the closing duration. Keep original audio and premix distinct; re-time dependencies after a new take/cut. Metadata/transcripts alone do not prove listening review.
+Selected audio controls all animated scenes/captions/SFX and the closing duration. Keep original audio and premix distinct; re-time dependencies after a new take/cut. Metadata/transcripts alone do not prove listening review.
 
 On timeout inspect existing result before resubmitting. Within confirmed free access allow at most two extra attempts per failed/defective request, preserving accepted audio. Persistent/exhausted quota stops affected production with real state saved. Never fall back to local voice or relabel generated local speech as Google. Original source recording remains valid only if compliant with religious/no-music rules.
