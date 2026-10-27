@@ -1,21 +1,20 @@
 # Islamic visual direction
 
-Six new background profiles replace the parent graphic themes. A profile supplies palette/material/lighting/layout/camera grammar only. Actual scenes follow verified speech and context, never a borrowed demo story. Do not insert sacred text, a mosque/desert or a prophet marker just because a preview suggests it.
+18 diverse environment profiles replace the parent graphic themes; their 54 named variants are starting points, not a closed list. A profile supplies palette/material/lighting/layout/camera grammar only. Actual scenes follow verified speech and context, never a borrowed demo story. Do not insert sacred text, a mosque/desert or a prophet marker just because a preview suggests it.
 
 ## Faces and prophet markers
 
 No human/animal facial features in main art, cameos, reflections, screens, portraits/statues, model textures, transitions, thumbnails or preview assets. Hands, backs and faceless figures are permitted when meaningful; inspect motion/turns and secondary surfaces. Prophets are never such figures: use only abstract nonhuman light with their verified name as centered editable text. No body/silhouette/avatar, impersonated voice, depiction of Allah or claim that light is a physical/divine form.
 
-## Background context
+## Background context and scene variety
 
-- azab-mencekam: charcoal/deep blue, restrained fog/space, sober contrast and slow purposeful light/camera; no invented unseen details or unrelated jump scares.
-- gurun-siang: daylight sand/stone and accurate route/location only when relevant; not all Islamic stories are desert stories.
-- masjid-tenang: calm arches/courtyard and depth; inspect crowds, photos, reflections and decorations. Do not invent a real mosque identity.
-- kota-keseharian: ordinary street/building for daily conduct, with no incidental faces/signs presented as unverified evidence.
-- rumah-hangat: warm window/room/table/door objects, no faces on photographs/screens/patterns.
-- sungai-tafakkur: water/nature suited to the actual subject, no animal faces or false location claims.
+Use `style-catalog.md` and `style-catalog.json` for all 18 profiles, variant names and preview paths. Select the environment for each narration beat, not just once for the entire video. Nature may use forest, mountain, sea, river, garden or a night horizon; daily life may use home, city, market, learning room, workshop or rainy courtyard; architectural context may use a mosque or library. Desert and dark warning environments appear only when they fit the verified discussion.
 
-The new gallery previews are static procedural HTML/CSS 2.5D layout concepts, not actual footage, religious evidence, Three.js renders or final video. Their PNGs/board are rendered from the new gallery; no parent style images are retained.
+In DESIGN.md describe a coherent visual family, then storyboard meaningful changes in environment zone, props, foreground/depth, camera scale/path, time or weather where relevant. If narration remains in the same place, keep continuity and vary composition/action instead of forcing unrelated locations. Avoid identical wallpaper, a color-only reskin or random changes every few seconds. The examples are extensible; create a more appropriate custom setting when needed and name its context clearly.
+
+Record the selected profile/variant, context reason, setting/era, light/weather, objects, camera and transition in storyboard/scene records. Avoid anachronisms or implying invented factual details. A real disaster is not labelled divine punishment because a storm/dark background looks dramatic. Smooth scene transitions preserve caption legibility and the continuous voice.
+
+The gallery previews are static native Three.js WebGL environment renders from `assets/background-worlds.html`. They demonstrate solid geometry, perspective and lighting, not photorealism, religious evidence or a completed HyperFrames video. No parent style images are retained. Match the grounded spatial world analyzed in `reference-analysis.md`: objects and environment dominate, with restrained explanatory overlays. Flat icons/cards and an empty gradient canvas do not meet this target.
 
 ## Text and closing
 

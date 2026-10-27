@@ -37,13 +37,15 @@ Pemeriksa `check-script-approval.py` hasil clone tetap dipakai. `workflow_guard.
 
 ## Latar dan contoh visual baru
 
-Enam profil latar: **Azab Mencekam, Gurun Siang, Masjid Tenang, Kota Keseharian, Rumah Hangat, Sungai Tafakkur**. Agent memilih sesuai isi, bukan memaksakan gurun untuk semua pembahasan. Warna/setting dapat disesuaikan tanpa mengubah aturan wajah/nabi/musik.
+Tersedia **18 latar dengan 54 variasi konteks**: Azab Mencekam, Gurun Siang, Masjid Tenang, Kota Keseharian, Rumah Hangat, Sungai Tafakkur, Hutan Hujan, Pegunungan Fajar, Laut Senja, Kebun Subur, Pasar Amanah, Ruang Belajar, Bengkel Kerja, Halaman Hujan, Malam Berbintang, Jalan Persimpangan, Perpustakaan Ilmu, dan Lembah Badai.
 
-Buka [galeri lokal](assets/style-gallery.html) atau [papan profil](assets/islamic-background-board.png). Preview dibuat dari layout HTML/CSS dengan kedalaman 2.5D, bukan bukti render video/Three.js akhir. Referensi produksi 3D sesungguhnya dibangun sesuai narasi dan runtime yang tersedia.
+Latar dipilih **per adegan sesuai naskah**, bukan satu gambar yang dipakai sepanjang video. Agent memvariasikan area lokasi, objek, pencahayaan dan sudut/pergerakan kamera dengan transisi halus. Jika cerita tetap di satu tempat, variasikan komposisi dan aksi tanpa memaksakan pindah lokasi. Daftar ini dapat diperluas dengan latar khusus yang lebih cocok; tidak semua pembahasan menggunakan gurun/masjid. Waktu, cuaca dan elemen sejarah tetap harus sesuai konteks.
+
+Buka [galeri 18 latar](assets/style-gallery.html) atau papan [01–06](assets/islamic-background-board.png), [07–12](assets/islamic-background-board-02.png), [13–18](assets/islamic-background-board-03.png). Ada satu contoh gambar per profil, sedangkan 54 variasinya berupa arahan konteks untuk produksi. Preview berupa render statis native Three.js WebGL, dengan objek solid, perspektif dan bayangan. Ini belum merupakan video HyperFrames final. Sumber lookdev ada di `assets/background-worlds.html`; runtime Three.js r180 lokal beserta lisensi MIT tersedia dalam `assets/vendor/`. Galeri/PNG dapat dibuka langsung; preview WebGL memerlukan folder skill dilayani melalui HTTP lokal.
 
 ## Editor dan motion
 
-HyperFrames merupakan mesin utama; tidak ada pertanyaan wajib memilih editor induk. Gunakan GSAP untuk gerakan halus berdasarkan waktu komposisi. Prioritaskan objek, ruang, pencahayaan dan kamera 3D ringan. Three.js dipakai bila membutuhkan geometri/kamera nyata; periksa dukungan WebGL dan hasil capture, jangan menyebut layout 2D sebagai 3D.
+HyperFrames merupakan mesin utama; tidak ada pertanyaan wajib memilih editor induk. Gunakan GSAP untuk gerakan halus berdasarkan waktu komposisi. Target utama adalah **dunia 3D berisi objek solid dan lingkungan yang terasa nyata**, seperti [referensi Scroll Engineer](https://www.instagram.com/p/DeOCrrTqbw6/): perspektif, kedalaman, skala, material, cahaya/bayangan, serta gerakan kamera/objek yang menjelaskan narasi. Gayanya 3D sederhana/low-poly, bukan klaim fotorealistik. Diagram, ikon dan teks hanya lapisan pendukung; bukan isi utama di atas latar polos. Three.js membangun adegan, HyperFrames mengatur komposisi, audio, caption dan export. Periksa capture WebGL sebelum render panjang; jika gagal, laporkan hambatan tanpa diam-diam mengganti hasil dengan SVG/slide. [Analisis visual referensi](references/reference-analysis.md).
 
 Subtitle menggunakan panel berkontras baik, border halus, sudut rounded sekitar 24 px pada kanvas 1080 px, maksimal dua baris dan timing audio aktual. Teks Arab, sumber dan subtitle Indonesia punya layer jelas. SFX mengikuti aksi (misalnya angin, air, langkah, pintu, kertas, guruh); suara melodi/musik tidak dipakai.
 

@@ -1,6 +1,6 @@
 # Resources for authored animation
 
-The visual output is built directly in HyperFrames. Default to HTML/CSS/SVG objects, editable diagrams/text, GSAP motion and useful Three.js geometry/materials. No B-roll/stock cutaway sourcing, footage quota, Flow or external video-generation step. Internet access for religious research and nonmusical SFX remains appropriate.
+The visual output is built directly in HyperFrames. Default to a native Three.js world with solid geometry, materials, meaningful light/shadow and GSAP-timed camera/object motion. HTML/CSS/SVG handles captions, labels and secondary diagrams; it does not replace the main scene with line icons. No B-roll/stock cutaway sourcing, footage quota, Flow or external video-generation step. Internet access for religious research and nonmusical SFX remains appropriate.
 
 ## Only acquire a resource when the scene needs it
 

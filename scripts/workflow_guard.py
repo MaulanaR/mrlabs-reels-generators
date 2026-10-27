@@ -129,6 +129,11 @@ def check(root: Path, final: bool = False) -> dict:
     _require(visual.get("mode") == "hyperframes_animation" and visual.get("broll_enabled") is False and
              visual.get("stock_footage_enabled") is False, "This skill uses authored HyperFrames animation without B-roll/stock cutaways.")
     _require("broll_requirement" not in m, "Remove the retired B-roll requirement when migrating the visual plan.")
+    target = visual.get("visual_target", {})
+    _require(target.get("style") == "grounded_stylized_spatial_3d" and
+             target.get("fallback_policy") == "report_blocker_no_silent_flat_substitution" and
+             visual.get("main_scene_method") in {"threejs_3d", "authored_3d_prerender"},
+             "Review the grounded spatial 3D direction; flat diagrams cannot replace the main environment.")
     _require(m.get("workflow_mode") in {"theme_to_reel", "source_video_edit"}, "Unknown workflow mode.")
     policy = m.get("content_policy", {})
     expected = {"no_faces": True, "faceless_figures_allowed": True, "prophets": "abstract_light_and_editable_name_only",
@@ -192,6 +197,12 @@ def check(root: Path, final: bool = False) -> dict:
         _require(m.get(section, {}).get("review_status") == "passed", "A required final component review is incomplete.")
     _require(m.get("quality", {}).get("status") == "passed", "Final quality review is incomplete.")
     _require(m.get("motion", {}).get("webgl_capture_status") in {"passed", "not_used"}, "Report actual WebGL capture status.")
+    if visual.get("main_scene_method") == "threejs_3d":
+        _require(m.get("motion", {}).get("webgl_capture_status") == "passed",
+                 "Main Three.js scenes need actual successful HyperFrames WebGL capture evidence, not only standalone lookdev.")
+    else:
+        _require(bool(m.get("motion", {}).get("prerender_evidence")),
+                 "An authored 3D prerender route needs real source/export/capture evidence.")
     local_file(root, m.get("files", {}).get("verification"))
     video = local_file(root, m.get("final_video_path"))
     probe = _probe(video)

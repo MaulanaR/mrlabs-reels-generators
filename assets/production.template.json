@@ -185,7 +185,7 @@
   "motion": {
     "priority": "3d",
     "engine": "hyperframes",
-    "threejs": "when_true_geometry_or_camera_is_needed",
+    "threejs": "main_scene_geometry_and_camera",
     "clock": "composition_time",
     "smooth": true,
     "review_status": "pending",
@@ -218,6 +218,22 @@
   "visual_production": {
     "mode": "hyperframes_animation",
     "broll_enabled": false,
-    "stock_footage_enabled": false
+    "stock_footage_enabled": false,
+    "background_strategy": {
+      "selection": "contextual_per_scene",
+      "diversity": "vary_settings_zones_props_lighting_and_camera_with_story",
+      "continuity": "shared_visual_family_and_smooth_transitions",
+      "custom_contexts_allowed": true,
+      "single_wallpaper_for_full_video": false
+    },
+    "visual_target": {
+      "style": "grounded_stylized_spatial_3d",
+      "reference_url": "https://www.instagram.com/p/DeOCrrTqbw6/",
+      "main_scene": "solid_objects_in_coherent_3d_environment",
+      "overlays": "supporting_labels_captions_and_diagrams",
+      "fallback_policy": "report_blocker_no_silent_flat_substitution",
+      "lookdev_before_long_render": true
+    },
+    "main_scene_method": "threejs_3d"
   }
 }

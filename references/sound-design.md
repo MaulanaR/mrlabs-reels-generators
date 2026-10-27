@@ -10,7 +10,7 @@ Music is prohibited in every layer: source/stock audio, templates, melodic riser
 - Home/city: relevant door/water/steps/object foley anchored to visible action.
 - River/nature: quiet water/wind matching the actual scene.
 
-No fixed effects quota, sound on every word/cut or background music. Silence is valid. The new skill has six background profiles, not the parent's 15 SFX styles.
+No fixed effects quota, sound on every word/cut or background music. Silence is valid. Choose SFX from actual actions in the 18 contextual environments; do not reuse the parent's 15 SFX styles.
 
 ## Plan and acquire
 

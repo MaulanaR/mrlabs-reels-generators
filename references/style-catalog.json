@@ -1,11 +1,13 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "skill_name": "mrlabs-islamic-content",
   "gallery": "assets/style-gallery.html",
   "boards": [
-    "assets/islamic-background-board.png"
+    "assets/islamic-background-board.png",
+    "assets/islamic-background-board-02.png",
+    "assets/islamic-background-board-03.png"
   ],
-  "preview_kind": "procedural_html_css_2_5d_concept",
+  "preview_kind": "threejs_webgl_spatial_3d_lookdev",
   "profiles": [
     {
       "number": 1,
@@ -31,10 +33,16 @@
       "scene": "dark",
       "motion": "Dolly lambat mendekati objek bermakna; cahaya dan ruang mengarahkan fokus.",
       "preview": "assets/backgrounds/01-azab-mencekam.png",
-      "preview_kind": "procedural_html_css_2_5d_concept",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
       "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
       "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
-      "render_route": "hyperframes_3d_preferred"
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Ruang batu dengan cahaya terarah",
+        "Lorong gelap berkabut",
+        "Ambang ruang dengan bayangan panjang"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=azab-mencekam"
     },
     {
       "number": 2,
@@ -60,10 +68,16 @@
       "scene": "desert",
       "motion": "Pergerakan kamera menyusuri lapisan pasir/batu, tanpa gerak acak.",
       "preview": "assets/backgrounds/02-gurun-siang.png",
-      "preview_kind": "procedural_html_css_2_5d_concept",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
       "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
       "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
-      "render_route": "hyperframes_3d_preferred"
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Bukit pasir siang",
+        "Jalur batu pagi",
+        "Tepi oasis generik sore"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=gurun-siang"
     },
     {
       "number": 3,
@@ -89,10 +103,16 @@
       "scene": "mosque",
       "motion": "Kamera melewati ruang/lengkung dengan fokus stabil dan transisi tenang.",
       "preview": "assets/backgrounds/03-masjid-tenang.png",
-      "preview_kind": "procedural_html_css_2_5d_concept",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
       "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
       "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
-      "render_route": "hyperframes_3d_preferred"
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Halaman masjid pagi",
+        "Lengkung interior siang",
+        "Serambi teduh sore"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=masjid-tenang"
     },
     {
       "number": 4,
@@ -118,10 +138,16 @@
       "scene": "city",
       "motion": "Fokus kamera berpindah antarobjek nyata yang menjelaskan tindakan.",
       "preview": "assets/backgrounds/04-kota-keseharian.png",
-      "preview_kind": "procedural_html_css_2_5d_concept",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
       "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
       "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
-      "render_route": "hyperframes_3d_preferred"
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Trotoar kota pagi",
+        "Koridor gedung siang",
+        "Teras bangunan sore"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=kota-keseharian"
     },
     {
       "number": 5,
@@ -147,10 +173,16 @@
       "scene": "home",
       "motion": "Gerak objek/kamera lembut mengikuti makna, dengan ruang untuk membaca.",
       "preview": "assets/backgrounds/05-rumah-hangat.png",
-      "preview_kind": "procedural_html_css_2_5d_concept",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
       "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
       "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
-      "render_route": "hyperframes_3d_preferred"
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Ruang keluarga pagi",
+        "Sudut meja sore",
+        "Ambang pintu malam"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=rumah-hangat"
     },
     {
       "number": 6,
@@ -176,10 +208,436 @@
       "scene": "river",
       "motion": "Arus dan kamera perlahan menuntun pandangan tanpa putaran dekoratif.",
       "preview": "assets/backgrounds/06-sungai-tafakkur.png",
-      "preview_kind": "procedural_html_css_2_5d_concept",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
       "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
       "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
-      "render_route": "hyperframes_3d_preferred"
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Tepi sungai pagi",
+        "Batu dan aliran siang",
+        "Kelokan sungai sore"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=sungai-tafakkur"
+    },
+    {
+      "number": 7,
+      "id": "hutan-hujan",
+      "name": "Hutan Hujan",
+      "kind": "nature",
+      "visual": "Pepohonan berlapis, tanah basah dan sinar menembus kanopi.",
+      "recommended_for": [
+        "menjaga alam",
+        "kesabaran",
+        "tafakkur"
+      ],
+      "palette": [
+        "#163F37",
+        "#9FB88B",
+        "#DAE8C2"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Tumbuh dengan\nkesabaran",
+      "scene": "forest",
+      "motion": "Tracking perlahan melalui batang/pakis, titik perhatian tetap jelas.",
+      "preview": "assets/backgrounds/07-hutan-hujan.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Kanopi pagi berkabut",
+        "Jalur tanah setelah hujan",
+        "Tepi hutan cahaya sore"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=hutan-hujan"
+    },
+    {
+      "number": 8,
+      "id": "pegunungan-fajar",
+      "name": "Pegunungan Fajar",
+      "kind": "nature",
+      "visual": "Punggung gunung berlapis, lembah berkabut dan cahaya fajar.",
+      "recommended_for": [
+        "harapan",
+        "keteguhan",
+        "syukur"
+      ],
+      "palette": [
+        "#3E5870",
+        "#D4B69C",
+        "#ECDED0"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Harapan di\nawal hari",
+      "scene": "mountain",
+      "motion": "Dolly lembut dari batu depan menuju kedalaman lembah.",
+      "preview": "assets/backgrounds/08-pegunungan-fajar.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Fajar dari tepian batu",
+        "Lembah siang berawan",
+        "Punggung bukit senja"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=pegunungan-fajar"
+    },
+    {
+      "number": 9,
+      "id": "laut-senja",
+      "name": "Laut Senja",
+      "kind": "nature",
+      "visual": "Pantai terbuka, horizon laut dan cahaya senja yang tenang.",
+      "recommended_for": [
+        "syukur",
+        "tafakkur",
+        "perjalanan"
+      ],
+      "palette": [
+        "#355F70",
+        "#D6A581",
+        "#F3D5AF"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Luas untuk\nmerenung",
+      "scene": "sea",
+      "motion": "Gerak mendatar mengikuti garis air; ombak rendah sebagai gerak sekunder.",
+      "preview": "assets/backgrounds/09-laut-senja.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Garis air senja",
+        "Batu pantai pagi",
+        "Horizon laut berawan"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=laut-senja"
+    },
+    {
+      "number": 10,
+      "id": "kebun-subur",
+      "name": "Kebun Subur",
+      "kind": "daily_life",
+      "visual": "Petak tanaman dan jalur kebun dengan tanah serta dedaunan tanpa fauna.",
+      "recommended_for": [
+        "ikhtiar",
+        "rezeki",
+        "merawat amanah"
+      ],
+      "palette": [
+        "#496943",
+        "#D9C48B",
+        "#E7E5BD"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Merawat yang\ndiamanahkan",
+      "scene": "garden",
+      "motion": "Kamera mendekat ke tanaman/alat kebun yang menjelaskan ikhtiar.",
+      "preview": "assets/backgrounds/10-kebun-subur.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Petak bibit pagi",
+        "Jalur kebun siang",
+        "Daun basah setelah hujan"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=kebun-subur"
+    },
+    {
+      "number": 11,
+      "id": "pasar-amanah",
+      "name": "Pasar Amanah",
+      "kind": "daily_life",
+      "visual": "Kios tanpa figur, timbangan dan peti barang generik tanpa merek.",
+      "recommended_for": [
+        "kejujuran",
+        "jual beli",
+        "amanah"
+      ],
+      "palette": [
+        "#8A593B",
+        "#E8C792",
+        "#4D8177"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Jujur dalam\nsetiap ukuran",
+      "scene": "market",
+      "motion": "Pindah fokus dari peti dagangan ke timbangan; objek bergerak sesuai makna.",
+      "preview": "assets/backgrounds/11-pasar-amanah.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Meja timbangan pagi",
+        "Lorong kios siang",
+        "Peti barang menjelang tutup"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=pasar-amanah"
+    },
+    {
+      "number": 12,
+      "id": "ruang-belajar",
+      "name": "Ruang Belajar",
+      "kind": "daily_life",
+      "visual": "Meja belajar, lampu dan buku tanpa teks/ilustrasi wajah yang ditanam.",
+      "recommended_for": [
+        "menuntut ilmu",
+        "disiplin",
+        "adab belajar"
+      ],
+      "palette": [
+        "#425768",
+        "#D6C49C",
+        "#EBE8D7"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Ilmu dan\nketekunan",
+      "scene": "study",
+      "motion": "Dolly ke meja; halaman atau alat tulis menjadi aksi utama.",
+      "preview": "assets/backgrounds/12-ruang-belajar.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Meja dekat jendela pagi",
+        "Lampu belajar malam",
+        "Sudut papan diagram siang"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=ruang-belajar"
+    },
+    {
+      "number": 13,
+      "id": "bengkel-kerja",
+      "name": "Bengkel Kerja",
+      "kind": "daily_life",
+      "visual": "Meja kerja, alat generik dan material kayu/logam tanpa figur.",
+      "recommended_for": [
+        "etos kerja",
+        "ketelitian",
+        "tanggung jawab"
+      ],
+      "palette": [
+        "#465453",
+        "#C29C68",
+        "#D9D4BD"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Bekerja dengan\ntanggung jawab",
+      "scene": "workshop",
+      "motion": "Tracking antaralat dan fokus ke satu interaksi material yang relevan.",
+      "preview": "assets/backgrounds/13-bengkel-kerja.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Meja kayu cahaya pagi",
+        "Rak alat siang",
+        "Detail pekerjaan sore"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=bengkel-kerja"
+    },
+    {
+      "number": 14,
+      "id": "halaman-hujan",
+      "name": "Halaman Hujan",
+      "kind": "daily_life",
+      "visual": "Halaman rumah, kusen pintu dan permukaan basah saat hujan lembut.",
+      "recommended_for": [
+        "doa yang bersumber",
+        "ketenangan",
+        "syukur"
+      ],
+      "palette": [
+        "#486B70",
+        "#B0C2B6",
+        "#E1DCC3"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Jeda untuk\nbersyukur",
+      "scene": "rain",
+      "motion": "Kamera perlahan melewati ambang; hujan terkendali tidak menutupi subtitle.",
+      "preview": "assets/backgrounds/14-halaman-hujan.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Ambang pintu gerimis",
+        "Genangan setelah hujan",
+        "Taman rumah mendung"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=halaman-hujan"
+    },
+    {
+      "number": 15,
+      "id": "malam-berbintang",
+      "name": "Malam Berbintang",
+      "kind": "nature",
+      "visual": "Langit berbintang, horizon bukit dan ruang malam tanpa simbol kesakralan.",
+      "recommended_for": [
+        "tafakkur",
+        "waktu",
+        "muhasabah"
+      ],
+      "palette": [
+        "#17283F",
+        "#758EAF",
+        "#E3D8B2"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Merenung dalam\nhening malam",
+      "scene": "night",
+      "motion": "Tilt lambat dari batu depan ke langit; hindari pusaran atau zoom kosmik dekoratif.",
+      "preview": "assets/backgrounds/15-malam-berbintang.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Langit malam terbuka",
+        "Horizon sebelum fajar",
+        "Bukit malam berawan tipis"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=malam-berbintang"
+    },
+    {
+      "number": 16,
+      "id": "jalan-persimpangan",
+      "name": "Jalan Persimpangan",
+      "kind": "daily_life",
+      "visual": "Jalan bercabang dan objek penunjuk editable sebagai metafora pilihan.",
+      "recommended_for": [
+        "pilihan",
+        "istiqamah",
+        "tanggung jawab"
+      ],
+      "palette": [
+        "#58756A",
+        "#D0BC8F",
+        "#E0E5D2"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Menimbang\nsetiap langkah",
+      "scene": "crossroads",
+      "motion": "Kamera menelusuri jalan dan berhenti pada percabangan saat keputusan dijelaskan.",
+      "preview": "assets/backgrounds/16-jalan-persimpangan.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Persimpangan pagi",
+        "Jalan setapak mendung",
+        "Tepi jalan sore"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=jalan-persimpangan"
+    },
+    {
+      "number": 17,
+      "id": "perpustakaan-ilmu",
+      "name": "Perpustakaan Ilmu",
+      "kind": "architecture",
+      "visual": "Lorong rak, buku polos dan ruang baca generik tanpa klaim lokasi sejarah.",
+      "recommended_for": [
+        "ilmu",
+        "tabayyun",
+        "memeriksa sumber"
+      ],
+      "palette": [
+        "#5C493D",
+        "#B99E75",
+        "#EBDFCA"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Periksa sebelum\nmenyimpulkan",
+      "scene": "library",
+      "motion": "Dolly menyusuri rak menuju buku/sumber berlabel editable yang terverifikasi.",
+      "preview": "assets/backgrounds/17-perpustakaan-ilmu.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Lorong rak cahaya pagi",
+        "Meja baca siang",
+        "Rak dekat lampu malam"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=perpustakaan-ilmu"
+    },
+    {
+      "number": 18,
+      "id": "lembah-badai",
+      "name": "Lembah Badai",
+      "kind": "warning",
+      "visual": "Batu lembah, langit berat dan gerak kabut tanpa rincian gaib rekaan.",
+      "recommended_for": [
+        "peringatan bersumber",
+        "ujian",
+        "kerendahan hati"
+      ],
+      "palette": [
+        "#202D3B",
+        "#6B7B8D",
+        "#C4B6A0"
+      ],
+      "fonts": [
+        "Manrope",
+        "Source Serif 4"
+      ],
+      "title": "Mengambil\npelajaran",
+      "scene": "storm",
+      "motion": "Kamera stabil di antara batu; cahaya awan berubah perlahan tanpa kilatan mengagetkan.",
+      "preview": "assets/backgrounds/18-lembah-badai.png",
+      "preview_kind": "threejs_webgl_spatial_3d_lookdev",
+      "caption": "Panel kontras, border halus, rounded 24px di 1080px; maksimum dua baris.",
+      "avoid": "Semua wajah; tubuh/siluet nabi; musik; klaim tanpa sumber; teks Arab hasil imagegen.",
+      "render_route": "hyperframes_3d_preferred",
+      "variants": [
+        "Lembah awan berat",
+        "Tebing berkabut",
+        "Batu basah seusai badai"
+      ],
+      "lookdev_url": "assets/background-worlds.html?profile=lembah-badai"
     }
   ],
   "policy": {
@@ -188,5 +646,32 @@
     "prophets": "abstract_light_and_editable_name_only",
     "music_allowed": false
   },
-  "generation_method": "New procedural HTML/CSS environment layouts; no parent style assets."
+  "generation_method": "Authored native Three.js r180 geometry, materials, lighting and shadows; standalone static WebGL lookdev captures, not final HyperFrames video.",
+  "selection_policy": {
+    "mode": "contextual_per_scene",
+    "custom_contexts_allowed": true,
+    "variation_axes": [
+      "location_zone",
+      "time_of_day",
+      "lighting",
+      "weather_when_relevant",
+      "props",
+      "shot_scale",
+      "camera_path"
+    ],
+    "continuity": "shared_palette_materials_and_smooth_scene_handoff",
+    "avoid": "same_wallpaper_for_entire_video_or_random_unrelated_location_changes"
+  },
+  "visual_target": {
+    "style": "grounded_stylized_spatial_3d",
+    "reference": "https://www.instagram.com/p/DeOCrrTqbw6/",
+    "main_visual": "coherent_environment_with_solid_objects_and_purposeful_motion",
+    "diagrams": "secondary_overlays_only",
+    "avoid": [
+      "wireframe_primary_scene",
+      "flat_icon_cards_as_main_video",
+      "empty_gradient_wallpaper",
+      "claims_of_photorealism_for_low_poly_art"
+    ]
+  }
 }
