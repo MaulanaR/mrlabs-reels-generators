@@ -1,41 +1,27 @@
-# Google AI Studio TTS narration
+# Google narration, private key and timing
 
-Read only when new synthesized narration is requested (`narration.mode: tts`). A source-video edit preserves original recorded speech by default (`mode: source_audio`) or remains without narration (`none`); skip this reference and all TTS setup in those modes. Generate new speech online with Google AI Studio/Gemini TTS using a prebuilt voice and free access. This is the only speech-generation provider for this workflow. Set `execution: online`, `allow_local_generation: false`, and `automatic_fallback: none`. Never install, probe, start, or use a local voice backend/model, including through a companion editor or an old request file. Provider policy does not bypass script/edit-plan approval.
+Read only for `narration.mode: tts`. New speech is Google AI Studio/Gemini TTS online only, narrating approved Indonesian explanation/meaning verbatim. Optional Arabic display is not AI tilawah. No prophet impersonation/invented dialogue, local TTS/model/backend or editor auto-voice. Permitted original source recording is imported, not synthesized, and skips Google setup.
 
-## Choose the available interface
+## Key resolution
 
-1. Run `scripts/check-script-approval.py` against the project before any speech request. Use only the approved spoken text; preserve the approved file and its hash.
-2. Check current [speech-generation documentation](https://ai.google.dev/gemini-api/docs/speech-generation), [pricing](https://ai.google.dev/gemini-api/docs/pricing), and the account's [active limits](https://ai.google.dev/gemini-api/docs/rate-limits). Model names, voices, schemas, and free availability can change. Resolve a supported TTS model with free access at production time; the template leaves model and voice unset until then.
-3. Prefer the API for automation when an authorized `GEMINI_API_KEY` (or explicitly configured equivalent) is available and the project's free-tier access is confirmed. Check only whether a credential exists; never print it. Read [Google's authentication guidance](https://ai.google.dev/gemini-api/docs/api-key) when setup is required. A key's existence alone does not establish billing tier or usable quota.
-4. Otherwise use the speech-generation interface in the user's signed-in [Google AI Studio](https://aistudio.google.com/) through the available browser tool/skill. Follow the current TTS link from the documentation rather than assuming a fixed deep link. Do not require an API key solely for browser use. Login, unavailable browser control, or lack of free access can require user interaction; save state and explain the exact missing prerequisite.
+The private file is `.secrets/google-tts.env` under the installed skill, not the output project. The package provides only blank `.env.example`; no parent key is copied. The importable `scripts/google_tts_credentials.py` treats that file as data, never shell code. Prefer a nonempty GEMINI_API_KEY or GOOGLE_API_KEY in it, then configured GEMINI_API_KEY/GOOGLE_API_KEY environment in that order. Pass the chosen value explicitly to the client, avoiding SDK environment-precedence surprises.
 
-Use one supported prebuilt voice, preferring the user's chosen voice. Otherwise select an available clear voice suitable for Indonesian narration and record its actual name. Keep it consistent across takes/scenes. Do not create or replicate a custom voice unless requested.
+`python <skill>/scripts/google_tts_credentials.py --status` returns readiness and selected source only, not key, access validity or quota. `resolve_key()` returns secret/source inside the process for direct client use; never print it. Do not dump environment/file contents or log auth headers. No key in prompt, manifest/request JSON, code literal, Git or public archive. Ask the user to fill the local private file/secret input when needed, never paste plaintext in chat. Keep `.secrets/` ignored and excluded from package copies.
 
-## Prepare and submit the approved narration
+## Request and access
 
-Save `05_tts_request.json` as a local production record with:
+First run the workflow guard. Consult current official [speech generation](https://ai.google.dev/gemini-api/docs/speech-generation), [pricing](https://ai.google.dev/gemini-api/docs/pricing), [limits](https://ai.google.dev/gemini-api/docs/rate-limits) and [authentication](https://ai.google.dev/gemini-api/docs/api-key). Select a supported prebuilt model/voice with confirmed free access and preserve consistency. IDs/schemas are not frozen: do not combine Interactions and legacy generateContent formats or assume all audio is PCM.
 
-- `provider: google_ai_studio_tts`, `execution: online`, `allow_local_generation: false`, `automatic_fallback: none`, actual `interface` (`api` or `browser`), `billing_mode: free_only`, model ID, voice name, and language.
-- Script version and approved SHA-256; exact spoken `text`; separate `delivery_direction`.
-- Actual `request_body` for API mode, or submitted browser controls/settings for browser mode. This record is not itself an API schema or a file that AI Studio necessarily imports.
-- Attempt/take number, requested local output path, and observed request/result identifiers when available. No credentials or authorization headers.
+Prefer API with the private key. Missing key/access/quota needs user resolution, not automatic browser/provider substitution, local voice, paid requests or billing upgrade. Browser AI Studio can be used only if the user explicitly chooses that supported interface. Key presence does not establish free usage. Installation/validation does not make a live TTS call.
 
-Use the spoken script without Markdown headings, scene IDs, timecodes, or production notes. Removing non-spoken document formatting is allowed; do not paraphrase the narration. Keep delivery settings separate so they are not read aloud. A useful Indonesian default direction is: "Bacakan persis teks naskah dalam Bahasa Indonesia. Nada jelas, hangat, dan percakapan; tempo mengikuti makna, dengan jeda alami. Jangan menambah pembuka, penutup, atau kata lain." Adapt emotion and pace to the approved theme/style without changing words.
+Save `05_tts_request.json` with exact approved text, actual model/voice/interface, script version/hash, separate non-spoken direction, actual non-secret settings and observed IDs. It is a local production record, not an assumed API import format. Narration is clear calm Indonesian with natural pauses, no added introduction/ending, impersonation or recitation.
 
-For API mode, use the current official request/response example for the selected model. Speech schemas can differ between model generations; do not combine legacy `generateContent` fields with an Interactions request. For browser mode, select single-speaker TTS, put narration in the script field, and delivery guidance in the supported style controls. Submit only after the approval gate passes.
+Inspect actual response MIME/encoding, decode/save returned audio under `08_voiceover/`, preserve numbered takes, probe and listen to wording/omissions/pronunciation/endings. Correctly wrap raw PCM only when actually returned; preserve documented containers directly. Never invent sample rate, extension, alignment or completed result.
 
-Save/decode the actual returned audio to `08_voiceover/`, preserving numbered alternatives and the original download. Inspect MIME/encoding and the documented output structure: a WAV/container can be saved directly, while raw PCM needs a correctly specified container. Do not invent a sample rate, extension, completed job, or download path. Probe the resulting file and record its measured duration, MIME, selected take, and local path in the manifest.
+## Genuine timing and recovery
 
-## Timing on a lightweight PC
+Use available authorized actual-audio alignment without installing heavy models. Otherwise generate approved verbatim sentence/scene slices with the same voice/direction, measure each and join with recorded pauses; derive real segment intervals and use segment captions. Never distribute word timestamps evenly. Keep frozen approved writing unchanged; non-spoken pronunciation/timing metadata stays separate. Spoken rewrites return to review.
 
-TTS output is not evidence of word alignment. Use genuine word/segment alignment if an available tool provides it without installing a heavy local model. Do not send audio to a different cloud provider automatically.
+Selected audio controls all scenes/captions/B-roll/SFX and the closing duration. Keep original audio and premix distinct; re-time dependencies after a new take/cut. Metadata/transcripts alone do not prove listening review.
 
-If no alignment tool is available, generate the approved narration in natural sentence/scene segments using the same voice/direction. Each segment must be a verbatim slice of the approved narration, in order, with no omissions, additions, or duplicated words. Measure each file, join them with deliberate recorded pauses, and derive segment intervals from those actual boundaries. Use segment captions and `timing_precision: segment`; never invent karaoke word timing by dividing duration evenly. When changing from a full take to segmented takes, retain the full take and rebuild timing for the selected version.
-
-Review actual speech against the approved wording, including numbers, abbreviations, pronunciation, pauses, truncation, and the final sentence. Check audio continuity when joining segments. A transcript or duration measurement alone does not prove a listening review. Regenerate only failed takes/segments; a spoken-script rewrite returns to user approval.
-
-## Limits and resume
-
-The default is free access only. Do not attach billing, upgrade a plan, use an unverified paid tier, or change providers automatically. If quota is exhausted, record the observed limit/reset information and preserve the project. An explicit temporary retry time may be followed once; persistent/exhausted quota needs a later user-directed retry, not a busy retry loop.
-
-After a timeout, inspect existing results before resubmitting. For transient failures or a defective take, allow at most two additional attempts within confirmed free access. Preserve accepted online audio and approval on resume. Missing login/key/access/quota blocks requested TTS, not source editing with original speech. Do not run local TTS/editor auto-voice as recovery. Keep locally synthesized/unknown generated takes untouched; select verified online speech when synthesis is needed. Original user-recorded audio remains valid in source mode. Local decoding, conversion, joining and mixing are allowed and must not synthesize speech.
+On timeout inspect existing result before resubmitting. Within confirmed free access allow at most two extra attempts per failed/defective request, preserving accepted audio. Persistent/exhausted quota stops affected production with real state saved. Never fall back to local voice or relabel generated local speech as Google. Original source recording remains valid only if compliant with religious/no-music rules.

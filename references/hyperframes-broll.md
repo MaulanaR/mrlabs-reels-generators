@@ -1,3 +1,5 @@
+> Islamic override: no faces, no prophet bodies and no music in any source/texture/transition. Prophet markers are abstract light plus verified editable centered names. Read motion-3d.md and visual-direction.md. HyperFrames is fixed. Source audio is permitted only if compliant.
+
 # Put B-roll into the HyperFrames edit
 
 Read only when HyperFrames is a selected engine, before authoring composition HTML or inserting/replacing B-roll. This guide connects the approved shot plan to actual HyperFrames media elements. Follow [editor selection/handoffs](editing-options.md), the [minimum B-roll requirement](production-contract.md#minimum-b-roll-per-video), and [sound-design mix routing](sound-design.md#mix-and-review).
@@ -6,7 +8,7 @@ Use the installed [HyperFrames skill](../../hyperframes/SKILL.md) and its media/
 
 ## 1. Bind the approved shot to a real asset
 
-After script approval and narration timing, select an accepted theme-specific clip or image for every B-roll shot. Follow [internet-first sourcing](internet-broll.md): use appropriate internet/user assets, and invoke imagegen only for a justified gap. Preserve actual downloads or accepted generated originals in `07_broll_assets/`. Use the exact `asset_id` from the manifest and stage required files inside the recorded HyperFrames project's `assets/`, for example under `video/`, `images/`, and `audio/`. New default: `10_editing/hyperframes/`; preserve an existing `10_hyperframes/` folder. Use local paths relative to the composition document; do not depend on a remote preview URL, an absolute Windows filesystem string in `src`, or a project-sibling path the composition server cannot serve.
+After script approval and narration timing, select an accepted theme-specific clip or image for every B-roll shot. Follow [internet-first sourcing](internet-broll.md): use appropriate internet/user assets, and invoke imagegen only for a justified gap. Preserve actual downloads or accepted generated originals in `07_broll_assets/`. Use the exact `asset_id` from the manifest and stage required files inside the recorded HyperFrames project's `assets/`, for example under `video/`, `images/`, and `audio/`. Use the actual recorded HyperFrames folder, default `10_editing/hyperframes/`. Use local paths relative to the composition document; do not depend on a remote preview URL, an absolute Windows filesystem string in `src`, or a project-sibling path the composition server cannot serve.
 
 Record a `hyperframes` object on the corresponding `06_scene_assets.json` shot (or the actual legacy plan path recorded in a resumed manifest):
 
@@ -50,7 +52,7 @@ Use a separate caption/overlay layer above the B-roll. Captions remain driven by
 
 Selected original recorded speech or approved online Google AI Studio narration continues through B-roll. Use a separate timed `audio` element or the selected premixed master. For source-video audio, use the same source trim/output placement as the approved main-picture EDL; retime captions/information/motion together after cuts. Original recorded speech is allowed and needs no TTS setup. Never run local TTS, download voice models, or use editor auto-voice; skip those commands/references. B-roll's embedded speech/music stays muted; selected source ambience can enter as a controlled cue. In combined work, record whether exports are picture-only or already contain final audio/captions, preventing downstream duplicates.
 
-For separate audio tracks, preserve individual voice/SFX/music control and give overlapping cues valid tracks. For `mix.routing: premixed`, play the mixed master once and omit its component voice/SFX playback from the composition. A visual transition must not fade or restart the narration accidentally.
+For separate audio tracks, preserve individual voice/SFX control and give overlapping cues valid tracks. Music is prohibited. For `mix.routing: premixed`, play the mixed master once and omit its component voice/SFX playback from the composition. A visual transition must not fade or restart the narration accidentally.
 
 ## 5. Transition, inspect, and record evidence
 

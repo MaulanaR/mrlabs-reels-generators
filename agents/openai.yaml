@@ -1,3 +1,4 @@
 interface:
-  display_name: "MRLabs Reels Generator"
-  short_description: "Create themed Reels or enhance original video"
+  display_name: "MRLabs Islamic Content"
+  short_description: "Konten Islami berdalil, tanpa wajah dan tanpa musik"
+  default_prompt: "Gunakan $mrlabs-islamic-content untuk menyiapkan naskah konten Islami beserta dalil dan storyboard untuk saya setujui dahulu."

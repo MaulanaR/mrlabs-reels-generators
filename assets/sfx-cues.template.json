@@ -1,17 +1,20 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "project_id": "",
   "status": "planned",
   "timing_status": "provisional",
   "mode": "library",
-  "style_profile": "auto",
+  "style_profile": "auto_islamic",
   "script_version": null,
   "script_sha256": null,
   "narration_file": null,
   "narration_sha256": null,
   "narration_duration_sec": null,
   "composition_revision": null,
-  "source_priority": ["mixkit", "pixabay"],
+  "source_priority": [
+    "mixkit",
+    "pixabay"
+  ],
   "billing_mode": "free_only",
   "mix": {
     "voice_priority": true,
@@ -27,5 +30,6 @@
     "status": "pending",
     "inspected_cue_ids": [],
     "issues": []
-  }
+  },
+  "music_allowed": false
 }

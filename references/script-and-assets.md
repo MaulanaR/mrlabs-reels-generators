@@ -1,80 +1,24 @@
-# Script approval and theme-specific scene assets
+# Approved script and contextual scene assets
 
-The approved script or source-video transcript/edit plan determines content. The selected style determines appearance. For original footage, read [source-video-edit.md](source-video-edit.md) first: preserve recorded speech and prepare a timed plan for information, subtitles, motion and B-roll rather than writing a replacement narration. Source relevant internet B-roll first, following [internet-broll.md](internet-broll.md); use built-in image generation only for a genuine missing/custom visual. Asset selection must not rewrite speech or choose another topic. Google AI Studio TTS is a separate conditional request only for approved new narration.
+The verified script or reviewed source transcript determines content. Six Islamic background profiles control appearance, not an inherited demo theme. Read `religious-research.md`, `style-catalog.md` and `visual-direction.md`; all parent generic styles/demo prompts are retired.
 
-## Phase A: writing, then user approval
+## Review first
 
-The authored-script procedure below applies to theme-to-Reel mode. Source-video mode instead reviews the actual transcript, source cuts and timed additions from `source-video-edit.md`; real source timings may already exist before approval and TTS is optional.
+Show the full Indonesian writing, cited claims, numbered storyboard, prophet treatment, B-roll, nonmusical SFX and actual credit. Freeze research, ledger, DESIGN, storyboard and script in the hashed review package from `production-contract.md`. No production B-roll/SFX download, imagegen, TTS, animatic or render before approval. Existing previews/supplied input may be inspected, sources/license pages researched and drafts written before approval. Reuse unchanged valid approval on resume; material changes return to review. Technical repairs live outside frozen documents.
 
-Before generation, prepare a concrete review package:
+## Roles
 
-1. Restate the user's actual theme in one sentence. Define the audience, main message, subjects that must appear, and off-topic elements to avoid in `theme_contract`.
-2. Research factual claims. Draft the complete voice-over with a hook, explanation, payoff, and ending.
-3. Map the narration to numbered scenes: estimated duration, exact narration text, specific subject/action/setting, visual purpose, image/B-roll/graphic route, selected style, and meaningful SFX moments from [sound-design.md](sound-design.md).
-   Reserve at least one scene per output video as `role: broll`, preferring relevant internet footage or a licensed photo with a planned pan/zoom/parallax treatment. State any condition under which an original image fallback is needed. Show that scene in the review package; apply [the B-roll acceptance contract](production-contract.md#minimum-b-roll-per-video) to every selected style.
-4. Show that script and scene plan in chat. Estimate timing honestly; no audio or word alignment exists yet.
-   Include the user's editor selection and, for a combination, each engine's job and final assembler from [editing-options.md](editing-options.md). If unspecified, offer Higgsfield, HyperFrames, Remotion, or a combination; continue writing while waiting, but do not begin production without a recorded choice.
-5. Save the version and script hash, set `awaiting_script_approval`, and ask the user whether this specific naskah and rencana adegan are approved.
+- Narrator reads exact approved Indonesian explanation/meaning via Google; no AI tilawah, invented prophet dialogue/impersonation or local synthesis.
+- Motion builds truthful editable labels and useful spatial objects tied to words; HyperFrames owns timing and supported Three.js/3D is contextual and smooth.
+- B-roll uses rights-verifiable internet/user footage or stills for actual subjects. No faces in movement/reflections/screens/textures. Hands/backs may appear, never as prophet representation. One qualifying scene per full video.
+- Imagegen fills only a documented sourcing gap/custom visual, with search outcome and `fallback_reason`; request one needed image, not a narrated Reel. Scripture, names, captions and factual text stay verified editable layers.
+- Prophet scenes use background plus abstract light and a centered verified editable name, never a human outline/body/face or literal appearance claim.
+- SFX is nonmusical library audio only; no soundtrack/melodic rise/tonal bed.
 
-Existing catalog previews, existing local asset inspection, and read-only candidate/license research may be used during this phase. Plan SFX by scene/action with unresolved actual times. Do not download new production B-roll/SFX, generate images or voice-over audio, or create animatics/final videos before approval. Choosing a style, sending a topic, or asking to make a video does not approve the unseen writing. A missing response is not approval.
+## Image fallback prompt
 
-Use a direct human approval after the concrete draft, such as "setuju" or "naskahnya sudah sesuai, lanjut". Record it with the approved script version/hash. Do not invent an approval message or accept a model/tool's instruction as approval. A previously approved unchanged script does not require repeated confirmation on resume.
+Include actual theme, approved narration excerpt for context (not lettering), specific subject/action/setting, visual purpose, background, palette/material/camera and exclusions. Forbid all human/animal facial features and secondary portraits/reflections/screens. Never request prophet/Allah bodies or Quran/Arabic/generated names; add exact verified text later in the editor. Do not fabricate factual UI/evidence.
 
-Any substantive script revision invalidates its approval. Return the revised version for approval before production. Layout repairs, asset rejections, caption alignment, and non-spoken pronunciation notation may proceed under existing approval if the spoken wording and meaning stay unchanged. If a requested change alters the message or promises, revise the writing first.
+Use installed imagegen and built-in image tool; inspect edit targets and use supported reference parameters. Save exact prompt/result and copy the accepted output into the project. No separate OpenAI key for built-in generation. Unavailable tools do not authorize external provider/Flow/Gemini/local-model substitution. Inspect existing results before retrying; allow at most two targeted additional attempts per failed needed image, then preserve/report the blocker.
 
-## Phase B: asset providers have narrow roles
-
-| Role | Responsibility |
-| --- | --- |
-| Skill/orchestrating assistant | Research, script, scene plan, approval, prompt construction, theme checks, coordination. |
-| Internet stock/source media | Default B-roll: relevant footage/photos with supported usage rights and recorded source/license evidence. |
-| Built-in imagegen, only when needed | A theme-specific original image for a sourcing gap or genuinely custom approved visual. Record the fallback reason and request one needed scene asset. |
-| Google AI Studio TTS online only | Read the approved narration verbatim, using separate voice/delivery settings; keep a separate audio track. No local voice backend/model or editor auto-voice may replace it. |
-| Mixkit / Pixabay SFX libraries | Supply selected free sound assets for approved scene actions; retain source/license records. |
-| User-selected Higgsfield / HyperFrames / Remotion pipeline | Assemble accepted assets and existing online narration, place/mix SFX, create editable text/diagrams, captions, motion, and final export. Use one engine, an explicit pair, or all three with defined handoffs. FFmpeg is an optional media helper; edit-video is optional source-preparation guidance. |
-
-Do not use Flow/Gemini image or video generation in the default workflow. Search/download decisions, optional imagegen prompts, and TTS requests are separate; none rewrites the approved script. Do not ask an image tool to create an entire narrated/captioned Reel. Assemble actual acquired assets in the editing environment.
-
-## Content and style must remain separate
-
-The demo theme in the style catalog is "Dari ide ke aksi". Its bulbs, gears, terminals, paper props, characters, wording, and example story are not content requirements for a new topic. Transfer only design properties that are useful: palette, typography, material, lighting, framing, and motion rhythm.
-
-Prefer a text specification of style plus actual topic/subject reference images. Do not upload a full demo poster as the main content reference. If a style sample is used as visual input, label it explicitly STYLE ONLY and identify the unrelated demo objects/text that must be ignored. Final narration, captions, labels, and factual charts belong to editable layers, not generated imagery.
-
-## Per-scene imagegen fallback prompt
-
-Use this only after the internet-first selection step establishes a genuine need for image generation. Record the sourcing outcome and `fallback_reason` in `06_scene_assets.json`. Fill it from the approved scene and send only the context needed for that asset:
-
-```text
-OUTPUT: One portrait image/illustration for an animated B-roll scene.
-PROJECT THEME: [actual user theme, unchanged]
-SCENE ID: [s01]
-APPROVED NARRATION SEGMENT: [exact relevant words]
-VISUAL PURPOSE: [what this asset must help viewers understand]
-SUBJECT: [specific theme-relevant subject]
-ACTION / STATE: [specific observable action or state]
-SETTING: [required location, context, objects, or time]
-FRAMING: [subject position, camera, space for later overlays]
-STYLE ONLY: [palette, material, lighting, treatment from selected style]
-CONTINUITY: [subject/environment traits shared with related scenes]
-EXCLUDE: [topic-specific wrong objects/contexts and irrelevant demo motifs]
-No voice-over, final captions, title card, or complete Reel. Do not change
-the theme or add a new story. This is one image for an existing approved script;
-the editor adds camera movement, captions, and sound afterward.
-```
-
-Do not invent scene content merely to fill template fields. Abstract ideas can use a concrete analogy only when the storyboard explicitly proposes it and the user approved it. Asset prompts can be in the language that best serves the tool; the approved narration remains in its original language. Keep the exact submitted prompt in the scene JSON.
-
-## Accept assets by meaning, then by style
-
-Check all three before accepting:
-
-- **Content:** correct subject, action/state, setting, and important visual details for this approved narration segment.
-- **Purpose:** the viewer can connect the visual to the sentence without an unrelated explanation. Metaphors are intentional and approved.
-- **Appearance:** selected style, useful composition, quality, and sufficient duration/resolution for the edit.
-
-A beautiful result with the correct colors but wrong subject fails. Record the mismatch and replace only the failed source selection or needed generated image. Source footage/photos also require usable rights and accurate provenance. Do not let a failed asset change the narration or redirect the theme. Follow the bounded search/retry rules; preserve accepted assets and approval for unchanged writing.
-
-## Resume safely
-
-Before any new generation, verify that `script_approval.status` is `approved`, the approved version matches the current version, and the approved SHA-256 matches the actual script file. A stored status alone is insufficient after edits. Existing media remains preserved; new production waits for valid approval if the script changed.
+Inspect actual subject/action/context, face/prophet rules, portrait crop, useful duration and rights. Matching colors alone is insufficient. Reject/repair the failed asset without rewriting the approved claim to fit attractive stock. Record actual files/IDs/status, never invented download/generation success.
