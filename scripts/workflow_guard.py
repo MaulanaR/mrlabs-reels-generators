@@ -73,6 +73,8 @@ def review_digest(root: Path, manifest: dict) -> str:
         "narration": {k: narration.get(k) for k in ("mode", "provider", "execution", "quran_audio", "allow_local_generation", "automatic_fallback")},
         "duration_policy": manifest.get("platforms", {}).get("duration_policy"),
         "visual_production": manifest.get("visual_production"),
+        "visual_sample_policy": {k: manifest.get("visual_sample", {}).get(k)
+                                 for k in ("target_duration_sec", "purpose")},
     }
     raw = json.dumps({"artifacts": records, "context": context}, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
@@ -121,10 +123,103 @@ def _probe(path: Path) -> dict:
     return json.loads(result.stdout)
 
 
-def check(root: Path, final: bool = False) -> dict:
+ART_CRITERIA = ("asset_quality", "action_clarity", "composition", "materials_and_lighting",
+                "pacing_and_camera", "caption_legibility", "reference_match")
+
+
+def check_visual_review(root: Path, manifest: dict, value: object, video: Path,
+                        media_hash: str, duration: float, scope: str) -> Path:
+    """Check bound review records, not subjective quality or the authenticity of approval."""
+    path = local_file(root, value)
+    review = json.loads(path.read_text(encoding="utf-8-sig"))
+    _require(isinstance(review, dict) and review.get("scope") == scope and review.get("status") == "passed",
+             "A separate passed visual review is required for this sample/final output.")
+    _require(local_file(root, review.get("media_path")) == video and review.get("media_sha256") == media_hash,
+             "Visual review is stale or belongs to another encoded output.")
+    _require(review.get("review_package_sha256") == manifest.get("review_package", {}).get("approved_sha256"),
+             "Visual review belongs to another approved script/design package.")
+    comparison = review.get("reference_comparison")
+    _require(isinstance(comparison, str) and bool(comparison.strip()),
+             "Record an actual visual comparison with the reference, not only a rendering success.")
+    frames = review.get("keyframes")
+    _require(isinstance(frames, list) and len(frames) >= 3,
+             "Visual review needs actual before/action/result frame evidence.")
+    frame_paths, times = set(), []
+    for frame in frames:
+        _require(isinstance(frame, dict), "Visual keyframes must be records.")
+        stamp = frame.get("time_sec")
+        _require(type(stamp) in (int, float) and math.isfinite(stamp) and 0 <= stamp < duration,
+                 "Visual keyframe time is outside its encoded video.")
+        image = local_file(root, frame.get("path"))
+        with image.open("rb") as stream:
+            signature = stream.read(12)
+        _require(signature.startswith((b"\x89PNG\r\n\x1a\n", b"\xff\xd8\xff")) or
+                 (signature.startswith(b"RIFF") and signature[8:12] == b"WEBP"),
+                 "Visual keyframe evidence must be actual local image files.")
+        _require(image not in frame_paths, "Use distinct frame evidence for the visual action sequence.")
+        frame_paths.add(image)
+        times.append(stamp)
+    _require(times == sorted(set(times)), "Visual frame times must be distinct and chronological.")
+    criteria = review.get("criteria", {})
+    _require(isinstance(criteria, dict), "Visual criteria must be an object.")
+    for key in ART_CRITERIA:
+        entry = criteria.get(key, {})
+        _require(isinstance(entry, dict) and entry.get("status") == "passed" and
+                 isinstance(entry.get("notes"), str) and bool(entry["notes"].strip()),
+                 "An artistic criterion remains pending/needs work or lacks concrete findings.")
+        evidence = entry.get("evidence_paths")
+        _require(isinstance(evidence, list) and bool(evidence), "An artistic criterion lacks actual encoded evidence.")
+        for item in evidence:
+            _require(local_file(root, item) in frame_paths | {video},
+                     "Artistic evidence must reference this encoded video or its recorded frame samples.")
+    return path
+
+
+def check_visual_sample(root: Path, manifest: dict) -> str:
+    sample = manifest.get("visual_sample", {})
+    approval = sample.get("approval", {})
+    _require(approval.get("status") == "approved" and
+             isinstance(approval.get("approval_message"), str) and bool(approval["approval_message"].strip()) and
+             isinstance(approval.get("approved_at"), str) and bool(approval["approved_at"].strip()),
+             "Full render is blocked until the user explicitly accepts the actual 8-12 second visual sample.")
+    video = local_file(root, sample.get("video_path"))
+    media_hash = hashlib.sha256(video.read_bytes()).hexdigest()
+    _require(sample.get("media_sha256") == media_hash and approval.get("approved_media_sha256") == media_hash,
+             "The visual sample changed after approval or its actual media hash is missing.")
+    _require(approval.get("approved_review_package_sha256") == manifest.get("review_package", {}).get("approved_sha256"),
+             "The approved visual sample belongs to another script/design package.")
+    probe = _probe(video)
+    duration = float(probe.get("format", {}).get("duration", 0))
+    _require(math.isfinite(duration) and 7.95 <= duration <= 12.05,
+             "The actual representative sample must be 8-12 seconds (with encoding tolerance).")
+    interval = sample.get("source_interval_sec", {})
+    start, end = interval.get("start"), interval.get("end")
+    _require(type(start) in (int, float) and type(end) in (int, float) and
+             math.isfinite(start) and math.isfinite(end) and 0 <= start < end and
+             abs((end - start) - duration) <= .15,
+             "Record the actual approved narration/source interval used in the visual sample.")
+    streams = probe.get("streams", [])
+    visuals = [s for s in streams if s.get("codec_type") == "video"]
+    _require(bool(visuals) and visuals[0].get("codec_name") == "h264" and
+             (visuals[0].get("width"), visuals[0].get("height")) == (1080, 1920) and
+             abs(float(Fraction(visuals[0].get("avg_frame_rate", "0/1"))) - 30) < .01,
+             "The sample must demonstrate the actual portrait H.264 1080x1920/30 fps output.")
+    if manifest.get("narration", {}).get("mode") != "none":
+        _require(any(s.get("codec_type") == "audio" and s.get("codec_name") == "aac" for s in streams),
+                 "The sample needs the intended narration/audio treatment, not only silent geometry.")
+    review = check_visual_review(root, manifest, sample.get("review_path"), video, media_hash, duration, "sample")
+    _require(approval.get("approved_review_sha256") == hashlib.sha256(review.read_bytes()).hexdigest(),
+             "The sample review changed after approval or its approved receipt hash is missing.")
+    return media_hash
+
+
+def check(root: Path, final: bool = False, full_render: bool = False) -> dict:
     root = root.resolve()
     m = load(root)
-    _require(m.get("schema_version") == "1.9", "Expected animation-first Islamic schema 1.9; migrate the reviewed visual plan explicitly.")
+    full_render = full_render or m.get("stage") in {"assets", "assembly", "review", "completed"}
+    _require(m.get("schema_version") == "1.10", "Expected Islamic schema 1.10 with a reviewed visual sample; migrate explicitly.")
+    _require(m.get("visual_sample", {}).get("target_duration_sec") == [8, 12],
+             "Retain the representative 8-12 second sample stage before full rendering.")
     visual = m.get("visual_production", {})
     _require(visual.get("mode") == "hyperframes_animation" and visual.get("broll_enabled") is False and
              visual.get("stock_footage_enabled") is False, "This skill uses authored HyperFrames animation without B-roll/stock cutaways.")
@@ -185,8 +280,10 @@ def check(root: Path, final: bool = False) -> dict:
     digest = review_digest(root, m)
     _require(m.get("review_package", {}).get("approved_sha256") == digest,
              "Reviewed package changed or its genuine human approval digest is missing.")
-    result = {"allowed": True, "scope": "final" if final else "production", "review_package_sha256": digest,
+    result = {"allowed": True, "scope": "final" if final else ("full_render" if full_render else "preparation_and_sample"), "review_package_sha256": digest,
               "note": "Recorded consistency only; real human approval, research and actual media review are still required."}
+    if final or full_render:
+        result["approved_sample_sha256"] = check_visual_sample(root, m)
     if not final:
         return result
     reviews = m.get("policy_review", {})
@@ -219,6 +316,8 @@ def check(root: Path, final: bool = False) -> dict:
     _require(bool(audios) or mode == "none", "Required narration audio stream is missing.")
     duration = float(probe.get("format", {}).get("duration", 0))
     classification = classify_youtube(duration)
+    check_visual_review(root, m, m.get("quality", {}).get("art_review_path"), video,
+                        hashlib.sha256(video.read_bytes()).hexdigest(), duration, "final")
     _require(m.get("platforms", {}).get("youtube_classification") == classification, "YouTube classification does not match actual full duration.")
     _require(m.get("platforms", {}).get("instagram_status") in {"not_verified", "compatible", "not_compatible"},
              "Record actual Instagram verification status without inventing compatibility.")
@@ -232,11 +331,12 @@ def main() -> int:
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--digest", action="store_true")
     group.add_argument("--final", action="store_true")
+    group.add_argument("--full-render", action="store_true", help="Require genuine approval of the actual representative sample.")
     args = parser.parse_args()
     try:
         root = args.project.resolve()
         result = ({"review_package_sha256": review_digest(root, load(root)), "note": "Read-only digest; not approval."}
-                  if args.digest else check(root, args.final))
+                  if args.digest else check(root, args.final, args.full_render))
     except (OSError, ValueError, TypeError, KeyError, AttributeError, ZeroDivisionError, subprocess.SubprocessError) as error:
         # Do not dump file contents, subprocess stderr or secret-bearing exception context.
         reason = str(error) if isinstance(error, WorkflowError) else "Invalid/missing project metadata or media; inspect it locally without printing secrets."

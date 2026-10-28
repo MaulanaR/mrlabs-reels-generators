@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.9",
+  "schema_version": "1.10",
   "project_id": "",
   "workflow_mode": "theme_to_reel",
   "source_video": {
@@ -146,7 +146,8 @@
     "status": "pending",
     "review_passes": 0,
     "issues": [],
-    "evidence": []
+    "evidence": [],
+    "art_review_path": "11_final/visual-review.json"
   },
   "blockers": [],
   "final_video_path": null,
@@ -234,6 +235,30 @@
       "fallback_policy": "report_blocker_no_silent_flat_substitution",
       "lookdev_before_long_render": true
     },
-    "main_scene_method": "threejs_3d"
+    "main_scene_method": "threejs_3d",
+    "quality_standard": "readable_action_convincing_assets_and_reference_comparison"
+  },
+  "visual_sample": {
+    "status": "not_started",
+    "target_duration_sec": [
+      8,
+      12
+    ],
+    "purpose": "representative_narrative_action_and_payoff_not_logo_only",
+    "source_interval_sec": {
+      "start": null,
+      "end": null
+    },
+    "video_path": null,
+    "media_sha256": null,
+    "review_path": "10_editing/lookdev/visual-review.json",
+    "approval": {
+      "status": "not_requested",
+      "approved_media_sha256": null,
+      "approved_review_sha256": null,
+      "approved_review_package_sha256": null,
+      "approved_at": null,
+      "approval_message": null
+    }
   }
 }

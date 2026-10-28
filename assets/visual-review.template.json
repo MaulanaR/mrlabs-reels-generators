@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "scope": null,
+  "status": "pending",
+  "media_path": null,
+  "media_sha256": null,
+  "review_package_sha256": null,
+  "reference_comparison": null,
+  "keyframes": [],
+  "criteria": {
+    "asset_quality": {
+      "status": "pending",
+      "notes": null,
+      "evidence_paths": []
+    },
+    "action_clarity": {
+      "status": "pending",
+      "notes": null,
+      "evidence_paths": []
+    },
+    "composition": {
+      "status": "pending",
+      "notes": null,
+      "evidence_paths": []
+    },
+    "materials_and_lighting": {
+      "status": "pending",
+      "notes": null,
+      "evidence_paths": []
+    },
+    "pacing_and_camera": {
+      "status": "pending",
+      "notes": null,
+      "evidence_paths": []
+    },
+    "caption_legibility": {
+      "status": "pending",
+      "notes": null,
+      "evidence_paths": []
+    },
+    "reference_match": {
+      "status": "pending",
+      "notes": null,
+      "evidence_paths": []
+    }
+  },
+  "limitations": []
+}

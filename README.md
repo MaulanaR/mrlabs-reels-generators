@@ -29,11 +29,29 @@ Ganti handle contoh dengan username sebenarnya. Skill meminta tema/username yang
 
 ## Alur dan persetujuan
 
-Tema + username -> riset dalil -> naskah dan storyboard -> persetujuan manusia -> narasi/aset -> HyperFrames -> pemeriksaan encode -> export.
+Tema + username -> riset dalil -> naskah dan storyboard -> persetujuan naskah -> narasi dan contoh 8–12 detik -> persetujuan contoh visual -> produksi penuh HyperFrames -> pemeriksaan artistik dan teknis -> export.
 
 Sebelum persetujuan, riset, pencarian kandidat/lisensi, inspeksi aset yang sudah ada dan drafting diperbolehkan. TTS, pembuatan adegan/download aset dan SFX produksi, imagegen, animatic dan render menunggu persetujuan. Persetujuan berlaku pada versi/hash naskah serta paket dalil/storyboard/desain/kredit yang ditampilkan. Memilih tema bukan menyetujui naskah yang belum dibaca.
 
 Pemeriksa `check-script-approval.py` hasil clone tetap dipakai. `workflow_guard.py` menambahkan pemeriksaan paket persetujuan dan kebijakan skill; keduanya tidak memberikan persetujuan sendiri. Flag pemeriksaan akhir wajib berdasarkan pemeriksaan nyata, bukan diisi agar lolos.
+
+## Contoh visual sebelum render penuh
+
+Setelah naskah disetujui, agent membuat **contoh video 8–12 detik** dari bagian narasi yang mewakili aksi utama, menggunakan aset yang sudah diperbaiki, material, kamera, subtitle dan audio yang direncanakan. Tampilkan MP4 tersebut untuk dinilai pengguna. Render penuh menunggu persetujuan eksplisit atas contoh yang benar-benar ditampilkan; persetujuan naskah saja belum cukup. Contoh yang ditolak diperbaiki dahulu, tanpa membuat ulang seluruh video.
+
+Kualitas diperiksa melalui tujuh hal: **aset yang meyakinkan, aksi yang jelas, komposisi, material/pencahayaan, ritme/kamera, keterbacaan caption, dan kesesuaian referensi**. Setiap adegan punya keadaan awal, aksi, dan hasil yang terbaca. Bedakan kayu/kertas/logam/kaca; perbaiki proporsi dan bentuk yang masih seperti prototipe. Model/tekstur berlisensi boleh digunakan bila lebih cocok daripada primitive yang terburu-buru. Tidak perlu memaksakan fotorealisme untuk gaya 3D sederhana.
+
+Galeri latar adalah studi lokasi, bukan patokan kualitas final. WebGL yang berjalan, pixel yang berubah, atau MP4 yang berhasil diekspor tidak otomatis berarti tampilan sudah bagus. Lihat [panduan kualitas](references/visual-quality.md).
+
+Pemeriksa alur memisahkan tahap persiapan, render penuh, dan hasil akhir:
+
+```sh
+python <folder-skill>/scripts/workflow_guard.py <folder-proyek>
+python <folder-skill>/scripts/workflow_guard.py <folder-proyek> --full-render
+python <folder-skill>/scripts/workflow_guard.py <folder-proyek> --final
+```
+
+Persetujuan contoh diikat ke hash MP4, catatan review, serta paket naskah/desain yang disetujui. Hasil akhir memakai review artistik terpisah yang terikat ke MP4 final; pemeriksaan konsistensi ini tidak menggantikan penilaian manusia atau menjamin bahwa suatu catatan persetujuan autentik.
 
 ## Latar dan contoh visual baru
 
@@ -92,12 +110,15 @@ islamic-projects/<tema>/
   07_scene_assets/
   08_voiceover/
   09_edit/sfx-cues.json
+  10_editing/lookdev/sample.mp4
+  10_editing/lookdev/visual-review.json
   10_editing/hyperframes/
   11_final/<tema>_final.mp4
   11_final/VERIFY.md
+  11_final/visual-review.json
 ```
 
-Template schema `1.9` berfokus pada animasi HyperFrames, tanpa field minimum B-roll. Field kebijakan Islami, sumber dalil, kredit, motion 3D, caption, paket review dan status platform tetap digunakan. Proyek lama mengikuti catatan migrasi di kontrak produksi; jangan memalsukan atau memakai ulang hash persetujuan setelah rencana visual berubah. Jalur secret relatif terhadap **folder skill**, bukan folder proyek; path media relatif terhadap proyek.
+Template schema `1.10` menambahkan tahap contoh visual yang disetujui dan review artistik terpisah untuk animasi HyperFrames, tanpa field minimum B-roll. Field kebijakan Islami, sumber dalil, kredit, motion 3D, caption, paket review dan status platform tetap digunakan. Proyek lama mengikuti catatan migrasi di kontrak produksi; jangan memalsukan atau memakai ulang hash persetujuan setelah rencana visual berubah. Jalur secret relatif terhadap **folder skill**, bukan folder proyek; path media relatif terhadap proyek.
 
 ```sh
 python <folder-skill>/scripts/workflow_guard.py <folder-proyek> --digest

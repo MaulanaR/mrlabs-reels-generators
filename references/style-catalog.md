@@ -1,6 +1,6 @@
 # Islamic background catalog
 
-18 contextual environment profiles and 54 named starting variants are active in `style-catalog.json`. These are a starting library, not a restriction to those locations. Choose per approved narration beat; a project-level profile supplies a shared visual identity rather than one wallpaper for the whole video. The parent's generic styles remain retired.
+18 contextual environment profiles and 54 named starting variants are active in `style-catalog.json`. These are rough location/blocking ideas, not a final visual-quality benchmark or a restriction to those locations. Read `visual-quality.md` and develop the selected hero assets/materials/actions beyond the primitive gallery examples before sample review. Choose per approved narration beat; a project-level profile supplies a shared visual identity rather than one wallpaper for the whole video. The parent's generic styles remain retired.
 
 | Number | Profile ID | Environment |
 | --- | --- | --- |

@@ -16,6 +16,10 @@ Record the selected profile/variant, context reason, setting/era, light/weather,
 
 The gallery previews are static native Three.js WebGL environment renders from `assets/background-worlds.html`. They demonstrate solid geometry, perspective and lighting, not photorealism, religious evidence or a completed HyperFrames video. No parent style images are retained. Match the grounded spatial world analyzed in `reference-analysis.md`: objects and environment dominate, with restrained explanatory overlays. Flat icons/cards and an empty gradient canvas do not meet this target.
 
+## Quality before expansion
+
+Read `visual-quality.md` before building hero assets. Prototype locations do not define final material/asset quality. For the intended style, finish recognizable forms, proportion, construction and edge details; separate wood/paper/glass/metal and control color casts. Compose around a clear action and result, using wide/medium/detail views only where useful. Keep focal actions clear of labels and foreground clutter. The representative 8-12 second encoded sample needs direct user acceptance before full production.
+
 ## Text and closing
 
 Establish DESIGN.md before authoring: identity, meaningful spatial depth, camera/material/light and subtitle safe areas. Use strong contrast, a subtle border, about 24px rounded corners at 1080px, at most two caption lines and genuine word/segment timing. Sources, translations and paraphrases stay distinct. Do not shrink full long quotations into unreadable microtype.

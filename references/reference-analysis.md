@@ -23,3 +23,7 @@ Keep explanatory overlays small and readable. The environment/action is the main
 Use actual Three.js or another explicitly approved true-3D path inside the HyperFrames workflow. Validate capture before long production. An unavailable renderer is a reported blocker or a reviewed change of approach; never silently downgrade the accepted look to flat SVG diagrams and mark visual quality passed.
 
 The packaged `assets/background-worlds.html` and 18 PNGs demonstrate native 3D environment look-development. They are static concept captures without narration, animated-character behavior, final captions or a tested HyperFrames capture adapter. Do not paste one PNG into a zooming slideshow and call it the requested 3D animation.
+
+## Quality checkpoint after the first 3D production
+
+The later reviewed learning-video v3 demonstrated that valid 3D geometry and moving pixels can still produce a weak video: toy-like props, unclear visual metaphors, uniform materials and repetitive desk framing. Follow `visual-quality.md` and obtain acceptance of the representative encoded 8-12 second sample before full rendering. The packaged gallery is a rough location/blocking library, not an accepted final asset/material standard.

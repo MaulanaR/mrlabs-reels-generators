@@ -22,6 +22,8 @@ If direct WebGL capture is unsupported, use an actually available deterministic 
 
 ## Production review
 
+Follow `visual-quality.md`: obtain explicit acceptance of the actual representative 8-12 second sample before full rendering. Check action/result, asset recognition, framing and materials as well as motion. A deterministic camera or nonzero pixel difference does not establish artistic quality.
+
 Check hero frames, entry/middle/exit, every transition, prophet-name alignment, caption/Arabic visibility and final credits. Seek to the same timestamps twice and backward/forward; exported positions/lighting must match. Inspect actual video movement and ensure no frame exposes a face or prohibited depiction. Check clipping, empty edges, flicker, black frames and abrupt movement at scene joins.
 
 Keep actual evidence in `VERIFY.md`, `motion.review_status` and `motion.webgl_capture_status` (`passed`, `not_used`, or an observed unresolved state). `passed` needs actual supported WebGL capture evidence; 2.5D-only work records `not_used` and the actual motion method. The background gallery contains actual static native Three.js lookdev captures. This is not evidence that an animated HyperFrames WebGL capture or final video has passed.

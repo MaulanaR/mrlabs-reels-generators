@@ -4,7 +4,7 @@ The visual output is built directly in HyperFrames. Default to a native Three.js
 
 ## Only acquire a resource when the scene needs it
 
-Use native geometry/materials first, then suitable authorized existing resources. A specific font, model, material texture or illustration may be needed for the approved animated scene. Record its purpose and actual creator/source/license/attribution, file hash, properties and face review. Do not download a library of footage or photos as a default preparation step. Do not bundle third-party assets into the skill repository.
+Use native geometry/materials for blocking. Finish a hero asset to a convincing silhouette, construction, scale, edge treatment and distinct material before showing it as ready. Do not preserve weak primitives merely because they render quickly. Use suitable licensed models/textures when they better meet the approved look; read `visual-quality.md`. A specific font, model, material texture or illustration may be needed for the approved animated scene. Record its purpose and actual creator/source/license/attribution, file hash, properties and face review. Do not download a library of footage or photos as a default preparation step. Do not bundle third-party assets into the skill repository.
 
 Keep accepted originals in `07_scene_assets/` and stage only runtime resources under `10_editing/hyperframes/assets/`. Use stable local URLs served by the composition, not expiring preview URLs or absolute Windows strings in HTML. Preserve originals and reusable resources on resume; retain license receipts and respect redistribution limits.
 
@@ -14,4 +14,4 @@ Use imagegen only if a particular approved texture/illustration cannot reasonabl
 
 Load the installed imagegen guidance and use its built-in tool. Include actual theme, scene purpose, subject/material, palette and no-face/no-prophet-body constraints. Never generate Quran text, Arabic, prophet names, captions or factual labels inside a raster image; add verified editable text in HyperFrames. Inspect actual output, including secondary faces/reflections/textures. Save the true prompt/result and accepted path. Inspect existing jobs before retrying; at most two targeted additional attempts, then preserve the result and report the blocker. No silent local-model/provider substitution.
 
-An animation that uses no raster image or external model is complete without this step. Procedural shapes and textures need implementation/source records, not fabricated download receipts.
+An animation that meets the actual accepted quality baseline using procedural assets alone needs no imagegen or external model step. Procedural shapes and textures need implementation/source records, not fabricated download receipts.
